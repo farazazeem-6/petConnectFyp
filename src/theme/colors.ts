@@ -70,6 +70,26 @@ export const blackAlpha = {
   blackAlpha800: '#000000CC',
   blackAlpha900: '#000000EB',
 };
+export const green = {
+  green1: '#ACCFAO',
+  green2: '#A0C892',
+  green3: '#94C185',
+  green4: '#88BB77',
+  green5: '#7CB46A',
+  green6: '#70AD5C',
+  green7: '#66A352',
+  green8: '#5E954B',
+  green9: '#558844',
+  green10: '#4D7A3E',
+  green11: '#446D37',
+  green12: '#3CF530',
+  green13: '#2F4B26',
+  green14: '#2B4422',
+  green15: '#22361B',
+  green16: '#1A2915',
+  green17: '#111B0E',
+  green18: '#090E07',
+};
 
 export const purpleColors = {
   basicPurple: '#4A2985',

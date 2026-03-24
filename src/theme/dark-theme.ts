@@ -1,4 +1,4 @@
-import { blackAlpha, blueDark, slate, slateDark } from './colors';
+import { blackAlpha, blueDark, green, slate, slateDark } from './colors';
 
 const darkThemeOpt = {
   colors: {
@@ -16,6 +16,7 @@ const darkThemeOpt = {
     ...slateDark,
     ...blackAlpha,
     ...slate,
+    ...green,
     // mutate colors if needed
     foreground: '$white',
     // main color schema...

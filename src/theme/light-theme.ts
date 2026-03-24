@@ -1,4 +1,4 @@
-import { slate, blackAlpha, blueDark, slateDark } from './colors';
+import { slate, blackAlpha, blueDark, slateDark, green } from './colors';
 const lightThemeOpt = {
   colors: {
     appSwitchBackground: '$white',
@@ -15,6 +15,7 @@ const lightThemeOpt = {
     ...slate,
     ...blackAlpha,
     ...slateDark,
+    ...green,
     // mutate colors if needed
     foreground: '$black',
     // main color schema...
