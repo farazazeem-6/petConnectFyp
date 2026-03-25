@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { styled } from '@/theme';
 import { Flex } from './Flex';
-import { TComponentSize } from '@/utils/types';
 
+// ───────── Types ──────────────────
+
+type TComponentSize = 'sm' | 'md' | 'lg';
 type TInputFieldProps = Omit<
   React.ComponentPropsWithoutRef<'input'>,
   'size'
@@ -12,7 +14,11 @@ type TInputFieldProps = Omit<
   inputSize?: TComponentSize;
   variant?: 'filled' | 'outline' | 'ghost' | 'simple';
   invalid?: boolean;
+  maxLength?: number;
+  id?: number;
 };
+
+// ───────── Styling ──────────────────
 
 const InputGroup = styled(Flex, {
   position: 'relative',
@@ -114,9 +120,20 @@ const InputSlot = styled(Flex, {
   },
 });
 
+// ───────── Component ──────────────────
+
 export const Input = React.forwardRef<HTMLInputElement, TInputFieldProps>(
   (
-    { contentLeft, contentRight, inputSize, variant, invalid, ...props },
+    {
+      contentLeft,
+      contentRight,
+      inputSize,
+      maxLength,
+      variant,
+      invalid,
+      id,
+      ...props
+    },
     ref,
   ) => {
     const className = [contentLeft && 'has-left', contentRight && 'has-right']
@@ -132,6 +149,8 @@ export const Input = React.forwardRef<HTMLInputElement, TInputFieldProps>(
           inputSize={inputSize}
           variant={variant}
           invalid={invalid}
+          maxLength={maxLength}
+          id={id}
           {...props}
         />
         {contentRight && <InputSlot side="right">{contentRight}</InputSlot>}

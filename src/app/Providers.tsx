@@ -13,13 +13,16 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return <Loader />;
-  }
   return (
-    <ThemeProvider attribute={'class'} defaultTheme="light">
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="light"
+      enableSystem={false}
+      disableTransitionOnChange
+      storageKey="app-theme"
+    >
       <ThemeSync />
-      {children}
+      {!mounted ? <Loader /> : children}
     </ThemeProvider>
   );
 };

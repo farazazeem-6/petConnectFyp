@@ -1,11 +1,18 @@
-import { styled } from '@/theme';
-import { Box } from './Box';
+import { styled } from '@/theme/stitches.config';
 
-export const Container = styled(Box, {
+export const Container = styled('div', {
   flexShrink: 0,
-  marginLeft: 'auto',
-  marginRight: 'auto',
-  padding: '$px$20',
+  ml: 'auto',
+  mr: 'auto',
+  px: '$space$20',
+  boxSizing: 'border-box',
+
+  '@md_max': {
+    px: '$space$15',
+  },
+  '@sm_max': {
+    px: '$space$10',
+  },
 
   variants: {
     size: {
@@ -21,12 +28,22 @@ export const Container = styled(Box, {
       lg: {
         maxWidth: '$breakpoints$lg',
       },
+      xl: {
+        maxWidth: '$breakpoints$xl',
+      },
+      xxl: {
+        maxWidth: '$breakpoints$xxl',
+        width: '100%',
+      },
+      xxxl: {
+        maxWidth: '$breakpoints$xxxl',
+      },
       fluid: {
         maxWidth: 'none',
       },
     },
   },
   defaultVariants: {
-    size: 'fluid',
+    size: 'xxl',
   },
 });
