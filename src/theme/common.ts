@@ -279,7 +279,7 @@ const defaultTokens = {
     md: '768px',
     lg: '1000px',
     xl: '1200px',
-    xxl: '1440px',
+    xxl: '1360px',
     xxxl: '1780px',
   },
   shadows: {

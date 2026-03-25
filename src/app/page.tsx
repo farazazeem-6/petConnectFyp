@@ -1,5 +1,5 @@
 'use client';
 
 export default function ThemeToggle() {
-  return;
+  return null;
 }
