@@ -20,3 +20,4 @@ export { default as FacebookIcon } from './Icons/FacebookIcon';
 export { default as InstagramIcon } from './Icons/InstagramIcon';
 export { default as LinkedInIcon } from './Icons/LinkedInIcon';
 export { default as SearchNotFound } from './Icons/SearchNotFound';
+export { default as PawHomeIcon } from './Icons/PawHome';

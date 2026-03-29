@@ -1,6 +1,6 @@
 import Svg, { SvgProps } from '../svgs';
 
-const OnSiteIcon: React.FC<SvgProps> = (props) => {
+const Icon: React.FC<SvgProps> = (props) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -23,4 +23,4 @@ const OnSiteIcon: React.FC<SvgProps> = (props) => {
   );
 };
 
-export default OnSiteIcon;
+export default Icon;

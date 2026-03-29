@@ -1,6 +1,6 @@
 import Svg, { SvgProps } from '../svgs';
 
-const LinkedInIcon: React.FC<SvgProps> = (props) => {
+const Icon: React.FC<SvgProps> = (props) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -20,4 +20,4 @@ const LinkedInIcon: React.FC<SvgProps> = (props) => {
   );
 };
 
-export default LinkedInIcon;
+export default Icon;

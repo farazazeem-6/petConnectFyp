@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from 'react';
 import { CSS, styled } from '@/theme';
 import { Flex } from './Flex';
 import { Box } from './Box';
-import { HtmlImage } from './Image';
 
 const StyledAvatarRoot = styled(Box, {
   display: 'inline-flex',
@@ -36,7 +35,7 @@ const StyledAvatarRoot = styled(Box, {
   },
 });
 
-const StyledAvatarImage = styled(HtmlImage, {
+const StyledAvatarImage = styled('img', {
   width: '$percent$100',
   height: '$percent$100',
   objectFit: 'cover',

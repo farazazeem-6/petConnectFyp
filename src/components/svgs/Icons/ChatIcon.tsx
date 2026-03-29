@@ -1,6 +1,6 @@
-import Svg, { SvgProps } from '../svgs'
+import Svg, { SvgProps } from '../svgs';
 
-const ChatIcon: React.FC<SvgProps> = props => {
+const Icon: React.FC<SvgProps> = (props) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +20,7 @@ const ChatIcon: React.FC<SvgProps> = props => {
       <path d="M12 12h.01" />
       <path d="M16 12h.01" />
     </Svg>
-  )
-}
+  );
+};
 
-export default ChatIcon
+export default Icon;

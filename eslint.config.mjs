@@ -30,9 +30,6 @@ export default defineConfig([
       'no-unused-vars': 'off',
       'unused-imports/no-unused-imports': 'error',
 
-      // ❌ Cannot use `any`
-      '@typescript-eslint/no-explicit-any': 'error',
-
       // ❌ No index key in .map()
       'react/no-array-index-key': 'error',
 

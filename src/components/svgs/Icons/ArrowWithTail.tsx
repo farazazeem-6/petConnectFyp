@@ -1,6 +1,6 @@
 import Svg, { SvgProps, SvgPath } from '../svgs';
 
-const ArrowWithTail: React.FC<SvgProps> = (props) => {
+const Icon: React.FC<SvgProps> = (props) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -20,4 +20,4 @@ const ArrowWithTail: React.FC<SvgProps> = (props) => {
     </Svg>
   );
 };
-export default ArrowWithTail;
+export default Icon;

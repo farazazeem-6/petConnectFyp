@@ -1,12 +1,13 @@
-import { Greycliff } from '@/theme';
+import { globalStyles, Greycliff } from '@/theme';
 import { Providers } from './Providers';
 import { Metadata } from 'next';
 
+globalStyles();
 export const metadata: Metadata = {
   title: 'Pet Connect',
   description:
     'Find your new best friend, donate to animals in need, or report lost and found pets. Join our community to help every animal find a safe and loving home.',
-  // icons: { icon: { url: '', type: 'image/svg+xml' } },
+  icons: { icon: { url: './FeviconImg.jpg', type: 'image/svg+xml' } },
 };
 export const viewport = {
   width: 'device-width',

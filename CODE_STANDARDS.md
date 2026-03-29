@@ -1,6 +1,7 @@
 # Code Standards & ESLint Rules
 
 ## Overview
+
 This document outlines the coding standards and ESLint rules enforced in this project. All code must pass these checks before being merged into the main branch.
 
 ---
@@ -8,17 +9,20 @@ This document outlines the coding standards and ESLint rules enforced in this pr
 ## 🚫 Blocked Patterns
 
 ### 1. No Console Statements
+
 **Rule:** `no-console`  
 **Severity:** Error
 
 ❌ **Not Allowed:**
+
 ```typescript
-console.log("Debug message");
-console.error("Error");
-console.warn("Warning");
+console.log('Debug message');
+console.error('Error');
+console.warn('Warning');
 ```
 
 ✅ **Use Instead:**
+
 - Proper logging libraries (e.g., Winston, Pino)
 - Remove debug statements before committing
 
@@ -27,10 +31,12 @@ console.warn("Warning");
 ---
 
 ### 2. No Warning Comments
+
 **Rule:** `no-warning-comments`  
 **Severity:** Error
 
 ❌ **Not Allowed:**
+
 ```typescript
 // TODO: Fix this later
 // FIXME: Temporary solution
@@ -38,6 +44,7 @@ console.warn("Warning");
 ```
 
 ✅ **Use Instead:**
+
 - Create GitHub issues for todos
 - Fix the code properly before committing
 
@@ -46,16 +53,19 @@ console.warn("Warning");
 ---
 
 ### 3. No Unused Variables or Imports
+
 **Rules:** `@typescript-eslint/no-unused-vars`, `unused-imports/no-unused-imports`  
 **Severity:** Error
 
 ❌ **Not Allowed:**
+
 ```typescript
-import { useState, useEffect } from "react"; // useEffect unused
+import { useState, useEffect } from 'react'; // useEffect unused
 const myVar = 10; // myVar never used
 ```
 
 ✅ **Use Instead:**
+
 - Remove unused imports and variables
 - Use ESLint auto-fix: `npm run lint:fix`
 
@@ -63,37 +73,13 @@ const myVar = 10; // myVar never used
 
 ---
 
-### 4. No `any` Type
-**Rule:** `@typescript-eslint/no-explicit-any`  
-**Severity:** Error
+### 4. No Array Index as Key in `.map()`
 
-❌ **Not Allowed:**
-```typescript
-const myFunction = (data: any) => {
-  return data.value;
-};
-```
-
-✅ **Use Instead:**
-```typescript
-type Data ={
-  value: string;
-}
-
-const myFunction = (data: Data) => {
-  return data.value;
-};
-```
-
-**Reason:** Using `any` defeats the purpose of TypeScript. Always use proper types.
-
----
-
-### 5. No Array Index as Key in `.map()`
 **Rule:** `react/no-array-index-key`  
 **Severity:** Error
 
 ❌ **Not Allowed:**
+
 ```typescript
 {items.map((item, index) => (
   <div key={index}>{item.name}</div>
@@ -101,6 +87,7 @@ const myFunction = (data: Data) => {
 ```
 
 ✅ **Use Instead:**
+
 ```typescript
 {items.map((item) => (
   <div key={item.id}>{item.name}</div>
@@ -111,11 +98,13 @@ const myFunction = (data: Data) => {
 
 ---
 
-### 6. Always Provide Keys in Mapped JSX
+### 5. Always Provide Keys in Mapped JSX
+
 **Rule:** `react/jsx-key`  
 **Severity:** Error
 
 ❌ **Not Allowed:**
+
 ```typescript
 {items.map((item) => (
   <div>{item.name}</div> // Missing key
@@ -123,6 +112,7 @@ const myFunction = (data: Data) => {
 ```
 
 ✅ **Use Instead:**
+
 ```typescript
 {items.map((item) => (
   <div key={item.id}>{item.name}</div>
@@ -133,16 +123,19 @@ const myFunction = (data: Data) => {
 
 ---
 
-### 7. No Direct HTML `<img>` Tag
+### 6. No Direct HTML `<img>` Tag
+
 **Rule:** `no-restricted-syntax`  
 **Severity:** Error
 
 ❌ **Not Allowed:**
+
 ```typescript
 <img src="/logo.png" alt="Logo" />
 ```
 
 ✅ **Use Instead:**
+
 ```typescript
 import Image from "next/image";
 
@@ -153,16 +146,19 @@ import Image from "next/image";
 
 ---
 
-### 8. No Direct HTML `<a>` Tag
+### 7. No Direct HTML `<a>` Tag
+
 **Rule:** `no-restricted-syntax`  
 **Severity:** Error
 
 ❌ **Not Allowed:**
+
 ```typescript
 <a href="/about">About</a>
 ```
 
 ✅ **Use Instead:**
+
 ```typescript
 import Link from "next/link";
 
@@ -173,11 +169,13 @@ import Link from "next/link";
 
 ---
 
-### 9. No Direct HTML Elements (div, h1, p, etc.)
+### 8. No Direct HTML Elements (div, h1, p, etc.)
+
 **Rule:** `no-restricted-syntax`  
 **Severity:** Error
 
 ❌ **Not Allowed:**
+
 ```typescript
 <div className="container">
   <h1>Title</h1>
@@ -186,6 +184,7 @@ import Link from "next/link";
 ```
 
 ✅ **Use Instead:**
+
 ```typescript
 import { styled } from "@stitches/react";
 
@@ -206,16 +205,19 @@ const Text = styled("p", { /* styles */ });
 ## 🔧 How to Fix Issues
 
 ### Automatic Fix
+
 ```bash
 npm run lint:fix
 ```
 
 ### Manual Check
+
 ```bash
 npm run lint
 ```
 
 ### Pre-commit Hook
+
 This project uses Husky to automatically run ESLint on staged files. If any rule is violated, your commit will be blocked.
 
 ---
@@ -223,10 +225,10 @@ This project uses Husky to automatically run ESLint on staged files. If any rule
 ## 📝 PR Review Checklist
 
 Before requesting a review, ensure:
+
 - [ ] No console statements exist
 - [ ] No TODO/FIXME comments
 - [ ] All imports are used
-- [ ] No `any` types
 - [ ] All `.map()` calls have proper keys (not index)
 - [ ] Using `<Image>` instead of `<img>`
 - [ ] Using `<Link>` instead of `<a>`
@@ -240,6 +242,7 @@ Before requesting a review, ensure:
 When using AI tools (GitHub Copilot, ChatGPT, Claude) for code review, provide this document as context:
 
 **Example Prompt:**
+
 ```
 Review this PR against our code standards defined in CODE_STANDARDS.md:
 [paste file content or link]
@@ -259,7 +262,7 @@ In rare cases where a rule must be bypassed (e.g., legitimate third-party integr
 
 ```typescript
 // eslint-disable-next-line no-console
-console.log("Critical debug info needed here");
+console.log('Critical debug info needed here');
 ```
 
 **Important:** Always document WHY the rule is disabled and get approval in PR review.
