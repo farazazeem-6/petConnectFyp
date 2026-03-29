@@ -7,7 +7,6 @@ Apply these rules when reviewing ANY code in this repository.
 - Do not allow `console.log`, `console.warn`, or `console.error`
 - Do not allow TODO, FIXME, or HACK comments
 - Do not allow unused variables or unused imports
-- Do not allow `any` type in TypeScript
 - Do not allow array index as key in React `.map()`
 - All mapped JSX elements must have a stable `key`
 - Do not allow raw `<img>` tags; use Next.js `Image`

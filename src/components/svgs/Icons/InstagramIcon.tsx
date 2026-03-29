@@ -1,6 +1,6 @@
 import Svg, { SvgProps } from '../svgs';
 
-const InstagramIcon: React.FC<SvgProps> = (props) => {
+const Icon: React.FC<SvgProps> = (props) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -73,4 +73,4 @@ const InstagramIcon: React.FC<SvgProps> = (props) => {
   );
 };
 
-export default InstagramIcon;
+export default Icon;

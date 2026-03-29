@@ -1,6 +1,6 @@
 import Svg, { SvgProps } from '../svgs';
 
-const TwitterIcon: React.FC<SvgProps> = (props) => {
+const Icon: React.FC<SvgProps> = (props) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -16,4 +16,4 @@ const TwitterIcon: React.FC<SvgProps> = (props) => {
   );
 };
 
-export default TwitterIcon;
+export default Icon;

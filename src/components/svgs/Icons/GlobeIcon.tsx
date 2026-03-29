@@ -1,6 +1,6 @@
 import Svg, { SvgProps } from '../svgs';
 
-const GlobeIcon: React.FC<SvgProps> = (props) => {
+const Icon: React.FC<SvgProps> = (props) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -25,4 +25,4 @@ const GlobeIcon: React.FC<SvgProps> = (props) => {
   );
 };
 
-export default GlobeIcon;
+export default Icon;
