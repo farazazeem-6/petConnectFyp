@@ -21,11 +21,11 @@ export const Header = ({ activeNav = HeaderEnum.HOME }: HeaderProps) => {
       <Box>
         <NavList>
           {NAV_ITEMS.map(({ label, href }) => (
-            <li key={label}>
+            <Box key={label}>
               <NavLinkItem href={href} active={activeNav === label}>
                 {label}
               </NavLinkItem>
-            </li>
+            </Box>
           ))}
         </NavList>
       </Box>
