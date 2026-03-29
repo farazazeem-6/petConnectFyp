@@ -13,3 +13,5 @@ export * from './Divider';
 export * from './LanguageDropdown';
 export * from './Badge';
 export * from './Tooltip';
+export * from './Avatar';
+export * from './Skeleton';
