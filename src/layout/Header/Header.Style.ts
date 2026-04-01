@@ -7,12 +7,16 @@ export const HeaderWrapper = styled(Flex, {
     align: 'center',
     justify: 'between',
   },
+  position: 'sticky',
+  top: 0,
+  width: '$percent$100',
+  backgroundColor: '$white',
+  zIndex: 300,
   px: '$px$32',
-  height: '$px$90',
-  backgroundColor: '$green17',
+  height: '$px$70',
   backdropFilter: 'blur(8px)',
-  borderBottomRightRadius: '$px$20',
-  borderBottomLeftRadius: '$px$20',
+  borderBottom: '1px solid $lightGrayLine',
+  boxSizing: 'border-box',
 });
 
 export const NavList = styled(Flex, {
@@ -31,7 +35,7 @@ export const NavLinkItem = styled(Link, {
   py: '$px$6',
   fontSize: '$fontSize$md',
   fontWeight: '$fontWeight$normal',
-  color: '$white',
+  color: '$black',
   textDecoration: 'none',
   transition: 'all 0.15s, color 0.15s',
   '&:hover': {
@@ -42,7 +46,7 @@ export const NavLinkItem = styled(Link, {
     active: {
       true: {
         color: '$primary',
-        borderBottom: '1px solid $white',
+        borderBottom: '1px solid $primary',
         fontWeight: '$fontWeight$semibold',
         transform: 'translateY(-2px)',
       },

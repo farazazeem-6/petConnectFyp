@@ -16,7 +16,7 @@ export const Header = ({ activeNav = HeaderEnum.HOME }: HeaderProps) => {
   return (
     <HeaderWrapper>
       {/* Logo */}
-      <WebLogo />
+      <WebLogo color="$black" />
       {/* Nav Items */}
       <Box>
         <NavList>

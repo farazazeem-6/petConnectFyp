@@ -7,7 +7,7 @@ import { PawHomeIcon } from '../svgs';
 export const LogoLink = styled(Flex, {
   defaultVariants: {
     align: 'center',
-    gap: '10',
+    gap: '4',
   },
   textDecoration: 'none',
   cursor: 'pointer',
@@ -16,12 +16,12 @@ export const LogoLink = styled(Flex, {
 export const LogoPaw = styled(Box, {});
 
 export const LogoText = styled(Text, {
-  fontSize: '$fontSize$xl',
+  fontSize: '$fontSize$xxl',
   fontWeight: '$fontWeight$bold !important',
   color: '$primary !important',
   letterSpacing: '-0.3px',
   '& span': {
-    color: '$white',
+    color: '$black',
     fontWeight: '$fontWeight$bold',
   },
 });
