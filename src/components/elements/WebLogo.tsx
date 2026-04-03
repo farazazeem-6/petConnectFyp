@@ -2,7 +2,7 @@ import { styled } from '@/theme';
 import { Box } from './Box';
 import { Flex } from './Flex';
 import { Text } from './Text';
-import { PawHomeIcon } from '../svgs';
+import { HorseIcon } from '../svgs';
 
 export const LogoLink = styled(Flex, {
   defaultVariants: {
@@ -18,7 +18,7 @@ export const LogoPaw = styled(Box, {});
 export const LogoText = styled(Text, {
   fontSize: '$fontSize$xxl',
   fontWeight: '$fontWeight$bold !important',
-  color: '$primary !important',
+  color: '$blue19 !important',
   letterSpacing: '-0.3px',
   '& span': {
     color: '$black',
@@ -33,7 +33,11 @@ export const WebLogo: React.FC<WebLogoProps> = ({ color = '#ffffff' }) => {
   return (
     <LogoLink>
       <LogoPaw>
-        <PawHomeIcon css={{ fill: color }} width={30} height={30} />
+        <HorseIcon
+          css={{ fill: color, stroke: color }}
+          width={30}
+          height={30}
+        />
       </LogoPaw>
 
       <LogoText>
