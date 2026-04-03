@@ -1,4 +1,4 @@
-import { slate, blackAlpha, blueDark, slateDark, green } from './colors';
+import { slate, blackAlpha, slateDark, green, blue } from './colors';
 const lightThemeOpt = {
   colors: {
     appSwitchBackground: '$white',
@@ -11,11 +11,11 @@ const lightThemeOpt = {
     threeBarIcon: '#4A2985',
     selectorHover: '#ddd7d7ff',
     //semantic colors
-    ...blueDark,
     ...slate,
     ...blackAlpha,
     ...slateDark,
     ...green,
+    ...blue,
     // mutate colors if needed
     foreground: '$black',
     // main color schema...

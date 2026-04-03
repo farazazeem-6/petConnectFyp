@@ -1,4 +1,4 @@
-import { blackAlpha, blueDark, green, slate, slateDark } from './colors';
+import { blackAlpha, blue, green, slate, slateDark } from './colors';
 
 const darkThemeOpt = {
   colors: {
@@ -12,11 +12,11 @@ const darkThemeOpt = {
     threeBarIcon: '$white',
     selectorHover: '#ddd7d7ff',
     //semantic colors
-    ...blueDark,
     ...slateDark,
     ...blackAlpha,
     ...slate,
     ...green,
+    ...blue,
     // mutate colors if needed
     foreground: '$white',
     // main color schema...

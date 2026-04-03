@@ -10,12 +10,8 @@ export const HeaderWrapper = styled(Flex, {
   position: 'sticky',
   top: 0,
   width: '$percent$100',
-  backgroundColor: '$white',
-  zIndex: 300,
-  px: '$px$32',
+  zIndex: 100,
   height: '$px$70',
-  backdropFilter: 'blur(8px)',
-  borderBottom: '1px solid $lightGrayLine',
   boxSizing: 'border-box',
 });
 
@@ -39,15 +35,13 @@ export const NavLinkItem = styled(Link, {
   textDecoration: 'none',
   transition: 'all 0.15s, color 0.15s',
   '&:hover': {
-    color: '$dGreen',
     transform: 'translateY(-2px)',
   },
   variants: {
     active: {
       true: {
-        color: '$primary',
-        borderBottom: '1px solid $primary',
-        fontWeight: '$fontWeight$semibold',
+        color: '$black',
+        borderBottom: '1px solid $black',
         transform: 'translateY(-2px)',
       },
     },
@@ -56,17 +50,57 @@ export const NavLinkItem = styled(Link, {
 
 export const LoginButton = styled(Button, {
   defaultVariants: {
-    variant: 'outline',
+    variant: 'default',
   },
+  border: '1px solid $blue6',
   px: '$px$30 !important',
-  backgroundColor: '$white !important',
   fontSize: '$fontSize$md !important',
-  fontWeight: '$fontWeight$medium',
   br: '$radius$full !important',
-  '&:hover': {
-    backgroundColor: '$veryLightGreen !important',
-  },
   '&:active': {
     transform: 'scale(0.97)',
+  },
+});
+
+export const MobileMenuButton = styled('button', {
+  display: 'none',
+  flexDirection: 'column',
+  justifyContent: 'space-around',
+  width: '$30',
+  height: '$30',
+  backgroundColor: 'transparent',
+  border: 'none',
+  cursor: 'pointer',
+  padding: '0',
+  zIndex: 1,
+
+  '& span': {
+    width: '$25',
+    height: '$3',
+    backgroundColor: '$gray800',
+    borderRadius: '$10',
+    transition: '$ease',
+    transformOrigin: '1px',
+  },
+
+  '& span:first-child': {
+    '&.open': {
+      transform: 'rotate(45deg)',
+    },
+  },
+
+  '& span:nth-child(2)': {
+    '&.open': {
+      opacity: 0,
+    },
+  },
+
+  '& span:last-child': {
+    '&.open': {
+      transform: 'rotate(-45deg)',
+    },
+  },
+
+  '@lg_max': {
+    display: 'flex',
   },
 });

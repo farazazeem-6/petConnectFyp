@@ -30,10 +30,10 @@ export const Button = styled('button', {
         },
       },
       primary: {
-        background: '$gradients$primaryButton',
+        background: '$blue19 !important',
         color: '$white',
         '&:hover': {
-          background: '$gradients$primaryHover',
+          background: '$blue20 !important',
         },
       },
       gradientGreen: {
@@ -44,16 +44,16 @@ export const Button = styled('button', {
         },
       },
       outline: {
-        backgroundColor: 'transparent',
+        backgroundColor: '$blue9',
         color: '$textOnHover',
-        border: '$px$1 solid $borderGreen',
+        border: '$px$1 solid $blue2',
         '&:hover': {
-          backgroundColor: '$btnHover',
+          backgroundColor: '$blue12',
         },
       },
       ghost: {
         backgroundColor: 'transparent',
-        color: '$dGreen',
+        color: '$blue5',
         '&:hover': {
           backgroundColor: '$ghostBtn',
         },

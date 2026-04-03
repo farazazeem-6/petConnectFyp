@@ -4,14 +4,14 @@ export const Container = styled('div', {
   flexShrink: 0,
   ml: 'auto',
   mr: 'auto',
-  px: '$space$20',
+  px: '$px$20',
   boxSizing: 'border-box',
 
   '@md_max': {
-    px: '$space$15',
+    px: '$px$15',
   },
   '@sm_max': {
-    px: '$space$10',
+    px: '$px$10',
   },
 
   variants: {

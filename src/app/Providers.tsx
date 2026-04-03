@@ -1,7 +1,7 @@
 'use client';
 import { ThemeProvider } from 'next-themes';
 import { ThemeSync } from './ThemeSync';
-import { Loader } from '@/components/elements';
+import { Container, Loader } from '@/components/elements';
 import { useEffect, useState } from 'react';
 import { Header } from '@/layout';
 
@@ -23,8 +23,10 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
       <ThemeSync />
       {mounted ? (
         <>
-          <Header />
-          {children}
+          <Container>
+            <Header />
+            {children}
+          </Container>
         </>
       ) : (
         <Loader />

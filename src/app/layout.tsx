@@ -27,7 +27,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body
-        style={{ margin: '0', padding: '0' }}
+        style={{ margin: '0', padding: '0', backgroundColor: '#F0F8F9' }}
         className={Greycliff.className}
       >
         <Providers>{children}</Providers>

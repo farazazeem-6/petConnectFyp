@@ -7,7 +7,6 @@ export const globalStyles = globalCss({
     boxSizing: 'border-box',
   },
   'html, body': {
-    backgroundColor: '$background',
     color: '$text',
     minHeight: '$dvh$100',
     fontSize: 'clamp($px$12, 1vw, $px$16)',
