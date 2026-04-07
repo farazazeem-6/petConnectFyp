@@ -13,7 +13,18 @@ export const LogoLink = styled(Flex, {
   cursor: 'pointer',
 });
 
-export const LogoPaw = styled(Box, {});
+export const LogoPaw = styled(Box, {
+  '& svg': {
+    width: '$px$30',
+    height: '$px$30',
+  },
+  '@sm_max': {
+    '& svg': {
+      width: '$px$20',
+      height: '$px$20',
+    },
+  },
+});
 
 export const LogoText = styled(Text, {
   fontSize: '$fontSize$xxl',
@@ -24,6 +35,9 @@ export const LogoText = styled(Text, {
     color: '$white !important',
     fontWeight: '$fontWeight$bold',
   },
+  '@sm_max': {
+    fontSize: '$fontSize$md',
+  },
 });
 type WebLogoProps = {
   color?: string;
@@ -33,7 +47,7 @@ export const WebLogo: React.FC<WebLogoProps> = ({ color = '#ffffff' }) => {
   return (
     <LogoLink>
       <LogoPaw>
-        <PawIcon css={{ fill: color, stroke: color }} width={30} height={30} />
+        <PawIcon css={{ fill: color, stroke: color }} />
       </LogoPaw>
 
       <LogoText>

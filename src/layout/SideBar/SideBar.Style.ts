@@ -82,6 +82,20 @@ export const Logo = styled(Flex, {
   cursor: 'pointer',
 });
 
+export const SidebarCloseBox = styled(Box, {
+  cursor: 'pointer',
+  '& svg': {
+    width: '$px$30',
+    height: '$px$30',
+  },
+  '@sm_max': {
+    '& svg': {
+      width: '$px$20',
+      height: '$px$20',
+    },
+  },
+});
+
 export const NavItem = styled(Link, {
   position: 'relative',
   fontSize: '$fontSize$lg',

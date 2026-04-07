@@ -38,13 +38,19 @@ export const Header = ({ activeNav = HeaderEnum.HOME }: HeaderProps) => {
           >
             <MenuIcon
               css={{ color: '$white' }}
-              width={30}
-              height={30}
               className={isMobileMenuOpen ? 'open' : ''}
             />
           </MobileMenuButton>
           {/* Desktop: logo on the left | Mobile: logo absolutely centered */}
-          <Box css={{ '@lg_max': { position: 'absolute', left: '50%', transform: 'translateX(-50%)' } }}>
+          <Box
+            css={{
+              '@lg_max': {
+                position: 'absolute',
+                left: '50%',
+                transform: 'translateX(-50%)',
+              },
+            }}
+          >
             <WebLogo />
           </Box>
           <Flex css={{ '@lg_max': { display: 'none' } }} gap={'20'}>

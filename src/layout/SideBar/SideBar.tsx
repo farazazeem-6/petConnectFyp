@@ -3,6 +3,7 @@ import { TSidebarProps } from '@/utils/types';
 import {
   Logo,
   NavItem,
+  SidebarCloseBox,
   SidebarContent,
   SidebarHeader,
   SidebarNav,
@@ -37,15 +38,13 @@ export const Sidebar = ({
             >
               <WebLogo />
             </Logo>
-            <Box css={{ cursor: 'pointer' }}>
+            <SidebarCloseBox>
               <MenuIcon
                 aria-hidden="true"
                 css={{ color: '$white' }}
-                width={30}
-                height={30}
                 onClick={() => setIsMobileMenuOpen(false)}
               />
-            </Box>
+            </SidebarCloseBox>
           </SidebarHeader>
           <SidebarNav>
             {navItems.map((item) => (
