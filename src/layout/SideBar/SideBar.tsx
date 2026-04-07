@@ -9,8 +9,7 @@ import {
   SidebarOverlay,
   SidebarWrapper,
 } from './SideBar.Style';
-import { CloseIcon } from '@/components/svgs';
-import { LoginButton } from '../Header/Header.Style';
+import { CloseIcon, MenuIcon } from '@/components/svgs';
 
 export const Sidebar = ({
   isMobileMenuOpen,
@@ -31,16 +30,19 @@ export const Sidebar = ({
       >
         <SidebarContent>
           <SidebarHeader>
+            <Box></Box>
             <Logo
               onClick={handleLogoClick}
               css={{ cursor: 'pointer', gap: '$gap$8' }}
             >
-              <WebLogo color="$blue19" />
+              <WebLogo />
             </Logo>
             <Box css={{ cursor: 'pointer' }}>
-              <CloseIcon
+              <MenuIcon
                 aria-hidden="true"
-                css={{ fill: '$blue19' }}
+                css={{ color: '$white' }}
+                width={30}
+                height={30}
                 onClick={() => setIsMobileMenuOpen(false)}
               />
             </Box>
@@ -56,7 +58,6 @@ export const Sidebar = ({
                 {item.label}
               </NavItem>
             ))}
-            <LoginButton>Login</LoginButton>
           </SidebarNav>
         </SidebarContent>
       </SidebarWrapper>

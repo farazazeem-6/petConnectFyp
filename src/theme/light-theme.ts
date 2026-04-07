@@ -22,7 +22,7 @@ const lightThemeOpt = {
     lighter: '#D9FBE5',
     light: '#2AA952',
     light10: '$success1',
-    main: '#1C1E21',
+    main: '#a03048',
     dark: '#228B22',
     dark1: '#3EB489',
     // dark: '#2AA952',

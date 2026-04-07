@@ -23,19 +23,18 @@ export const SidebarOverlay = styled(Box, {
 export const SidebarWrapper = styled(Box, {
   position: 'fixed',
   top: 0,
-  right: 0,
-  width: '$px$350',
+  left: 0,
+  width: '$px$550',
   maxWidth: '85vw',
   height: '100dvh',
   display: 'flex',
   flexDirection: 'column',
-  backgroundColor: '$blue1',
-  boxShadow: '-8px 0 24px rgba(0, 0, 0, 0.12)',
-  borderLeft: '1px solid $lightGrayLine',
-  borderTopLeftRadius: '$px$16',
-  borderBottomLeftRadius: '$px$16',
+  backgroundColor: '$main',
+  boxShadow: '8px 0 24px rgba(0, 0, 0, 0.12)',
+  borderTopRightRadius: '$px$26',
+  borderBottomRightRadius: '$px$26',
   zIndex: 250,
-  transform: 'translateX(100%)',
+  transform: 'translateX(-100%)',
   transition: 'transform 0.3s ease',
 
   '&.open': {
@@ -45,12 +44,14 @@ export const SidebarWrapper = styled(Box, {
   '@sm_max': {
     width: '$percent$100',
     maxWidth: '100vw',
+    borderTopRightRadius: '0',
+    borderBottomRightRadius: '0',
   },
 });
 
 export const SidebarContent = styled(Flex, {
   flexDirection: 'column !important',
-  padding: '$px$20',
+  padding: '$px$40',
   height: '$percent$100',
   overflowY: 'auto',
   overscrollBehavior: 'contain',
@@ -62,12 +63,13 @@ export const SidebarHeader = styled(Flex, {
   justifyContent: 'space-between !important',
   marginBottom: '$px$24',
   paddingBottom: '$px$16',
-  borderBottom: '1px solid rgba(0,0,0,0.06)',
 });
 
 export const SidebarNav = styled(Flex, {
   flexDirection: 'column !important',
-  gap: '0',
+  alignItems: 'center !important',
+  gap: '$px$10',
+  mt: '$px$80',
 });
 
 export const SidebarActions = styled(Box, {
@@ -82,28 +84,22 @@ export const Logo = styled(Flex, {
 
 export const NavItem = styled(Link, {
   position: 'relative',
-  fontSize: '$fontSize$md',
-  color: '$black',
+  fontSize: '$fontSize$lg',
+  fontWeight: '$fontWeight$normal',
+  color: '$white',
   textDecoration: 'none',
   cursor: 'pointer',
   padding: '$px$14 0',
-  borderBottom: '1px solid rgba(0,0,0,0.06)',
   display: 'block',
-  transition: 'padding-left 0.2s ease, color 0.2s ease',
-
-  '&:last-child, &:nth-last-child(2)': {
-    borderBottom: 'none',
-  },
+  transition: 'padding-left 0.4s ease, color 0.2s ease',
 
   '&:hover': {
     paddingLeft: '$px$8',
   },
-
   variants: {
     active: {
       true: {
-        color: '$blue19',
-        fontWeight: '$fontWeight$semibold',
+        color: '$white',
       },
     },
   },

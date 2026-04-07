@@ -8,7 +8,7 @@ export const Text = styled('span', {
   variants: {
     color: {
       primary: {
-        color: '$primaryHeading',
+        color: '$black',
       },
       secondry: {
         color: '$secondryHeading',

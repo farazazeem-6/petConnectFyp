@@ -23,10 +23,8 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
       <ThemeSync />
       {mounted ? (
         <>
-          <Container>
-            <Header />
-            {children}
-          </Container>
+          <Header />
+          <Container>{children}</Container>
         </>
       ) : (
         <Loader />

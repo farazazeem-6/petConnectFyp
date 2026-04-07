@@ -1,5 +1,6 @@
 import { HeaderEnum } from '@/utils/enums';
 import {
+  HeaderContent,
   HeaderWrapper,
   LoginButton,
   MobileMenuButton,
@@ -28,28 +29,37 @@ export const Header = ({ activeNav = HeaderEnum.HOME }: HeaderProps) => {
   return (
     <>
       <HeaderWrapper>
-        <WebLogo color="$blue19" />
-        <Flex css={{ '@lg_max': { display: 'none' } }} gap={'20'}>
-          <NavList>
-            {NAV_ITEMS.map(({ label, href }) => (
-              <Box key={label}>
-                <NavLinkItem href={href} active={activeNav === label}>
-                  {label}
-                </NavLinkItem>
-              </Box>
-            ))}
-          </NavList>
+        <HeaderContent css={{ '@lg_max': { position: 'relative' } }}>
+          {/* Mobile: menu icon on the left */}
+          <MobileMenuButton
+            onClick={toggleMobileMenu}
+            aria-label="Toggle mobile menu"
+            css={{ '@lg': { display: 'none' } }}
+          >
+            <MenuIcon
+              css={{ color: '$white' }}
+              width={30}
+              height={30}
+              className={isMobileMenuOpen ? 'open' : ''}
+            />
+          </MobileMenuButton>
+          {/* Desktop: logo on the left | Mobile: logo absolutely centered */}
+          <Box css={{ '@lg_max': { position: 'absolute', left: '50%', transform: 'translateX(-50%)' } }}>
+            <WebLogo />
+          </Box>
+          <Flex css={{ '@lg_max': { display: 'none' } }} gap={'20'}>
+            <NavList>
+              {NAV_ITEMS.map(({ label, href }) => (
+                <Box key={label}>
+                  <NavLinkItem href={href} active={activeNav === label}>
+                    {label}
+                  </NavLinkItem>
+                </Box>
+              ))}
+            </NavList>
+          </Flex>
           <LoginButton>Login</LoginButton>
-        </Flex>
-        <MobileMenuButton
-          onClick={toggleMobileMenu}
-          aria-label="Toggle mobile menu"
-        >
-          <MenuIcon
-            css={{ color: '$blue19' }}
-            className={isMobileMenuOpen ? 'open' : ''}
-          />
-        </MobileMenuButton>
+        </HeaderContent>
       </HeaderWrapper>
       <Sidebar
         isMobileMenuOpen={isMobileMenuOpen}
