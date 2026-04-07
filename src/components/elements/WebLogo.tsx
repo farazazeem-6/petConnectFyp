@@ -18,25 +18,17 @@ export const LogoPaw = styled(Box, {
     width: '$px$30',
     height: '$px$30',
   },
-  '@sm_max': {
-    '& svg': {
-      width: '$px$20',
-      height: '$px$20',
-    },
-  },
 });
 
 export const LogoText = styled(Text, {
   fontSize: '$fontSize$xxl',
   fontWeight: '$fontWeight$bold !important',
-  color: '$white !important',
   letterSpacing: '-0.3px',
   '& span': {
-    color: '$white !important',
     fontWeight: '$fontWeight$bold',
   },
   '@sm_max': {
-    fontSize: '$fontSize$md',
+    fontSize: '$fontSize$lg',
   },
 });
 type WebLogoProps = {
@@ -50,7 +42,7 @@ export const WebLogo: React.FC<WebLogoProps> = ({ color = '#ffffff' }) => {
         <PawIcon css={{ fill: color, stroke: color }} />
       </LogoPaw>
 
-      <LogoText>
+      <LogoText css={{ color: color }}>
         Pet
         <span>Connect</span>
       </LogoText>

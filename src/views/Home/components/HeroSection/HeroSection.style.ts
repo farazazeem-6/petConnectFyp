@@ -7,25 +7,25 @@ export const HeroSectionWrapper = styled(Flex, {
   boxSizing: 'border-box',
   py: '$px$50',
   gap: '$px$40',
-  position: 'relative',
-
+  px: '$px$60',
+  mt: '$px$40',
+  justifyContent: 'space-around !important',
+  '@lg_max': {
+    px: '0',
+  },
   '@md_max': {
-    flexDirection: 'column',
+    flexDirection: 'column !important',
     py: '$px$30',
-    gap: '$px$30',
+    gap: '$px$60',
   },
 });
 
 export const HeroSectionContentLeft = styled(Flex, {
   flexDirection: 'column !important',
-  flex: '0 0 $percent$50',
-  maxWidth: '$percent$50',
   gap: '$px$16',
   pt: '$px$20',
 
   '@md_max': {
-    flex: '1 1 $percent$100',
-    maxWidth: '$percent$100',
     alignItems: 'center',
     textAlign: 'center',
   },
@@ -33,13 +33,13 @@ export const HeroSectionContentLeft = styled(Flex, {
 
 export const HeroSubHeading = styled(Text, {
   fontStyle: 'italic',
-  fontSize: '$fontSize$sm',
-  color: '#8B2040 !important',
-  fontWeight: '$fontWeight$normal',
+  fontSize: '$fontSize$md',
+  color: '$main !important',
+  fontWeight: '$fontWeight$light',
 
   '& b': {
     fontWeight: '$fontWeight$bold',
-    color: '#8B2040',
+    color: '$main',
   },
 });
 
@@ -57,20 +57,18 @@ export const HeroHeading = styled(Text, {
 });
 
 export const HeroShopLine = styled(Text, {
-  fontSize: '$fontSize$lg',
-  fontWeight: '$fontWeight$semibold',
-  color: '$black !important',
+  fontSize: '$fontSize$xxl',
+  fontWeight: '$fontWeight$normal',
   mt: '$px$8',
 
   '& span': {
     textDecoration: 'none',
-    color: '$black',
-    fontWeight: '$fontWeight$bold',
+    fontWeight: '$fontWeight$semibold',
   },
 });
 
 export const HeroDescription = styled(Text, {
-  fontSize: '$fontSize$sm',
+  fontSize: '$fontSize$md',
   fontWeight: '$fontWeight$normal',
   lineHeight: '1.6 !important',
   color: '$black !important',
@@ -90,32 +88,44 @@ export const HeroDescription = styled(Text, {
 });
 
 export const HeroBrandName = styled(Text, {
-  fontSize: '$fontSize$md',
-  fontWeight: '$fontWeight$black',
-  color: '$black !important',
+  fontSize: '$fontSize$lg',
+  fontWeight: '$fontWeight$bold',
+  color: '$secondryHeading !important',
 });
 
-// ---- Right side: "Why choose" card ----
+// ---- Right Side ----
 
 export const HeroSectionContentRight = styled(Flex, {
   flexDirection: 'column !important',
-  flex: '0 0 45%',
-  maxWidth: '45%',
   position: 'relative',
-
   '@md_max': {
-    flex: '1 1 $percent$100',
-    maxWidth: '$percent$100',
   },
 });
+export const CardTitle = styled(Flex, {
+  'defaultVariant': {
+    align: 'center',
+  },
+  justifyContent: 'center !important',
+  mb: '$px$14',
+  gap: '$px$8',
+  '@lg_max': {
+    flexDirection: 'column !important',
+    justifyContent: 'center !important',
+    alignItems: 'center !important',
+  },
+  '@md_max': {
+    flexDirection: 'row !important',
+  }
+
+})
 
 export const WhyChooseCard = styled(Flex, {
   flexDirection: 'column !important',
-  border: '1.5px solid #e0e0e0',
-  br: '$radius$xxl',
+  border: '1.5px solid $main',
+  br: '$radius$xl',
   px: '$px$28',
-  py: '$px$28',
-  backgroundColor: '$white',
+  paddingTop: '$px$60',
+  paddingBottom: '$px$20',
   gap: '$px$10',
   position: 'relative',
   zIndex: 2,
@@ -127,24 +137,24 @@ export const WhyChooseCard = styled(Flex, {
 });
 
 export const WhyChooseTitle = styled(Text, {
-  fontSize: '$fontSize$xl',
-  fontWeight: '$fontWeight$bold',
-  color: '#8B2040 !important',
+  fontSize: '$fontSize$xxl',
+  fontWeight: '$fontWeight$semibold',
+  color: '$main !important',
   textAlign: 'center',
-  mb: '$px$4',
 });
 
 export const WhyChooseBullet = styled(Text, {
-  fontSize: '$fontSize$sm',
-  color: '$black !important',
+  fontSize: '$fontSize$md',
   textAlign: 'center',
   lineHeight: '1.7 !important',
-  fontWeight: '$fontWeight$normal',
+  fontWeight: '$fontWeight$light',
+  color: '$secondryHeading !important',
 
   '& b': {
     fontWeight: '$fontWeight$bold',
     textDecoration: 'underline',
     textUnderlineOffset: '2px',
+    color: '$black !important',
   },
 });
 
@@ -152,58 +162,55 @@ export const GoToButton = styled(Button, {
   defaultVariants: {
     variant: 'default',
   },
-  background: '#8B2040 !important',
-  backgroundColor: '#8B2040 !important',
+  background: '$main !important',
   color: '$white !important',
   br: '$radius$full !important',
   px: '$px$32 !important',
-  py: '$px$12 !important',
+  py: '$px$20 !important',
   fontSize: '$fontSize$md !important',
   fontWeight: '$fontWeight$semibold !important',
   mx: 'auto',
-  mt: '$px$8',
+  mt: '$px$10',
   gap: '$px$8',
   transition: 'all 0.2s ease',
 
   '&:hover': {
-    background: '#721832 !important',
-    backgroundColor: '#721832 !important',
+    background: '$darkMain !important',
     transform: 'translateY(-1px)',
   },
+  '@lg_max': {
+    px: '$px$25 !important',
+    py: '$px$15 !important',
+  }
 });
 
-// ---- Absolute positioned image placeholders ----
+// ---- Absolute positioned image ----
 
 export const HeroDogImageWrapper = styled(Box, {
   position: 'absolute',
-  bottom: '-10px',
-  left: '-20px',
-  width: '$px$120',
-  height: '$px$140',
+  bottom: '0',
+  left: '0',
+  width: '$px$100',
   zIndex: 3,
-  overflow: 'visible',
+  overflow: 'hidden',
 
   '& img': {
     width: '$percent$100',
     height: '$percent$100',
     objectFit: 'contain',
-    objectPosition: 'bottom',
+    objectPosition: 'bottom left',
   },
-
   '@md_max': {
-    width: '$px$80',
-    height: '$px$100',
-    left: '-5px',
-    bottom: '-5px',
+    width: '$px$70',
+    height: '$px$90',
   },
 });
 
 export const HeroCatImageWrapper = styled(Box, {
   position: 'absolute',
-  top: '-20px',
-  right: '-10px',
-  width: '$px$100',
-  height: '$px$110',
+  top: '-$px$70',
+  right: '0',
+  width: '$px$120',
   zIndex: 3,
   overflow: 'visible',
 
@@ -212,12 +219,5 @@ export const HeroCatImageWrapper = styled(Box, {
     height: '$percent$100',
     objectFit: 'contain',
     objectPosition: 'top right',
-  },
-
-  '@md_max': {
-    width: '$px$70',
-    height: '$px$80',
-    right: '-5px',
-    top: '-10px',
   },
 });

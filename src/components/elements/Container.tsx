@@ -4,7 +4,7 @@ export const Container = styled('div', {
   flexShrink: 0,
   ml: 'auto',
   mr: 'auto',
-  px: '$px$100',
+  px: '$px$20',
   boxSizing: 'border-box',
 
   '@md_max': {

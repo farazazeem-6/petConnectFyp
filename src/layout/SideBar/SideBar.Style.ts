@@ -88,12 +88,6 @@ export const SidebarCloseBox = styled(Box, {
     width: '$px$30',
     height: '$px$30',
   },
-  '@sm_max': {
-    '& svg': {
-      width: '$px$20',
-      height: '$px$20',
-    },
-  },
 });
 
 export const NavItem = styled(Link, {

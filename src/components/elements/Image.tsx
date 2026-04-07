@@ -53,7 +53,7 @@ export const NextJSImage: FC<TNextJSImage> = ({
   return (
     <Box
       css={{
-        width: '$percent100',
+        width: '$percent$100',
         height: '$percent$100',
         position: 'relative',
       }}
