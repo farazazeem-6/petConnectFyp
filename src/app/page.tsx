@@ -1,5 +1,7 @@
 'use client';
 
+import { Home } from '@/views';
+
 export default function Page() {
-  return null;
+  return <Home />;
 }

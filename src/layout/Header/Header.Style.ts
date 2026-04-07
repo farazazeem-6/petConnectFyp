@@ -3,16 +3,27 @@ import { styled } from '@/theme';
 import Link from 'next/link';
 
 export const HeaderWrapper = styled(Flex, {
-  defaultVariants: {
-    align: 'center',
-    justify: 'between',
-  },
   position: 'sticky',
   top: 0,
   width: '$percent$100',
   zIndex: 100,
-  height: '$px$70',
+  height: '$px$85',
   boxSizing: 'border-box',
+  backgroundColor: '$main',
+  borderBottomLeftRadius: '$px$20',
+  borderBottomRightRadius: '$px$20',
+});
+
+export const HeaderContent = styled(Flex, {
+  defaultVariants: {
+    align: 'center',
+    justify: 'between',
+  },
+  width: '$percent$100',
+  px: '$px$100',
+  '@lg_max': {
+    px: '$px$25',
+  },
 });
 
 export const NavList = styled(Flex, {
@@ -31,18 +42,30 @@ export const NavLinkItem = styled(Link, {
   py: '$px$6',
   fontSize: '$fontSize$md',
   fontWeight: '$fontWeight$normal',
-  color: '$black',
+  color: '$white',
   textDecoration: 'none',
-  transition: 'all 0.15s, color 0.15s',
-  '&:hover': {
-    transform: 'translateY(-2px)',
+  position: 'relative',
+  transition: 'color 0.15s',
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: '0%',
+    height: '1px',
+    backgroundColor: '$white',
+    transition: 'width 0.4s ease',
+  },
+  '&:hover::after': {
+    width: '$percent$100',
   },
   variants: {
     active: {
       true: {
-        color: '$black',
-        borderBottom: '1px solid $black',
-        transform: 'translateY(-2px)',
+        color: '$white',
+        '&::after': {
+          width: '$percent$100',
+        },
       },
     },
   },
@@ -52,13 +75,11 @@ export const LoginButton = styled(Button, {
   defaultVariants: {
     variant: 'default',
   },
-  border: '1px solid $blue6',
-  px: '$px$30 !important',
+  backgroundColor: '$white !important',
+  color: '$main',
+  px: '$px$22 !important',
   fontSize: '$fontSize$md !important',
   br: '$radius$full !important',
-  '&:active': {
-    transform: 'scale(0.97)',
-  },
 });
 
 export const MobileMenuButton = styled('button', {
