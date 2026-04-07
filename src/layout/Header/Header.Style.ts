@@ -142,11 +142,4 @@ export const MobileMenuButton = styled('button', {
   '@lg_max': {
     display: 'flex',
   },
-
-  '@sm_max': {
-    '& svg': {
-      width: '$px$20',
-      height: '$px$20',
-    },
-  },
 });

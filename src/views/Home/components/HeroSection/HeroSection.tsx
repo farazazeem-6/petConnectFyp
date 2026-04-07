@@ -1,6 +1,7 @@
-import { Flex, Text } from '@/components/elements';
+import { Flex, NextJSImage, Text, WebLogo } from '@/components/elements';
 import { HeartArrowIcon, PawIcon } from '@/components/svgs';
 import {
+  CardTitle,
   GoToButton,
   HeroBrandName,
   HeroCatImageWrapper,
@@ -20,10 +21,14 @@ import {
 export const HeroSection = () => {
   return (
     <HeroSectionWrapper>
-      {/* ---- Left Column ---- */}
+      {/* ---- Left Side ---- */}
       <HeroSectionContentLeft>
         <Flex gap={'5'} align="center">
-          <HeartArrowIcon css={{ color: '#8B2040' }} width={20} height={20} />
+          <HeartArrowIcon
+            css={{ color: '$main', '@sm_max': { display: 'none' } }}
+            width={20}
+            height={20}
+          />
           <HeroSubHeading>
             Connecting pets and parents across <b>Pakistan</b>
           </HeroSubHeading>
@@ -31,47 +36,40 @@ export const HeroSection = () => {
 
         <Flex direction="column" gap={'3'}>
           <HeroHeading>PAKISTAN&apos;S</HeroHeading>
-          <HeroHeading css={{ color: '#8B2040 !important' }}>
-            FIRST EVER
+          <HeroHeading css={{ color: '$main !important' }}>
+            First Launch
           </HeroHeading>
           <HeroHeading>PAW PORTAL</HeroHeading>
         </Flex>
 
-        <HeroShopLine>
-          Get the Best for Your Pet — <span>Shop Bazaar</span>
-        </HeroShopLine>
+        <HeroShopLine>Adopt, Donate, and Make a Difference</HeroShopLine>
 
         <Flex direction="column" gap={'3'}>
           <HeroDescription>
             <HeroBrandName>PetConnect </HeroBrandName>
-            is Pakistan&apos;s first pet adoption and pet care platform, helping
-            you <b>adopt dogs and cats</b>, <b>connect with vets</b>, and{' '}
-            <b>shop</b> pet products online.
+            is Pakistan&apos;s premier pet adoption and care hub,helping you{' '}
+            <b>adopt dogs and cats</b>, all in one seamless online platform.
           </HeroDescription>
         </Flex>
       </HeroSectionContentLeft>
 
-      {/* ---- Right Column: Why Choose Card ---- */}
+      {/* ---- Right Side---- */}
       <HeroSectionContentRight>
         <WhyChooseCard>
-          <WhyChooseTitle>
-            Why choose{' '}
-            <Text css={{ color: '#8B2040 !important', fontWeight: '$fontWeight$black' }}>
-              PetConnect
-            </Text>
-          </WhyChooseTitle>
+          <CardTitle>
+            <WhyChooseTitle>Why choose</WhyChooseTitle>
+            <WebLogo color="$main" />
+          </CardTitle>
 
+          <WhyChooseBullet>Connect with pet owners nationwide.</WhyChooseBullet>
           <WhyChooseBullet>
-            Find and <b>adopt pets in Pakistan</b> from trusted shelters.
+            Find and <b>adopt pets in Pakistan</b> with ease.
           </WhyChooseBullet>
           <WhyChooseBullet>
-            Connect with <b>shelters in Karachi, Lahore, and Islamabad</b>.
+            Discover adoption stories and <b>tips</b> for pet care.
           </WhyChooseBullet>
           <WhyChooseBullet>
-            Shop <b>pet food & accessories</b> online with nationwide delivery.
-          </WhyChooseBullet>
-          <WhyChooseBullet>
-            Find <b>vets in Pakistan</b> and get expert pet care guidance.
+            Join Pakistan’s trusted online pet‑lover community.
           </WhyChooseBullet>
           <WhyChooseBullet>
             <b>Adopt pets near you</b> with our matching algorithm.
@@ -79,7 +77,7 @@ export const HeroSection = () => {
 
           <GoToButton>
             <PawIcon
-              css={{ fill: '#ffffff', stroke: '#ffffff' }}
+              css={{ fill: '$white', stroke: '$white' }}
               width={18}
               height={18}
             />
@@ -89,12 +87,12 @@ export const HeroSection = () => {
 
         {/* Dog image — bottom-left of card (absolute positioned) */}
         <HeroDogImageWrapper>
-          {/* Add your dog image here: <img src="/images/hero-dog.png" alt="Dog" /> */}
+          <NextJSImage imageUrl="./images/dog-peekingi.webp" />
         </HeroDogImageWrapper>
 
         {/* Cat image — top-right of card (absolute positioned) */}
         <HeroCatImageWrapper>
-          {/* Add your cat image here: <img src="/images/hero-cat.png" alt="Cat" /> */}
+          <NextJSImage imageUrl="./images/cat-on-box.webp" />
         </HeroCatImageWrapper>
       </HeroSectionContentRight>
     </HeroSectionWrapper>
