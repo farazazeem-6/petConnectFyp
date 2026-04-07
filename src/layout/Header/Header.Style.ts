@@ -12,6 +12,11 @@ export const HeaderWrapper = styled(Flex, {
   backgroundColor: '$main',
   borderBottomLeftRadius: '$px$20',
   borderBottomRightRadius: '$px$20',
+  justifyContent: 'center !important',
+  '@sm_max': {
+    borderBottomLeftRadius: '$px$15',
+    borderBottomRightRadius: '$px$15',
+  }
 });
 
 export const HeaderContent = styled(Flex, {
@@ -20,10 +25,14 @@ export const HeaderContent = styled(Flex, {
     justify: 'between',
   },
   width: '$percent$100',
+  maxWidth: '$breakpoints$xxl',
   px: '$px$100',
   '@lg_max': {
     px: '$px$25',
   },
+  '@sm_max': {
+    px: '$px$10',
+  }
 });
 
 export const NavList = styled(Flex, {
@@ -80,6 +89,10 @@ export const LoginButton = styled(Button, {
   px: '$px$22 !important',
   fontSize: '$fontSize$md !important',
   br: '$radius$full !important',
+  '@sm_max': {
+    px: '$px$15 !important',
+    fontSize: '$fontSize$sm !important',
+  }
 });
 
 export const MobileMenuButton = styled('button', {
@@ -93,6 +106,11 @@ export const MobileMenuButton = styled('button', {
   cursor: 'pointer',
   padding: '0',
   zIndex: 1,
+
+  '& svg': {
+    width: '$px$30',
+    height: '$px$30',
+  },
 
   '& span': {
     width: '$25',
@@ -123,5 +141,12 @@ export const MobileMenuButton = styled('button', {
 
   '@lg_max': {
     display: 'flex',
+  },
+
+  '@sm_max': {
+    '& svg': {
+      width: '$px$20',
+      height: '$px$20',
+    },
   },
 });
