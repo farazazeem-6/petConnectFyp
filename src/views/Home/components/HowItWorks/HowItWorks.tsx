@@ -1,0 +1,49 @@
+import {
+  HowItWorksHeading,
+  HowItWorksSubtitle,
+  HowItWorksTitleRow,
+  HowItWorksWrapper,
+  StepConnector,
+  StepDescription,
+  StepIconCircle,
+  StepItem,
+  StepsRow,
+  StepTitle,
+} from './HowItWorks.style';
+import { STEPS } from '@/constants';
+import React from 'react';
+
+export const HowItWorks = () => {
+  return (
+    <HowItWorksWrapper>
+      {/* Title row: "How  Works" with logo in the middle */}
+      <HowItWorksTitleRow>
+        <HowItWorksHeading>How</HowItWorksHeading>
+        <HowItWorksHeading css={{ color: '$main !important' }}>
+          Pet Connect
+        </HowItWorksHeading>
+        <HowItWorksHeading>Works</HowItWorksHeading>
+      </HowItWorksTitleRow>
+
+      {/* Subtitle */}
+      <HowItWorksSubtitle>
+        Your journey to pet parenthood in four simple steps.
+      </HowItWorksSubtitle>
+
+      {/* Steps row */}
+      <StepsRow>
+        {STEPS.map((step, index) => (
+          <React.Fragment key={step.id}>
+            <StepItem>
+              <StepIconCircle>{step.icon}</StepIconCircle>
+              <StepTitle>{step.title}</StepTitle>
+              <StepDescription>{step.description}</StepDescription>
+            </StepItem>
+
+            {index < STEPS.length - 1 && <StepConnector />}
+          </React.Fragment>
+        ))}
+      </StepsRow>
+    </HowItWorksWrapper>
+  );
+};

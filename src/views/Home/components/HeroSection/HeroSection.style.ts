@@ -18,6 +18,9 @@ export const HeroSectionWrapper = styled(Flex, {
     py: '$px$30',
     gap: '$px$60',
   },
+  '@sm_max': {
+    mt: '0',
+  }
 });
 
 export const HeroSectionContentLeft = styled(Flex, {
@@ -54,6 +57,9 @@ export const HeroHeading = styled(Text, {
   '@md_max': {
     fontSize: '$fontSize$xxxl',
   },
+  '@sm_max': {
+    fontSize: '$px$40',
+  }
 });
 
 export const HeroShopLine = styled(Text, {
@@ -98,8 +104,6 @@ export const HeroBrandName = styled(Text, {
 export const HeroSectionContentRight = styled(Flex, {
   flexDirection: 'column !important',
   position: 'relative',
-  '@md_max': {
-  },
 });
 export const CardTitle = styled(Flex, {
   'defaultVariant': {
@@ -134,6 +138,9 @@ export const WhyChooseCard = styled(Flex, {
     px: '$px$16',
     py: '$px$20',
   },
+  '@sm_max': {
+    px: '$px$5',
+  }
 });
 
 export const WhyChooseTitle = styled(Text, {
@@ -156,6 +163,9 @@ export const WhyChooseBullet = styled(Text, {
     textUnderlineOffset: '2px',
     color: '$black !important',
   },
+  '@sm_max': {
+
+  }
 });
 
 export const GoToButton = styled(Button, {
