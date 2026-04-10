@@ -33,16 +33,24 @@ export const LogoText = styled(Text, {
 });
 type WebLogoProps = {
   color?: string;
+  iconSize?: number;
+  fontSize?: number;
+  fontWeight?: string;
 };
 
-export const WebLogo: React.FC<WebLogoProps> = ({ color = '#ffffff' }) => {
+export const WebLogo: React.FC<WebLogoProps> = ({
+  color = '#ffffff',
+  iconSize = 30,
+  fontSize = 22,
+  fontWeight,
+}) => {
   return (
     <LogoLink>
-      <LogoPaw>
+      <LogoPaw css={{ '& svg': { width: iconSize, height: iconSize } }}>
         <PawIcon css={{ fill: color, stroke: color }} />
       </LogoPaw>
 
-      <LogoText css={{ color: color }}>
+      <LogoText css={{ color, fontSize, ...(fontWeight && { fontWeight }) }}>
         Pet
         <span>Connect</span>
       </LogoText>

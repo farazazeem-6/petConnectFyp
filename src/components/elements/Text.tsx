@@ -17,8 +17,8 @@ export const Text = styled('span', {
       gray: {
         color: '$gray',
       },
-      darkGreen: {
-        color: '$dGreen',
+      main: {
+        color: '$main',
       },
       white: {
         color: '$white',

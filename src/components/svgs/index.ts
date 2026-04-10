@@ -24,3 +24,6 @@ export { default as PawHomeIcon } from './Icons/PawHome';
 export { default as PawIcon } from './Icons/PawIcon';
 export { default as HorseIcon } from './Icons/HorseIcon';
 export { default as HeartArrowIcon } from './Icons/HeartArrow';
+export { default as UsersIcon } from './Icons/UsersIcon';
+export { default as EyeIcon } from './Icons/EyeIcon';
+export { default as HomeIcon } from './Icons/HomeIcon';
