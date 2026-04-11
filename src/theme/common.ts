@@ -309,6 +309,7 @@ const defaultTokens = {
       '0 20px 60px rgba(0, 0, 0, 0.15), 0 12px 40px rgba(34, 139, 34, 0.1)',
     imgOverlay:
       'linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 100%)',
+    mainShadow: 'rgba(160, 48, 72, 0.12)'
   },
 };
 const defaultColors = {
@@ -379,6 +380,7 @@ const defaultColors = {
   black: '#000000',
   orange: '#FFAB00',
   liteDark: '#1C1E21',
+  blueText: '#1f2937',
   yellow: '#fece00',
   green: '#11dd7b',
   lightGreenColor: '#45d245',
@@ -409,6 +411,7 @@ const defaultColors = {
   disabledSlotColor: '#aaa',
   backgroundDisabledSlot: '#f3f3f3',
   ghostBtn: '#F3F4F6',
+  dimWhite: '#F5F0F1',
   neutralGray: '#ddd',
   whisperGray: '#f1f1f1',
   aliceBlue: '#e6f2ff',
