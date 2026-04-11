@@ -1,6 +1,4 @@
 import {
-  HowItWorksHeading,
-  HowItWorksSubtitle,
   HowItWorksTitleRow,
   HowItWorksWrapper,
   StepConnector,
@@ -13,6 +11,7 @@ import {
 import { STEPS } from '@/constants';
 import React from 'react';
 import { Container } from '@/components/elements';
+import { MainHeading, MainSubHeading } from '@/components/styles';
 
 export const HowItWorks = () => {
   return (
@@ -20,17 +19,17 @@ export const HowItWorks = () => {
       <HowItWorksWrapper>
         {/* Title row: "How  Works" with logo in the middle */}
         <HowItWorksTitleRow>
-          <HowItWorksHeading>How</HowItWorksHeading>
-          <HowItWorksHeading css={{ color: '$main !important' }}>
+          <MainHeading>How</MainHeading>
+          <MainHeading css={{ color: '$main !important' }}>
             Pet Connect
-          </HowItWorksHeading>
-          <HowItWorksHeading>Works</HowItWorksHeading>
+          </MainHeading>
+          <MainHeading>Works</MainHeading>
         </HowItWorksTitleRow>
 
         {/* Subtitle */}
-        <HowItWorksSubtitle>
+        <MainSubHeading>
           Your journey to pet parenthood in four simple steps.
-        </HowItWorksSubtitle>
+        </MainSubHeading>
 
         {/* Steps row */}
         <StepsRow>
