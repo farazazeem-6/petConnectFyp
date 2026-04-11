@@ -27,3 +27,7 @@ export { default as HeartArrowIcon } from './Icons/HeartArrow';
 export { default as UsersIcon } from './Icons/UsersIcon';
 export { default as EyeIcon } from './Icons/EyeIcon';
 export { default as HomeIcon } from './Icons/HomeIcon';
+export { default as AdoptPetsIcon } from './Icons/AdoptPetsIcon';
+export { default as CatIcon } from './Icons/CatIcon';
+export { default as DogIcon } from './Icons/DogIcon';
+export { default as PetLitterIcon } from './Icons/PetLitterIcon';

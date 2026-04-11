@@ -3,3 +3,4 @@ export * from './user';
 export * from './navItems';
 export * from './messages';
 export * from './howItWorks';
+export * from './petServices';

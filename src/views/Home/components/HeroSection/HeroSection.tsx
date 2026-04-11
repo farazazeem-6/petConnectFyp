@@ -17,9 +17,11 @@ import {
   WhyChooseCard,
   WhyChooseTitle,
 } from './HeroSection.style';
+import { Container } from '@/components/elements';
 
 export const HeroSection = () => {
   return (
+    <Container>
     <HeroSectionWrapper>
       {/* ---- Left Side ---- */}
       <HeroSectionContentLeft>
@@ -96,5 +98,6 @@ export const HeroSection = () => {
         </HeroCatImageWrapper>
       </HeroSectionContentRight>
     </HeroSectionWrapper>
+    </Container>
   );
 };

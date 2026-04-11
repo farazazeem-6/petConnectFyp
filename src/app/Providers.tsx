@@ -24,7 +24,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
       {mounted ? (
         <>
           <Header />
-          <Container>{children}</Container>
+          <>{children}</>
         </>
       ) : (
         <Loader />
