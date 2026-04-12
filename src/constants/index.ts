@@ -5,3 +5,4 @@ export * from './messages';
 export * from './howItWorks';
 export * from './petServices';
 export * from './stats';
+export * from './testimonials';
