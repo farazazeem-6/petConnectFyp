@@ -6,3 +6,4 @@ export * from './howItWorks';
 export * from './petServices';
 export * from './stats';
 export * from './testimonials';
+export * from './footer';
