@@ -1,6 +1,7 @@
 export const messages = {
-  Hero: {
-    HeroHeading: `Adopt a Friend. Create a Family.`,
-    HeroDescription: `Connect with verified shelters near you, adopt a lifelong companion, or donate to ensure no animal goes without warmth, food, and care.`,
-  },
+  email: {
+    success: "🎉 You're subscribed!",
+    already_subscribed: 'This email is already subscribed.',
+    error: 'Something went wrong. Please try again.',
+  }
 };
