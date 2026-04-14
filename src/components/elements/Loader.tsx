@@ -14,7 +14,7 @@ const Spinner = styled(Box, {
   width: '$px$40',
   height: '$px$40',
   borderRadius: '$percent$50',
-  border: '$px$3 solid $dark',
+  border: '$px$3 solid $main',
   borderTopColor: '$text',
   animation: `${rotate360} 0.8s linear infinite`,
 });

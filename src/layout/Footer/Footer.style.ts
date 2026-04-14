@@ -144,17 +144,30 @@ export const FooterLinksList = styled(Flex, {
 export const FooterLink = styled('a', {
     fontSize: '$fontSize$sm',
     fontWeight: '$fontWeight$normal',
-    color: '$dimWhite !important',
+    color: '$white !important',
     opacity: '0.9',
     textDecoration: 'none',
-    transition: 'opacity 0.2s ease',
     cursor: 'pointer',
     width: 'fit-content',
+    position: 'relative',
+    transition: 'color 0.15s',
+
+    '&::after': {
+        content: '""',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        width: '0%',
+        height: '1px',
+        backgroundColor: '$white',
+        transition: 'width 0.4s ease',
+    },
 
     '&:hover': {
         opacity: '1',
-        textDecoration: 'underline',
-        textUnderlineOffset: '3px',
+        '&::after': {
+            width: '$percent$100',
+        },
     },
 });
 
