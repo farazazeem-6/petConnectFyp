@@ -31,3 +31,5 @@ export { default as AdoptPetsIcon } from './Icons/AdoptPetsIcon';
 export { default as CatIcon } from './Icons/CatIcon';
 export { default as DogIcon } from './Icons/DogIcon';
 export { default as PetLitterIcon } from './Icons/PetLitterIcon';
+export { default as GoogleIcon } from './Icons/GoogleIcon';
+export { default as BackArrowIcon } from './Icons/BackArrowIcon';

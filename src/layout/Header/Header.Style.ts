@@ -143,3 +143,65 @@ export const MobileMenuButton = styled('button', {
     display: 'flex',
   },
 });
+
+// ─── User avatar dropdown menu ───────────────────────────
+export const UserMenu = styled('div', {
+  position: 'relative',
+  display: 'inline-flex',
+  alignItems: 'center',
+});
+
+export const UserMenuDropdown = styled('ul', {
+  listStyle: 'none',
+  margin: 0,
+  padding: '$px$6 0',
+  position: 'absolute',
+  top: 'calc(100% + $px$10)',
+  right: 0,
+  minWidth: '$px$180',
+  backgroundColor: '$white',
+  borderRadius: '$radius$lg',
+  boxShadow: '0 8px 32px rgba(0,0,0,0.14)',
+  border: '1px solid rgba(0,0,0,0.06)',
+  zIndex: 200,
+  // entrance animation
+  animation: 'menuFadeIn 0.18s ease',
+  '@keyframes menuFadeIn': {
+    from: { opacity: 0, transform: 'translateY(-6px)' },
+    to:   { opacity: 1, transform: 'translateY(0)' },
+  },
+});
+
+export const UserMenuItem = styled('button', {
+  all: 'unset',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$px$10',
+  width: '$percent$100',
+  boxSizing: 'border-box',
+  px: '$px$16',
+  py: '$px$10',
+  fontSize: '$fontSize$sm',
+  color: '$primaryHeading',
+  cursor: 'pointer',
+  transition: 'background-color 0.15s ease',
+
+  '&:hover': { backgroundColor: '#fdf5f7', color: '$main' },
+
+  variants: {
+    danger: {
+      true: {
+        color: '$errorColor',
+        '&:hover': { backgroundColor: '#fff5f5', color: '$errorColor' },
+      },
+    },
+  },
+});
+
+export const UserMenuDivider = styled('li', {
+  height: '1px',
+  backgroundColor: '$gray3',
+  mx: '$px$12',
+  my: '$px$4',
+  listStyle: 'none',
+});
