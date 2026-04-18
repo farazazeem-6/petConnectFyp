@@ -7,3 +7,5 @@ export * from './petServices';
 export * from './stats';
 export * from './testimonials';
 export * from './footer';
+export * from './getAlertStyle';
+export * from './staticRoutes';

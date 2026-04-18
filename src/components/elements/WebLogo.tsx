@@ -36,6 +36,7 @@ type WebLogoProps = {
   iconSize?: number;
   fontSize?: number;
   fontWeight?: string;
+  onClick?: () => void;
 };
 
 export const WebLogo: React.FC<WebLogoProps> = ({
