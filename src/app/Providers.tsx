@@ -32,12 +32,6 @@ const AuthInitializer = ({ children }: { children: React.ReactNode }) => {
 const AppShell = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const isAuthRoute = AUTH_ROUTES.some((r) => pathname?.startsWith(r));
-  const { loading: authLoading } = useAuth();
-
-  if (authLoading) {
-    return <Loader />;
-  }
-
   return (
     <>
       <Toaster

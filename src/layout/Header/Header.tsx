@@ -33,7 +33,7 @@ export const Header = ({ activeNav = HeaderEnum.HOME }: HeaderProps) => {
     handleNavigation,
   } = useHeader();
 
-  const { user, handleLogout } = useAuth();
+  const { user, handleLogout, loading } = useAuth();
   const router = useRouter();
   const { isMobile } = useScreenWidth();
 
@@ -103,7 +103,9 @@ export const Header = ({ activeNav = HeaderEnum.HOME }: HeaderProps) => {
           </Flex>
 
           {/* Auth area */}
-          {user ? (
+          {loading ? (
+            <Box css={{ width: '$px$70' }} />
+          ) : user ? (
             <HeaderDropdown
               avatarSrc={(user as any).photo ?? undefined}
               avatarFallbackText={
