@@ -3,8 +3,10 @@ import { styled } from '@/theme';
 import Link from 'next/link';
 
 export const HeaderWrapper = styled(Flex, {
-  position: 'sticky',
+  position: 'fixed',
   top: 0,
+  left: 0,
+  right: 0,
   width: '$percent$100',
   zIndex: 100,
   height: '$px$85',

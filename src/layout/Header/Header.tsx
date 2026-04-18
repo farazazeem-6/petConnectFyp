@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { HeaderEnum } from '@/utils/enums';
 import {
@@ -10,16 +9,16 @@ import {
   MobileMenuButton,
   NavLinkItem,
   NavList,
-  UserMenu,
-  UserMenuDivider,
-  UserMenuDropdown,
-  UserMenuItem,
 } from './Header.Style';
-import { Avatar, Box, Flex, WebLogo } from '@/components/elements';
-import { MenuIcon } from '@/components/svgs';
+import { Box, Flex, WebLogo } from '@/components/elements';
+import { MenuIcon, UserIcon, SignOutIcon } from '@/components/svgs';
 import { Sidebar } from '../SideBar';
-import { NAV_ITEMS } from '@/constants';
-import { useHeader, useAuth } from '@/hooks';
+import { NAV_ITEMS, StaticRoutes } from '@/constants';
+import { useHeader, useAuth, useScreenWidth } from '@/hooks';
+import {
+  HeaderDropdown,
+  TDropdownMenuItem,
+} from '@/components/ui/HeaderDropdown';
 
 interface HeaderProps {
   activeNav?: HeaderEnum;
@@ -36,26 +35,30 @@ export const Header = ({ activeNav = HeaderEnum.HOME }: HeaderProps) => {
 
   const { user, handleLogout } = useAuth();
   const router = useRouter();
-
-  const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-
-  // Close dropdown on outside click
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setMenuOpen(false);
-      }
-    };
-    if (menuOpen) document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [menuOpen]);
+  const { isMobile } = useScreenWidth();
 
   const onLogout = async () => {
-    setMenuOpen(false);
     await handleLogout();
-    router.push('/');
+    router.push(StaticRoutes.HOME);
   };
+
+  const menuItems: TDropdownMenuItem[] = [
+    {
+      label: 'My Profile',
+      icon: (
+        <UserIcon css={{ height: '$px$20', color: '$main', stroke: '$main' }} />
+      ),
+      onClick: () => router.push(StaticRoutes.PROFILE),
+    },
+    {
+      label: 'Sign Out',
+      icon: <SignOutIcon css={{ height: '$px$20', color: '$main' }} />,
+      onClick: onLogout,
+      css: {
+        color: '$main',
+      },
+    },
+  ];
 
   return (
     <>
@@ -83,7 +86,7 @@ export const Header = ({ activeNav = HeaderEnum.HOME }: HeaderProps) => {
               },
             }}
           >
-            <WebLogo />
+            <WebLogo onClick={() => router.push(StaticRoutes.HOME)} />
           </Box>
 
           {/* Desktop nav */}
@@ -101,71 +104,24 @@ export const Header = ({ activeNav = HeaderEnum.HOME }: HeaderProps) => {
 
           {/* Auth area */}
           {user ? (
-            <UserMenu ref={menuRef}>
-              {/* Avatar trigger button */}
-              <button
-                style={{
-                  all: 'unset',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '4px',
-                  borderRadius: '50%',
-                  transition: 'opacity 0.2s',
-                }}
-                onClick={() => setMenuOpen((o) => !o)}
-                aria-label="User menu"
-                aria-expanded={menuOpen}
-              >
-                <Avatar
-                  src={(user as any).photo ?? undefined}
-                  fallbackText={(user as any).name ?? (user as any).email ?? 'U'}
-                  size="sm"
-                  css={{ border: '2px solid rgba(255,255,255,0.75)' }}
-                />
-              </button>
-
-              {/* Dropdown */}
-              {menuOpen && (
-                <UserMenuDropdown>
-                  {/* User info header */}
-                  <li style={{
-                    padding: '10px 16px 8px',
-                    borderBottom: '1px solid #f0f0f0',
-                    listStyle: 'none',
-                  }}>
-                    <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#1a1a2e', lineHeight: 1.4 }}>
-                      {(user as any).name ?? 'User'}
-                    </div>
-                    <div style={{ fontSize: '0.75rem', color: '#888', marginTop: 2, wordBreak: 'break-all' }}>
-                      {(user as any).email}
-                    </div>
-                  </li>
-
-                  <li>
-                    <UserMenuItem
-                      type="button"
-                      onClick={() => { setMenuOpen(false); router.push('/profile'); }}
-                    >
-                      My Profile
-                    </UserMenuItem>
-                  </li>
-
-                  <UserMenuDivider />
-
-                  <li>
-                    <UserMenuItem type="button" onClick={onLogout} danger>
-                      Sign Out
-                    </UserMenuItem>
-                  </li>
-                </UserMenuDropdown>
-              )}
-            </UserMenu>
+            <HeaderDropdown
+              avatarSrc={(user as any).photo ?? undefined}
+              avatarFallbackText={
+                (user as any).name ?? (user as any).email ?? 'U'
+              }
+              avatarSize={isMobile ? 'sm' : 'md'}
+              menuItems={menuItems}
+            />
           ) : (
-            <LoginButton onClick={() => router.push('/auth')}>Login</LoginButton>
+            <LoginButton onClick={() => router.push(StaticRoutes.AUTH)}>
+              Login
+            </LoginButton>
           )}
         </HeaderContent>
       </HeaderWrapper>
+
+      {/* Spacer to prevent layout shift because HeaderWrapper is now position fixed instead of sticky */}
+      <Box css={{ height: '$px$85', width: '100%', flexShrink: 0 }} />
 
       <Sidebar
         isMobileMenuOpen={isMobileMenuOpen}

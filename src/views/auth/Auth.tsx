@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { WebLogo } from '@/components/elements';
+import { NextJSImage, WebLogo } from '@/components/elements';
 import { BackArrowIcon } from '@/components/svgs';
 import {
   AuthPageWrapper,
@@ -11,8 +11,10 @@ import {
   BrandTagline,
   FormCard,
   FormPanel,
+  MobileHeader,
+  MobileBackBtn,
 } from './Auth.Style';
-import { LoginForm, SignupForm } from './AuthForms';
+import { LoginForm, SignupForm } from './components';
 
 type TAuthMode = 'login' | 'signup';
 
@@ -22,20 +24,36 @@ export const Auth = () => {
 
   return (
     <AuthPageWrapper>
-      {/* ── Left branding panel — NEVER scrolls ── */}
+      {/* ── Left branding panel ── */}
       <BrandPanel>
         {/* Back button sits top-left of the brand panel */}
         <BackBtn onClick={() => router.back()} aria-label="Go back">
           <BackArrowIcon />
         </BackBtn>
 
-        <WebLogo color="#ffffff" iconSize={52} fontSize={34} fontWeight="700" />
+        <WebLogo
+          color="$white"
+          iconSize={52}
+          fontSize={34}
+          fontWeight="$fontWeights$bold"
+        />
+  
         <BrandTagline>
-          Find, adopt &amp; care for<br />your perfect furry companion
+          Find, adopt &amp; care love
+          <br />
+          your perfect furry companion
         </BrandTagline>
       </BrandPanel>
 
-      {/* ── Right scrollable form panel — no back button here ── */}
+      {/* ── Mobile Header (Visible only when left panel is hidden) ── */}
+      <MobileHeader>
+        <MobileBackBtn onClick={() => router.back()} aria-label="Go back">
+          <BackArrowIcon />
+        </MobileBackBtn>
+        <WebLogo color="$white" iconSize={32} fontSize={24} />
+      </MobileHeader>
+
+      {/* ── Right scrollable form panel*/}
       <FormPanel>
         <FormCard>
           {mode === 'login' ? (

@@ -10,6 +10,7 @@ import { store } from '@/store';
 import { usePathname } from 'next/navigation';
 
 import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAuth } from '@/hooks/useAuth';
 import { listenToAuthChanges } from '@/lib/firebase/auth.listener';
 import { Toaster } from 'react-hot-toast';
 
@@ -31,6 +32,11 @@ const AuthInitializer = ({ children }: { children: React.ReactNode }) => {
 const AppShell = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const isAuthRoute = AUTH_ROUTES.some((r) => pathname?.startsWith(r));
+  const { loading: authLoading } = useAuth();
+
+  if (authLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -69,11 +75,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
           storageKey="app-theme"
         >
           <ThemeSync />
-          {mounted ? (
-            <AppShell>{children}</AppShell>
-          ) : (
-            <Loader />
-          )}
+          {mounted ? <AppShell>{children}</AppShell> : <Loader />}
         </ThemeProvider>
       </AuthInitializer>
     </ReduxProvider>

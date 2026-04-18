@@ -7,3 +7,5 @@ export * from './useFooterNewsletter';
 export * from './useAppDispatch';
 export * from './useAppSelector';
 export * from './useAuth';
+export * from './useAlertModal';
+export * from './useClickOutside';

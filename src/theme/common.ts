@@ -249,6 +249,8 @@ const defaultTokens = {
     3.5: 3.5,
     4: 4,
     5: 5,
+    '0_55': 0.55,
+    '0_6': 0.6,
     6: 6,
     7: 7,
     8: 8,
@@ -275,6 +277,7 @@ const defaultTokens = {
     30: '30%',
     33: '33%',
     40: '40%',
+    42: '42%',
     50: '50%',
     60: '60%',
     70: '70%',
@@ -309,7 +312,12 @@ const defaultTokens = {
       '0 20px 60px rgba(0, 0, 0, 0.15), 0 12px 40px rgba(34, 139, 34, 0.1)',
     imgOverlay:
       'linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 100%)',
-    mainShadow: 'rgba(160, 48, 72, 0.12)'
+    mainShadow: 'rgba(160, 48, 72, 0.12)',
+    formCard: '0 8px 40px rgba(160, 48, 72, 0.08)',
+    inputFocusMain: '0 0 0 3px rgba(160, 48, 72, 0.1)',
+    inputFocusError: '0 0 0 3px rgba(220, 38, 38, 0.12)',
+    googleBtnHover: '0 2px 8px rgba(160, 48, 72, 0.1)',
+    cardShadow2: '0 4px 20px rgba(0, 0, 0, 0.3)',
   },
 };
 const defaultColors = {
@@ -410,6 +418,7 @@ const defaultColors = {
   dGreen: '#1E7B3D',
   disabledSlotColor: '#aaa',
   backgroundDisabledSlot: '#f3f3f3',
+  homeDropdownBg: '#eef2ff',
   ghostBtn: '#F3F4F6',
   dimWhite: '#F5F0F1',
   neutralGray: '#ddd',

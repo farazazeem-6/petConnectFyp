@@ -10,6 +10,7 @@ const lightThemeOpt = {
     backgroundContrast: '$accents0',
     threeBarIcon: '#4A2985',
     selectorHover: '#ddd7d7ff',
+    profileDropdownBorder: '#e0e7ff',
     //semantic colors
     ...slate,
     ...blackAlpha,
@@ -79,6 +80,36 @@ const lightThemeOpt = {
     cardHoverColor: '#FFF5FA',
     white: '#FFFFFF',
     profileCardBorder: '#e4e5e7',
+    authBg: '#f7f8fc',
+    white75: 'rgba(255,255,255,0.75)',
+    white22: 'rgba(255,255,255,0.22)',
+    white12: 'rgba(255,255,255,0.12)',
+
+    // Alert Modal Colors
+    alertErrorBg: '#FEE2E2',
+    alertErrorBorder: '#FCA5A5',
+    alertErrorText: '#991B1B',
+    alertErrorButton: '#DC2626',
+
+    alertWarningBg: '#FEF3C7',
+    alertWarningBorder: '#FCD34D',
+    alertWarningText: '#92400E',
+    alertWarningButton: '#D97706',
+
+    alertSuccessBg: '#D1FAE5',
+    alertSuccessBorder: '#6EE7B7',
+    alertSuccessText: '#065F46',
+    alertSuccessButton: '#059669',
+
+    alertEditBg: '#F3E8FF',
+    alertEditBorder: '#D8B4FE',
+    alertEditText: '#6B21A8',
+    alertEditButton: '#9333EA',
+
+    alertInfoBg: '#F8FAFC',
+    alertInfoBorder: '#E2E8F0',
+    alertInfoText: '#334155',
+    alertInfoButton: '#3B82F6',
 
     // Gray scale
     gray1: '#F8F9FA',
@@ -102,6 +133,7 @@ const lightThemeOpt = {
     greenGradient1: 'linear-gradient(to right, #1E7B3D, #3ABF78)',
     greenGradient2: 'linear-gradient(to right, #15803D, #34D399)',
     greenishGradient: 'linear-gradient(to top, #006400, #228B22, #32CD32)',
+    profileDropdownBg: 'linear-gradient(135deg, #f8fafc 60%, #e0e7ff 100%)',
   },
   opacity: {
     mid: '$ul$0.9',

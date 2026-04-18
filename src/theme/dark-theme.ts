@@ -72,10 +72,38 @@ const darkThemeOpt = {
     cardBorderColor: '#ffffff',
     cardHoverColor: '#2A2D38',
 
+    authBg: '#121620',
+
     gradientButtonBorder: 'transparent',
     footerTextColor: '#575758',
     skeletonBaseColor: '#2d2f3a',
     skeletonHighlightColor: '#f5f5f51a',
+
+    // Alert Modal Colors
+    alertErrorBg: '#450A0A',
+    alertErrorBorder: '#7F1D1D',
+    alertErrorText: '#FECACA',
+    alertErrorButton: '#DC2626',
+
+    alertWarningBg: '#451A03',
+    alertWarningBorder: '#78350F',
+    alertWarningText: '#FDE68A',
+    alertWarningButton: '#D97706',
+
+    alertSuccessBg: '#022C22',
+    alertSuccessBorder: '#064E3B',
+    alertSuccessText: '#A7F3D0',
+    alertSuccessButton: '#059669',
+
+    alertEditBg: '#2E1065',
+    alertEditBorder: '#4C1D95',
+    alertEditText: '#E9D5FF',
+    alertEditButton: '#9333EA',
+
+    alertInfoBg: '#1E293B',
+    alertInfoBorder: '#334155',
+    alertInfoText: '#CBD5E1',
+    alertInfoButton: '#3B82F6',
 
     // Gray scale
     gray1: '#1A1D20',
