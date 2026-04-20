@@ -20,3 +20,4 @@ export * from './Dialog';
 export * from './Overlay';
 export * from './IconButton';
 export * from './Select';
+export * from './CardGrid';
