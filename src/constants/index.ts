@@ -9,3 +9,4 @@ export * from './testimonials';
 export * from './footer';
 export * from './getAlertStyle';
 export * from './staticRoutes';
+export * from './devices';
