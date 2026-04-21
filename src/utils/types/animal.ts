@@ -3,12 +3,14 @@ export interface Animal {
     name: string;
     type: 'dog' | 'cat' | 'bird';
     breed?: string;
+    color?: string,
     age: number;
-    sex?: 'male' | 'female';
+    sex?: 'male' | 'female' | 'unknown';
     city?: string;
+    address: string
     status: 'available' | 'adopted';
     image: string;
-    description: string;
+    description?: string;
     vaccinated?: boolean;
     neutered?: boolean;
     createdAt?: any;
