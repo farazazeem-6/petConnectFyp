@@ -23,7 +23,6 @@ export const addAnimal = async (
 //  Get All Animals
 export const getAnimals = async (): Promise<Animal[]> => {
     const snapshot = await getDocs(collection(db, "animals"));
-
     return snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
