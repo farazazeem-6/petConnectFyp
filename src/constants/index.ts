@@ -10,3 +10,4 @@ export * from './footer';
 export * from './getAlertStyle';
 export * from './staticRoutes';
 export * from './devices';
+export * from './filterOptions';

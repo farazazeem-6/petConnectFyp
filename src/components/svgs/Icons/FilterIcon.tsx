@@ -1,6 +1,6 @@
-import Svg, { SvgProps } from '../svgs'
+import Svg, { SvgProps } from '../svgs';
 
-const Icon: React.FC<SvgProps> = props => {
+const Icon: React.FC<SvgProps> = (props) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,12 +13,13 @@ const Icon: React.FC<SvgProps> = props => {
       strokeLinecap="round"
       strokeLinejoin="round"
       {...props}
-      css={{ stroke: '$main', ...props?.css }}
+      css={{ ...props?.css }}
     >
-      <path d="M21.801 10A10 10 0 1 1 17 3.335" />
-      <path d="m9 11 3 3L22 4" />
+      <path d="M2 5h20" />
+      <path d="M6 12h12" />
+      <path d="M9 19h6" />
     </Svg>
-  )
-}
+  );
+};
 
-export default Icon
+export default Icon;

@@ -44,3 +44,4 @@ export { default as ArrowIcon } from './Icons/ArrowIcon';
 export { default as SignOutIcon } from './Icons/SignOutIcon';
 export { default as WrongIcon } from './Icons/WrongIcon';
 export { default as TickIcon } from './Icons/TickIcon';
+export { default as FilterIcon } from './Icons/FilterIcon';

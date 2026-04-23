@@ -26,27 +26,25 @@ const RadioButton = styled('div', {
   justifyContent: 'center',
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06)',
   '&:hover': {
-    borderColor: '#22c55e',
+    borderColor: '$main',
     boxShadow:
       '0 4px 12px rgba(34, 197, 94, 0.15), 0 2px 4px rgba(34, 197, 94, 0.1)',
-    // transform: 'translateY(-1px)',
   },
   variants: {
     checked: {
       true: {
-        borderColor: '#16a34a',
-        backgroundColor: '#16a34a',
+        borderColor: '$main',
+        backgroundColor: '$main',
         '&::after': {
           content: '',
           width: '8px',
           height: '8px',
           borderRadius: '50%',
           backgroundColor: 'white',
-          // boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
         },
         '&:hover': {
-          borderColor: '#15803d',
-          backgroundColor: '#15803d',
+          borderColor: '$main',
+          backgroundColor: '$main',
         },
       },
     },
@@ -67,7 +65,7 @@ const RadioButton = styled('div', {
   // Focus styles for accessibility
   '&:focus-within': {
     outline: 'none',
-    borderColor: '#22c55e',
+    borderColor: '$main',
   },
 });
 type TRadioProps = {

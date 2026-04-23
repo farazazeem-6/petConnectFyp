@@ -1,5 +1,3 @@
-// ─── Component ───────────────────────────────────────────────────
-
 import { AnimalCardProps } from '@/utils/types';
 import {
   AdoptButton,
@@ -9,12 +7,11 @@ import {
   CardRoot,
   ContentWrapper,
   ImageWrapper,
-  LocationBtn,
   NameBlock,
   NameRow,
 } from './AnimalCard.style';
-import { Text } from '@/components/elements';
-import { LocationIcon } from '@/components/svgs';
+import { Text, EmptyPlaceholder } from '@/components/elements';
+import { PawIcon } from '@/components/svgs';
 
 export function AnimalCard({
   image,
@@ -23,13 +20,24 @@ export function AnimalCard({
   age,
   badges,
   onAdopt,
-  onLocationClick,
 }: AnimalCardProps) {
   return (
     <CardRoot role="article" aria-label={`${name} — available for adoption`}>
       {/* Animal photo */}
       <ImageWrapper>
-        <AnimalImage src={image} alt={`Photo of ${name}`} loading="lazy" />
+        {image ? (
+          <AnimalImage
+            src={image}
+            alt={`Photo of ${name}`}
+            loading="lazy"
+          />
+        ) : (
+          <EmptyPlaceholder
+            variant="card"
+            title="No Image"
+            icon={<PawIcon css={{ color: '$main' }} width={36} height={36} />}
+          />
+        )}
       </ImageWrapper>
 
       <ContentWrapper>
@@ -45,22 +53,10 @@ export function AnimalCard({
               {name}
             </Text>
 
-            <Text heading="h8" color="gray">
+            <Text heading="h8" css={{ color: '$slateGray', fontWeight: '$fontWeight$medium' }}>
               {breed} • {age}
             </Text>
           </NameBlock>
-
-          {/* Drop your LocationIcon here */}
-          <LocationBtn
-            type="button"
-            aria-label="View location"
-            onClick={(e: React.MouseEvent) => {
-              e.stopPropagation();
-              onLocationClick?.();
-            }}
-          >
-            <LocationIcon css={{ color: '$main' }} width={16} height={16} />
-          </LocationBtn>
         </NameRow>
 
         {/* Health / status badges */}
@@ -74,7 +70,7 @@ export function AnimalCard({
 
         {/* CTA */}
         <AdoptButton
-          variant="primary"
+          variant="default"
           size="md"
           onClick={(e: React.MouseEvent) => {
             e.stopPropagation();

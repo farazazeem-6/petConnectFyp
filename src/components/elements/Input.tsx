@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled } from '@/theme';
+import { CSS, styled } from '@/theme';
 import { Flex } from './Flex';
 
 // ───────── Types ──────────────────
@@ -15,7 +15,8 @@ type TInputFieldProps = Omit<
   variant?: 'filled' | 'outline' | 'ghost' | 'simple';
   invalid?: boolean;
   maxLength?: number;
-  id?: number;
+  id?: number | string;
+  css?: CSS;
 };
 
 // ───────── Styling ──────────────────
@@ -30,8 +31,8 @@ const StyledInput = styled('input', {
   borderRadius: '$px$8',
   backgroundColor: '$background',
   width: '$percent$100',
-  border: '$px$1 solid $border',
-  outline: '$px$1 solid $border',
+  border: '$px$1 solid $main',
+  outline: 'none',
   transition: 'all 0.2s ease',
 
   variants: {
@@ -132,6 +133,7 @@ export const Input = React.forwardRef<HTMLInputElement, TInputFieldProps>(
       variant,
       invalid,
       id,
+      css,
       ...props
     },
     ref,
@@ -151,6 +153,7 @@ export const Input = React.forwardRef<HTMLInputElement, TInputFieldProps>(
           invalid={invalid}
           maxLength={maxLength}
           id={id}
+          css={css}
           {...props}
         />
         {contentRight && <InputSlot side="right">{contentRight}</InputSlot>}
