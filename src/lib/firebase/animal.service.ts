@@ -5,11 +5,11 @@ import {
     getDocs,
 } from "firebase/firestore";
 import { db } from "./db";
-import { Animal } from "@/utils/types";
+import { TAnimal } from "@/utils/types";
 
 //  Add Animal
 export const addAnimal = async (
-    animal: Omit<Animal, "status" | "createdAt" | "id">
+    animal: Omit<TAnimal, "status" | "createdAt" | "id">
 ) => {
     const docRef = await addDoc(collection(db, "animals"), {
         ...animal,
@@ -21,7 +21,7 @@ export const addAnimal = async (
 };
 
 //  Get All Animals
-export const getAnimals = async (): Promise<Animal[]> => {
+export const getAnimals = async (): Promise<TAnimal[]> => {
     const snapshot = await getDocs(collection(db, "animals"));
     return snapshot.docs.map((doc) => {
         const data = doc.data();
@@ -33,5 +33,5 @@ export const getAnimals = async (): Promise<Animal[]> => {
                 ? data.createdAt.toDate().toISOString()
                 : new Date().toISOString(),
         };
-    }) as Animal[];
+    }) as TAnimal[];
 };
