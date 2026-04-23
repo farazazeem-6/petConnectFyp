@@ -1,4 +1,4 @@
-export interface Animal {
+export interface TAnimal {
     id?: string;
     name: string;
     type: 'dog' | 'cat' | 'bird';

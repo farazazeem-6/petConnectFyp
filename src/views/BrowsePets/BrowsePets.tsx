@@ -4,13 +4,12 @@ import { Text, Flex } from '@/components/elements';
 import {
   AnimalCard,
   AnimalCardSkeleton,
-  FilterState,
   FilterSidebar,
 } from '@/components/ui';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { fetchAnimals } from '@/store/animal';
 import type { RootState } from '@/store/store';
-import type { Animal } from '@/utils/types';
+import type { TAnimal, TFilterState } from '@/utils/types';
 import {
   ContentRow,
   GridArea,
@@ -24,7 +23,7 @@ import {
 import { FilterIcon, PawIcon } from '@/components/svgs';
 import { EmptyPlaceholder } from '@/components/elements';
 
-const defaultFilters: FilterState = {
+const defaultFilters: TFilterState = {
   animalType: '',
   breed: '',
   minAge: '',
@@ -41,7 +40,7 @@ export function BrowsePets() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   // Active filter state
-  const [filters, setFilters] = useState<FilterState>(defaultFilters);
+  const [filters, setFilters] = useState<TFilterState>(defaultFilters);
 
   // Fetch animals from Firebase on mount
   React.useEffect(() => {
@@ -54,7 +53,7 @@ export function BrowsePets() {
 
   // ── Client-side filter logic ────────────────────────────────
   const filtered = useMemo(() => {
-    return animals.filter((a: Animal) => {
+    return animals.filter((a: TAnimal) => {
       // Animal type — single-select, '' means no filter
       if (filters.animalType && a.type !== filters.animalType) return false;
       // Breed — '' means no filter
@@ -130,7 +129,7 @@ export function BrowsePets() {
               />
             ) : (
               <PetGrid>
-                {filtered.map((animal: Animal) => (
+                {filtered.map((animal: TAnimal) => (
                   <AnimalCard
                     key={animal.id}
                     image={animal.image}

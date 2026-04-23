@@ -1,4 +1,4 @@
-export interface FilterState {
+export interface TFilterState {
     animalType: string;
     breed: string;
     minAge: string;
@@ -8,9 +8,9 @@ export interface FilterState {
     vaccinated: boolean;
 }
 
-export interface FilterSidebarProps {
-    filters: FilterState;
-    onChange: (updated: FilterState) => void;
+export interface TFilterSidebarProps {
+    filters: TFilterState;
+    onChange: (updated: TFilterState) => void;
     onReset: () => void;
     isOpen: boolean;
     onClose: () => void;
