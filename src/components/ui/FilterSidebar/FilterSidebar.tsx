@@ -30,7 +30,7 @@ import {
   SidebarScrollArea,
 } from './FilterSidebar.style';
 import { CloseIcon } from '@/components/svgs';
-import { FilterSidebarProps, FilterState } from '@/utils/types';
+import { TFilterSidebarProps, TFilterState } from '@/utils/types';
 
 export function FilterSidebar({
   filters,
@@ -40,9 +40,9 @@ export function FilterSidebar({
   onClose,
   breedOptions = DEFAULT_BREED_OPTIONS,
   cityOptions = DEFAULT_CITY_OPTIONS,
-}: FilterSidebarProps) {
+}: TFilterSidebarProps) {
   const set = useCallback(
-    <K extends keyof FilterState>(key: K, value: FilterState[K]) =>
+    <K extends keyof TFilterState>(key: K, value: TFilterState[K]) =>
       onChange({ ...filters, [key]: value }),
     [filters, onChange],
   );
