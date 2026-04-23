@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Animal } from "@/utils/types";
+import { TAnimal } from "@/utils/types";
 
 interface AnimalState {
-    list: Animal[];
+    list: TAnimal[];
     loading: boolean;
     error: string | null;
 }
@@ -17,12 +17,12 @@ const animalSlice = createSlice({
     name: "animal",
     initialState,
     reducers: {
-        setAnimals: (state, action: PayloadAction<Animal[]>) => {
+        setAnimals: (state, action: PayloadAction<TAnimal[]>) => {
             state.list = action.payload;
             state.loading = false;
         },
 
-        addAnimalToState: (state, action: PayloadAction<Animal>) => {
+        addAnimalToState: (state, action: PayloadAction<TAnimal>) => {
             state.list.push(action.payload);
         },
 
