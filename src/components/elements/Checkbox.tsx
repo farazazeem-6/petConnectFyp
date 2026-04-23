@@ -9,7 +9,7 @@ const CheckboxRoot = styled(CheckboxPrimitive.Root, {
   alignItems: 'center',
   appearance: 'none',
   lineHeight: '1',
-  backgroundColor: '#E6E6E8',
+  backgroundColor: '$lightGrayLine',
   borderWidth: '1px',
   border: 'unset',
   borderRadius: '3px',

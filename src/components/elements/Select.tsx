@@ -9,7 +9,6 @@ import { Box } from './Box';
 import { SkeletonLoader } from './Skeleton';
 import { styled } from '@/theme';
 
-// ------------------- STYLES (same as yours, trimmed a bit) -------------------
 const SelectRoot = SelectPrimitive.Root;
 
 const SelectTrigger = styled(SelectPrimitive.Trigger, {
@@ -18,15 +17,31 @@ const SelectTrigger = styled(SelectPrimitive.Trigger, {
   alignItems: 'center',
   justifyContent: 'space-between',
   width: '100%',
-  padding: '$10 $14',
-  borderRadius: '$radius$10',
-  border: '1px solid $colors$borderColor',
+  padding: '$px$10 $px$14',
+  borderRadius: '$radius$md',
+  border: '1px solid $main',
+  cursor: 'pointer',
+  fontSize: '$rem$0_87',
+  color: '$foreground',
+  backgroundColor: '$white',
+  boxSizing: 'border-box',
+  transition: 'border-color 0.2s ease',
+  gap: '$px$8',
+  '&:hover': { borderColor: '$main' },
+  '&:focus': { outline: 'none', borderColor: '$main' },
+  // Placeholder text color
+  '& [data-placeholder]': { color: '$slateGray' },
 });
 
 const SelectContent = styled(SelectPrimitive.Content, {
   backgroundColor: 'white',
-  borderRadius: 12,
+  borderRadius: '$radius$lg',
   overflow: 'hidden',
+  border: '1px solid $lightGrayLine',
+  zIndex: 9999,
+  width: 'var(--radix-select-trigger-width)',
+  maxHeight: 'var(--radix-select-content-available-height)',
+  boxShadow: '$dropDown',
 });
 
 const SelectViewport = styled(SelectPrimitive.Viewport, {
@@ -34,10 +49,23 @@ const SelectViewport = styled(SelectPrimitive.Viewport, {
 });
 
 const SelectItem = styled(SelectPrimitive.Item, {
-  padding: '8px 12px',
+  padding: '$px$8 $px$12',
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
   cursor: 'pointer',
+  borderRadius: '$radius$md',
+  fontSize: '$rem$0_87',
+  outline: 'none',
+  transition: 'background 0.15s ease',
+  '&[data-highlighted]': {
+    backgroundColor: '$colorGray',
+    color: '$main',
+  },
+  '&[data-state="checked"]': {
+    fontWeight: '$fontWeight$semibold',
+    color: '$main',
+  },
 });
 
 // ------------------- TYPES -------------------
@@ -47,9 +75,10 @@ type TOption = {
 };
 
 type Props = {
-  options: TOption[];
+  options: readonly TOption[];
   value: string;
   onChange: (v: string) => void;
+  placeholder?: string;
   enableSearch?: boolean;
   enableClear?: boolean;
   loading?: boolean;
@@ -60,7 +89,7 @@ const MemoItem = React.memo(({ option }: { option: TOption }) => (
   <SelectItem value={option.value}>
     <SelectPrimitive.ItemText>{option.label}</SelectPrimitive.ItemText>
     <SelectPrimitive.ItemIndicator>
-      <CircleTickIcon />
+      <CircleTickIcon width={16} height={16} />
     </SelectPrimitive.ItemIndicator>
   </SelectItem>
 ));
@@ -70,6 +99,7 @@ export const Selection = ({
   options,
   value,
   onChange,
+  placeholder = 'Select...',
   enableSearch = true,
   enableClear = false,
   loading = false,
@@ -84,7 +114,6 @@ export const Selection = ({
     );
   }, [options, search, enableSearch]);
 
-  // ✅ Virtualizer
   const rowVirtualizer = useVirtualizer({
     count: filtered.length,
     getScrollElement: () => parentRef.current,
@@ -94,16 +123,17 @@ export const Selection = ({
 
   const showVirtual = filtered.length > 20;
 
+  const selectValue = value && value.trim() !== '' ? value : undefined;
+
   return (
-    <SelectRoot value={value} onValueChange={onChange}>
+    <SelectRoot value={selectValue} onValueChange={onChange}>
       <SelectTrigger>
-        <SelectPrimitive.Value placeholder="Select..." />
-        <ArrowIcon />
+        <SelectPrimitive.Value placeholder={placeholder} />
+        <ArrowIcon css={{ fill: '$main', transform: 'rotate(90deg)', flexShrink: 0, width: '16px', height: '16px' }} />
       </SelectTrigger>
 
       <SelectPrimitive.Portal>
-        <SelectContent>
-          {/* Search */}
+        <SelectContent position="popper" sideOffset={4}>
           {enableSearch && (
             <Box css={{ padding: 8 }}>
               <input
@@ -120,7 +150,6 @@ export const Selection = ({
             ) : filtered.length === 0 ? (
               <Text>No record found</Text>
             ) : showVirtual ? (
-              // ✅ Virtualized list
               <div
                 ref={parentRef}
                 style={{
@@ -152,7 +181,6 @@ export const Selection = ({
                 </div>
               </div>
             ) : (
-              // ✅ Normal list
               filtered.map((o) => <MemoItem key={o.value} option={o} />)
             )}
           </SelectViewport>

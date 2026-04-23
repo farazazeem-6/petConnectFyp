@@ -44,9 +44,10 @@ export const WebLogo: React.FC<WebLogoProps> = ({
   iconSize = 30,
   fontSize = 22,
   fontWeight,
+  onClick,
 }) => {
   return (
-    <LogoLink>
+    <LogoLink onClick={onClick}>
       <LogoPaw css={{ '& svg': { width: iconSize, height: iconSize } }}>
         <PawIcon css={{ fill: color, stroke: color }} />
       </LogoPaw>

@@ -23,8 +23,15 @@ export const addAnimal = async (
 //  Get All Animals
 export const getAnimals = async (): Promise<Animal[]> => {
     const snapshot = await getDocs(collection(db, "animals"));
-    return snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-    })) as Animal[];
+    return snapshot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+            id: doc.id,
+            ...data,
+            // Convert Firestore Timestamp to a plain serializable ISO string
+            createdAt: data.createdAt?.toDate
+                ? data.createdAt.toDate().toISOString()
+                : new Date().toISOString(),
+        };
+    }) as Animal[];
 };

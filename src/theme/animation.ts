@@ -141,6 +141,11 @@ export const CardsShimmer = keyframes({
     backgroundPosition: '468px 0',
   },
 });
+const slideInLeft = keyframes({
+  from: { transform: 'translateX(-100%)' },
+  to: { transform: 'translateX(0)' },
+});
+
 
 export {
   slideFromLeft,
@@ -159,4 +164,5 @@ export {
   fadeInSlideRight,
   blinker,
   slideRight,
+  slideInLeft
 };

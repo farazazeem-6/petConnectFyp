@@ -8,7 +8,7 @@ const Icon: React.FC<SvgProps> = (props) => {
       height="25"
       viewBox="0 0 24 24"
       {...props}
-      css={{ color: '$dGreen', fill: 'none', ...props?.css }}
+      css={{ color: '$white', fill: 'none', ...props?.css }}
     >
       <circle
         cx="12"

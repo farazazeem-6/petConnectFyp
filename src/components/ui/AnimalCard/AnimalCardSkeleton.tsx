@@ -20,8 +20,8 @@ const CardRoot = styled(Flex, {
   backgroundColor: '$cardBgColor',
   borderRadius: '$radius$xl',
   overflow: 'hidden',
-  border: '1px solid $cardBorderColor',
-  bs: '$shadows$cardShadow',
+  border: '1px solid $main',
+  boxShadow: '$shadows$cardShadow',
   width: '$px$280',
 
   '@xs_max': {
@@ -32,7 +32,7 @@ const CardRoot = styled(Flex, {
 // Image placeholder — same 4:3 ratio
 const ImagePlaceholder = styled(Shimmer, {
   width: '$percent$100',
-  paddingTop: '$percent$75',
+  paddingTop: '60%',
   borderRadius: '0',
 });
 
@@ -46,9 +46,9 @@ const ContentWrapper = styled(Flex, {
 
 const NameRow = styled(Flex, {
   defaultVariants: {
-    justify: 'between',
     align: 'start',
   },
+  gap: '$px$8',
 });
 
 // Name block
@@ -59,12 +59,6 @@ const NameLine = styled(Shimmer, {
 });
 const BreedLine = styled(Shimmer, { height: '$px$13', width: '$percent$70' });
 
-// Location circle
-const IconCircle = styled(Shimmer, {
-  size: '$px$18',
-  borderRadius: '$radius$circle',
-  flexShrink: 0,
-});
 
 // Badge placeholders
 const BadgeRow = styled(Flex, { gap: '$px$6' });
@@ -97,11 +91,10 @@ export function AnimalCardSkeleton() {
 
       <ContentWrapper>
         <NameRow>
-          <Box>
+          <Box css={{ display: 'flex', flexDirection: 'column', gap: '$px$2', width: '100%' }}>
             <NameLine />
             <BreedLine />
           </Box>
-          <IconCircle />
         </NameRow>
 
         <BadgeRow>

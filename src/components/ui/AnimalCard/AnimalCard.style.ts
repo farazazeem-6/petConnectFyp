@@ -8,17 +8,15 @@ export const CardRoot = styled(Flex, {
     backgroundColor: '$cardBgColor',
     borderRadius: '$radius$xl',
     overflow: 'hidden',
-    border: '1px solid $cardBorderColor',
-    bs: '$shadows$cardShadow',
+    border: '1px solid $main',
+    boxShadow: '$shadows$cardShadow',
     transition: 'transform 0.2s ease, box-shadow 0.2s ease',
     cursor: 'pointer',
     width: '$px$280',
 
     '&:hover': {
         transform: 'translateY(-2px)',
-        bs: '$shadows$categoryCardHover',
     },
-
     '@xs_max': {
         width: '$percent$100',
     },
@@ -27,8 +25,7 @@ export const CardRoot = styled(Flex, {
 export const ImageWrapper = styled(Box, {
     position: 'relative',
     width: '$percent$100',
-    // 4:3 aspect ratio for the image
-    paddingTop: '$percent$75',
+    paddingTop: '60%',
     overflow: 'hidden',
     backgroundColor: '$lightGray',
 });
@@ -67,23 +64,6 @@ export const NameBlock = styled(Flex, {
     gap: '$px$2',
 });
 
-// Location icon button — icon-only, no background
-export const LocationBtn = styled('button', {
-    all: 'unset',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    cursor: 'pointer',
-    color: '$gray',
-    flexShrink: 0,
-    mt: '$px$2',
-    transition: 'color 0.2s ease',
-
-    '&:hover': {
-        color: '$main',
-    },
-});
-
 export const BadgeRow = styled(Flex, {
     flexWrap: 'wrap !important',
     gap: '$px$6',
@@ -106,9 +86,11 @@ export const Badge = styled('span', {
 
 export const AdoptButton = styled(Button, {
     width: '$percent$100',
+    boxSizing: 'border-box',
     mt: '$px$4',
     backgroundColor: '$main !important',
     letterSpacing: '0.04em',
+    color: '$white !important',
 
     '&:hover': {
         backgroundColor: '$darkMain !important',
