@@ -1,9 +1,13 @@
 'use client';
 import React, { useCallback, useMemo, useState } from 'react';
-import { Text, Flex } from '@/components/elements';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import { Text, Flex, Container, CardGrid } from '@/components/elements';
+import { useAuth } from '@/hooks';
 import {
   AnimalCard,
   AnimalCardSkeleton,
+  AnimalDetailModal,
   FilterSidebar,
 } from '@/components/ui';
 import { useAppDispatch, useAppSelector } from '@/store/store';
@@ -11,13 +15,13 @@ import { fetchAnimals } from '@/store/animal';
 import type { RootState } from '@/store/store';
 import type { TAnimal, TFilterState } from '@/utils/types';
 import {
+  AddPetCard,
+  AddPetIcon,
+  BrowseHeading,
   ContentRow,
   GridArea,
   MobileFilterBtn,
-  PageContainer,
   PageRoot,
-  PetGrid,
-  ResultsBar,
   TopBar,
 } from './BrowsePets.style';
 import { FilterIcon, PawIcon } from '@/components/svgs';
@@ -35,7 +39,10 @@ const defaultFilters: TFilterState = {
 
 export function BrowsePets() {
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const { user } = useAuth();
   const { list: animals, loading } = useAppSelector((s: RootState) => s.animal);
+  const [selectedAnimal, setSelectedAnimal] = useState<TAnimal | null>(null);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -51,9 +58,20 @@ export function BrowsePets() {
   const handleToggle = useCallback(() => setDrawerOpen((v) => !v), []);
   const handleReset = useCallback(() => setFilters(defaultFilters), []);
 
+  const handleAddPet = useCallback(() => {
+    if (!user) {
+      toast.error('You must be logged in to add an animal.');
+      router.push('/auth');
+    } else {
+      router.push('/create-listing');
+    }
+  }, [user, router]);
+
   // ── Client-side filter logic ────────────────────────────────
   const filtered = useMemo(() => {
     return animals.filter((a: TAnimal) => {
+      // user cannot saw his own listing
+      if (user && a.userId === user.uid) return false;
       // Animal type — single-select, '' means no filter
       if (filters.animalType && a.type !== filters.animalType) return false;
       // Breed — '' means no filter
@@ -69,30 +87,33 @@ export function BrowsePets() {
 
   return (
     <PageRoot>
-      <PageContainer>
-        <TopBar>
-          <Flex direction="column" css={{ gap: '4px' }}>
-            <Text
-              as="h1"
-              heading="h3"
-              css={{ color: '$main', fontWeight: '$fontWeight$bold' }}
-            >
-              Browse Pets
-            </Text>
-            <Text heading="h8" css={{ color: '$slateGray' }}>
-              Find your perfect companion
-            </Text>
-          </Flex>
+      <Container>
+        {/* Heading: hidden on desktop (md+), shown only on mobile */}
+        <BrowseHeading>
+          <TopBar>
+            <Flex direction="column" css={{ gap: '4px' }}>
+              <Text
+                as="h1"
+                heading="h3"
+                css={{ color: '$main', fontWeight: '$fontWeight$bold' }}
+              >
+                Browse Pets
+              </Text>
+              <Text heading="h8" css={{ color: '$slateGray' }}>
+                Find your perfect companion
+              </Text>
+            </Flex>
 
-          <MobileFilterBtn
-            type="button"
-            aria-label="Open filter panel"
-            onClick={handleToggle}
-          >
-            <FilterIcon css={{ color: '$white' }} width={16} height={16} />
-            Filters
-          </MobileFilterBtn>
-        </TopBar>
+            <MobileFilterBtn
+              type="button"
+              aria-label="Open filter panel"
+              onClick={handleToggle}
+            >
+              <FilterIcon css={{ color: '$white' }} width={16} height={16} />
+              Filters
+            </MobileFilterBtn>
+          </TopBar>
+        </BrowseHeading>
 
         <ContentRow>
           <FilterSidebar
@@ -104,21 +125,22 @@ export function BrowsePets() {
           />
 
           <GridArea>
-            <ResultsBar>
-              <Text
-                heading="h8"
-                css={{ color: '$slateGray', fontSize: '$rem$0_87' }}
-              >
-                {loading ? 'Loading…' : `${filtered.length} pets found`}
-              </Text>
-            </ResultsBar>
-
             {loading ? (
-              <PetGrid>
-                {Array.from({ length: 6 }).map((_, i) => (
+              <CardGrid
+                css={{
+                  gridTemplateColumns: 'repeat(4, 1fr)',
+                  gap: '$px$10',
+                  '@lg_max': { gridTemplateColumns: 'repeat(3, 1fr)' },
+                  '@md_max': {
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gap: '$px$8',
+                  },
+                }}
+              >
+                {Array.from({ length: 8 }).map((_, i) => (
                   <AnimalCardSkeleton key={i} />
                 ))}
-              </PetGrid>
+              </CardGrid>
             ) : filtered.length === 0 ? (
               <EmptyPlaceholder
                 title="No pets found"
@@ -128,7 +150,38 @@ export function BrowsePets() {
                 }
               />
             ) : (
-              <PetGrid>
+              <CardGrid
+                css={{
+                  gridTemplateColumns: 'repeat(4, 1fr)',
+                  gap: '$px$10',
+                  '@lg_max': { gridTemplateColumns: 'repeat(3, 1fr)' },
+                  '@md_max': {
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gap: '$px$8',
+                  },
+                }}
+              >
+                {/* "Add Your Pet" placeholder — navigates to create-listing */}
+                <AddPetCard
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Add your pet"
+                  onClick={handleAddPet}
+                  onKeyDown={(e) => e.key === 'Enter' && handleAddPet()}
+                >
+                  <AddPetIcon aria-hidden="true">+</AddPetIcon>
+                  <Text
+                    heading="h5"
+                    css={{
+                      color: '$main',
+                      fontWeight: '$fontWeight$semibold',
+                      textAlign: 'center',
+                    }}
+                  >
+                    Add Your Pet
+                  </Text>
+                </AddPetCard>
+
                 {filtered.map((animal: TAnimal) => (
                   <AnimalCard
                     key={animal.id}
@@ -136,6 +189,7 @@ export function BrowsePets() {
                     name={animal.name}
                     breed={animal.breed ?? ''}
                     age={`${animal.age} yr${animal.age !== 1 ? 's' : ''}`}
+                    location={animal.city ?? ''}
                     badges={
                       [
                         animal.vaccinated ? 'Vaccinated' : '',
@@ -143,13 +197,19 @@ export function BrowsePets() {
                         animal.status === 'available' ? 'Available' : 'Adopted',
                       ].filter(Boolean) as string[]
                     }
+                    onViewDetail={() => setSelectedAnimal(animal)}
                   />
                 ))}
-              </PetGrid>
+              </CardGrid>
             )}
           </GridArea>
         </ContentRow>
-      </PageContainer>
+        <AnimalDetailModal
+          isOpen={!!selectedAnimal}
+          onClose={() => setSelectedAnimal(null)}
+          animal={selectedAnimal}
+        />
+      </Container>
     </PageRoot>
   );
 }

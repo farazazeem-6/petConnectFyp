@@ -9,3 +9,4 @@ export * from './useAppSelector';
 export * from './useAuth';
 export * from './useAlertModal';
 export * from './useClickOutside';
+export * from './useScrollToError';

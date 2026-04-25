@@ -45,3 +45,5 @@ export { default as SignOutIcon } from './Icons/SignOutIcon';
 export { default as WrongIcon } from './Icons/WrongIcon';
 export { default as TickIcon } from './Icons/TickIcon';
 export { default as FilterIcon } from './Icons/FilterIcon';
+export { default as ArrowLeftIcon } from './Icons/ArrowLeftIcon';
+export { default as CameraIcon } from './Icons/CameraIcon';

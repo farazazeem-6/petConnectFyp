@@ -1,20 +1,24 @@
 import * as yup from 'yup';
 
+import { ANIMAL_OPTIONS } from '../types/animal';
+
 // ── Step 1: Animal Info ──────────────────────────────────────────
 export const step0Schema = yup.object({
     name: yup
         .string()
         .min(2, 'Name must be at least 2 characters')
+        .max(30, 'Name cannot exceed 30 characters')
         .required('Animal name is required'),
 
     species: yup
         .string()
-        .oneOf(['dog', 'cat', 'bird', 'rabbit', 'other'], 'Select a valid species')
+        .oneOf(ANIMAL_OPTIONS.map(a => a.value), 'Select a valid species')
         .required('Species is required'),
 
     breed: yup
         .string()
         .min(2, 'Breed must be at least 2 characters')
+        .max(30, 'Breed cannot exceed 30 characters')
         .required('Breed is required'),
 
     age: yup
