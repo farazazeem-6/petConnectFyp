@@ -12,7 +12,6 @@ import {
 } from './Stepper.style';
 import { CheckIcon } from '@/components/svgs';
 
-// Map stepper state to the circle's status variant
 function getCircleStatus(status: StepStatus, isActive: boolean): StepStatus {
   if (isActive) return 'active';
   return status;
@@ -26,21 +25,30 @@ export function StepperNav() {
       {steps.map((step, i) => {
         const status = state.statuses[i];
         const isActive = state.currentIndex === i;
+        const isDone = status === 'done';
         const canClick = state.visitedIndices.includes(i);
         const isLast = i === steps.length - 1;
 
         return (
           <StepperItem key={step.id}>
             <StepButton
-              isActive={isActive}
+              isActive={isActive || undefined}
+              isDone={isDone && !isActive ? true : undefined}
               onClick={() => dispatch({ type: 'GO_TO', payload: i })}
               disabled={!canClick}
               aria-current={isActive ? 'step' : undefined}
               type="button"
             >
-              {/* Circle with number or checkmark */}
               <StepCircle status={getCircleStatus(status, isActive)}>
-                {status === 'done' && !isActive ? <CheckIcon /> : i + 1}
+                {isDone && !isActive ? (
+                  <CheckIcon
+                    css={{ color: '$white' }}
+                    width={16}
+                    height={16}
+                  />
+                ) : (
+                  i + 1
+                )}
               </StepCircle>
 
               <StepLabels>
@@ -49,8 +57,8 @@ export function StepperNav() {
               </StepLabels>
             </StepButton>
 
-            {/* Line between steps */}
-            {!isLast && <StepConnector done={status === 'done'} />}
+            {/* Connector line */}
+            {!isLast && <StepConnector done={isDone} />}
           </StepperItem>
         );
       })}

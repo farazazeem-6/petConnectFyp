@@ -1,86 +1,90 @@
 import { Box, Flex } from "@/components/elements";
 import { styled } from "@/theme";
 
-// ── Nav bar ──────────────────────────────────────────────────────
 export const StepperNavRoot = styled('nav', {
-    display: 'flex',
-    alignItems: 'center',
+    display: 'flex !important',
+    alignItems: 'center !important',
     width: '$percent$100',
-    marginBottom: '$px$8',
+    marginBottom: '$px$24',
+    overflowX: 'auto',
+    '&::-webkit-scrollbar': { display: 'none' },
+    scrollbarWidth: 'none',
 });
 
 export const StepperItem = styled(Flex, {
     'defaultVariants': {
         align: 'center'
     },
-    // All items stretch equally except the last one
     '&:not(:last-child)': {
         flex: 1,
     },
 });
 
-// ── Step trigger button ──────────────────────────────────────────
 export const StepButton = styled('button', {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '$px$3',
+    display: 'flex !important',
+    alignItems: 'center !important',
+    gap: '$px$8',
     background: 'none',
     border: 'none',
     padding: 0,
     cursor: 'pointer',
-    color: '$textMuted',
+    color: '$slateGray',
     fontFamily: 'inherit',
     transition: 'color $normal',
+    whiteSpace: 'nowrap',
 
     '&:disabled': {
         cursor: 'default',
     },
 
-    // Active variant — text becomes dark
     variants: {
         isActive: {
             true: {
-                color: '$text',
+                color: '$main',
+            },
+        },
+        isDone: {
+            true: {
+                color: '$main',
             },
         },
     },
 });
 
-// ── Number / check circle ────────────────────────────────────────
 export const StepCircle = styled('span', {
-    width: '$px$32',
-    height: '$px$32',
-    borderRadius: '$full',
-    border: '1.5px solid $border',
-    background: '$bgWhite',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: '$px$36',
+    height: '$px$36',
+    borderRadius: '$radius$lg',
+    border: '$px$2 solid $lightGrayLine',
+    background: '$white',
+    display: 'flex !important',
+    alignItems: 'center !important',
+    justifyContent: 'center !important',
     fontSize: '$fontSize$sm',
-    fontWeight: '$fontWeight$semibold',
-    color: '$textFaint',
+    fontWeight: '$fontWeight$bold',
+    color: '$slateGray',
     flexShrink: 0,
-    transition: 'background $normal, border-color $normal, color $normal',
+    transition: 'background 0.22s ease, border-color 0.22s ease, color 0.22s ease',
 
     variants: {
         status: {
             pending: {
-                // default styles above
             },
             active: {
                 background: '$main',
-                borderColor: '$white',
+                borderColor: '$main',
                 color: '$white',
+                boxShadow: '0 4px 12px rgba(160,48,72,0.22)',
             },
             done: {
-                background: '$success',
-                borderColor: '$success',
-                color: '$successText',
+                background: '$main',
+                borderColor: '$main',
+                color: '$white',
             },
             error: {
                 background: '$error',
                 borderColor: '$error',
-                color: '$errorText',
+                color: '$white',
             },
         },
     },
@@ -90,103 +94,116 @@ export const StepCircle = styled('span', {
     },
 });
 
-// ── Step label text ──────────────────────────────────────────────
 export const StepLabels = styled('span', {
-    display: 'flex',
-    flexDirection: 'column',
+    display: 'flex !important',
+    flexDirection: 'column !important',
     textAlign: 'left',
+    '@sm_max': {
+        display: 'none !important',
+    },
 });
 
 export const StepLabel = styled('span', {
     fontSize: '$fontSize$sm',
-    fontWeight: '$fontWeight$medium',
+    fontWeight: '$fontWeight$semibold',
     lineHeight: 1.3,
 });
 
 export const StepSublabel = styled('span', {
     fontSize: '$fontSize$xs',
-    color: '$textFaint',
+    color: '$slateGray',
     marginTop: '1px',
 });
 
-// ── Connector line between steps ─────────────────────────────────
 export const StepConnector = styled(Box, {
     flex: 1,
-    height: '1.5px',
-    background: '$borderLight',
-    margin: '0 $3',
-    transition: 'background $normal',
+    height: '2.5px',
+    background: '$lightGrayLine',
+    margin: '0 $px$10',
+    borderRadius: '$radius$full',
+    transition: 'background 0.3s ease',
+    flexShrink: 0,
 
     variants: {
         done: {
             true: {
-                background: '$success',
+                background: '$main',
             },
         },
     },
 });
 
-// ── Bottom controls row ───────────────────────────────────────────
 export const StepperControlsRoot = styled(Flex, {
     'defaultVariants': {
         align: 'center',
         justify: 'between'
     },
-    marginTop: '$px$6',
-    paddingTop: '$px$5',
-    borderTop: '1px solid $borderLight',
+    display: 'flex !important',
+    alignItems: 'center !important',
+    justifyContent: 'space-between !important',
+    marginTop: '$px$24',
+    paddingTop: '$px$20',
+    borderTop: '1px solid $lightGrayLine',
+    gap: '$px$12',
 });
 
 export const StepProgress = styled('span', {
     fontSize: '$fontSize$xs',
-    color: '$textFaint',
+    color: '$slateGray',
+    fontWeight: '$fontWeight$medium',
+    flexShrink: 0,
 });
 
 export const ButtonGroup = styled(Flex, {
-    gap: '$px$3',
+    gap: '$px$10',
+    display: 'flex !important',
+    alignItems: 'center !important',
 });
 
-// ── Buttons ───────────────────────────────────────────────────────
 export const Button = styled('button', {
-    height: '$px$38',
-    padding: '0 $px$5',
-    borderRadius: '$md',
-    fontSize: '$fontSize$lg',
+    height: '$px$42',
+    padding: '0 $px$24',
+    borderRadius: '$radius$full',
+    fontSize: '$fontSize$sm',
     fontWeight: '$fontWeight$medium',
     fontFamily: 'inherit',
     cursor: 'pointer',
-    border: '1.5px solid transparent',
-    transition: 'background $fast, opacity $fast',
+    border: '1px solid transparent',
+    transition: 'background 0.18s ease, opacity 0.18s ease, transform 0.15s ease',
+    display: 'inline-flex !important',
+    alignItems: 'center !important',
+    justifyContent: 'center !important',
+    gap: '$px$6',
+    letterSpacing: '0.01em',
 
     '&:active': {
         transform: 'scale(0.97)',
     },
     '&:disabled': {
-        opacity: 0.4,
+        opacity: 0.38,
         cursor: 'default',
         transform: 'none',
     },
 
     variants: {
         variant: {
-            // Outlined back button
             secondary: {
-                background: '$bgWhite',
-                borderColor: '$border',
-                color: '$text',
+                background: 'transparent',
+                borderColor: '$main',
+                color: '$main',
 
                 '&:hover:not(:disabled)': {
-                    background: '$bgHover',
+                    background: '$dimWhite',
                 },
             },
-            // Solid primary continue/submit button
             primary: {
-                background: '$primary',
-                borderColor: '$primary',
-                color: '$primaryText',
+                background: '$main',
+                borderColor: '$main',
+                color: '$white',
 
                 '&:hover:not(:disabled)': {
-                    background: '$primaryHover',
+                    background: '$darkMain',
+                    borderColor: '$darkMain',
                 },
             },
         },

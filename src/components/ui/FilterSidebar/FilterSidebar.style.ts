@@ -15,9 +15,11 @@ export const SidebarRoot = styled(Box, {
   boxShadow: '$cardShadow',
   display: 'flex',
   flexDirection: 'column',
-  maxHeight: 'calc(100vh - 48px)',
   position: 'sticky',
   top: '$px$24',
+  maxHeight: 'calc(100vh - 96px)',
+  overflow: 'hidden',
+  alignSelf: 'flex-start',
 
   '@md_max': {
     position: 'fixed',
@@ -106,7 +108,7 @@ export const OptionRow = styled(Box, {
 export const AgeRangeRow = styled(Flex, {
   gap: '$px$10',
   alignItems: 'flex-start',
-  width: '100%',
+  width: '$percent$100',
 });
 
 export const AgeFieldWrapper = styled(Box, {
@@ -128,7 +130,7 @@ export const AgeLabel = styled(Text, {
 export const ResetButton = styled('button', {
   all: 'unset',
   display: 'block',
-  width: '100%',
+  width: '$percent$100',
   marginTop: '$px$16',
   padding: '$rem$0_75 $rem$1',
   textAlign: 'center',

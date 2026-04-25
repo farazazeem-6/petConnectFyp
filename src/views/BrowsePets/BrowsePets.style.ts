@@ -8,14 +8,6 @@ export const PageRoot = styled(Box, {
   paddingBottom: '$px$48',
 });
 
-export const PageContainer = styled(Box, {
-  maxWidth: '$px$1200',
-  margin: '0 auto',
-  paddingInline: '$px$24',
-  '@md_max': { paddingInline: '$px$16' },
-  '@sm_max': { paddingInline: '$px$12' },
-});
-
 export const TopBar = styled(Flex, {
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -23,23 +15,23 @@ export const TopBar = styled(Flex, {
   gap: '$px$12',
 });
 
+// Only visible on mobile where the sidebar is a drawer
+export const BrowseHeading = styled(Box, {
+  display: 'none',
+  '@md_max': {
+    display: 'block',
+  },
+});
+
 export const ContentRow = styled(Flex, {
   alignItems: 'flex-start',
-  gap: '$px$24',
+  gap: '$px$20',
   '@md_max': { gap: 0 },
 });
 
 export const GridArea = styled(Box, {
   flex: 1,
   minWidth: 0,
-});
-
-export const PetGrid = styled(Box, {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: '$px$20',
-  '@lg_max': { gridTemplateColumns: 'repeat(2, 1fr)' },
-  '@sm_max': { gridTemplateColumns: '1fr' },
 });
 
 export const ResultsBar = styled(Flex, {
@@ -49,7 +41,6 @@ export const ResultsBar = styled(Flex, {
   paddingBottom: '$px$12',
   borderBottom: '1px solid $lightGrayLine',
 });
-
 
 export const MobileFilterBtn = styled('button', {
   display: 'none',
@@ -68,5 +59,43 @@ export const MobileFilterBtn = styled('button', {
     boxShadow: '$md',
     transition: 'background 0.2s ease',
     '&:hover': { backgroundColor: '$darkMain' },
+  },
+});
+
+export const AddPetCard = styled(Box, {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '$px$10',
+  backgroundColor: '$white',
+  border: '2px dashed $lightGrayLine',
+  borderRadius: '$radius$lg',
+  cursor: 'pointer',
+  transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+  alignSelf: 'stretch',
+  padding: '$px$20',
+  '&:hover': {
+    borderColor: '$main',
+    boxShadow: '$cardShadow',
+  },
+});
+
+export const AddPetIcon = styled(Box, {
+  width: '48px',
+  height: '48px',
+  borderRadius: '$radius$full',
+  border: '3px solid $main',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  boxSizing: 'border-box',
+  color: '$main',
+  fontSize: '28px',
+  lineHeight: 1,
+  fontWeight: '$fontWeight$light',
+  transition: 'background 0.2s ease',
+  '$parent:hover &': {
+    backgroundColor: '$dimWhite',
   },
 });

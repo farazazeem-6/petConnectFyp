@@ -9,11 +9,11 @@ import { TAnimal } from "@/utils/types";
 
 //  Add Animal
 export const addAnimal = async (
-    animal: Omit<TAnimal, "status" | "createdAt" | "id">
-) => {
-    const docRef = await addDoc(collection(db, "animals"), {
+    animal: Omit<TAnimal, 'status' | 'createdAt' | 'id' | 'imageFile'>
+): Promise<string> => {
+    const docRef = await addDoc(collection(db, 'animals'), {
         ...animal,
-        status: "available",
+        status: 'available',
         createdAt: serverTimestamp(),
     });
 

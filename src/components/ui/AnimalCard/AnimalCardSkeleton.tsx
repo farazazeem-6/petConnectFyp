@@ -1,8 +1,6 @@
 import { Box, Flex } from '@/components/elements';
 import { CardsShimmer, styled } from '@/theme';
 
-// ─── Shimmer animation ────────────────────────────────────────────
-
 const Shimmer = styled(Box, {
   backgroundColor: '$skeletonBaseColor',
   backgroundImage: '$skeletonGradient',
@@ -11,7 +9,6 @@ const Shimmer = styled(Box, {
   borderRadius: '$radius$sm',
 });
 
-// ─── Card shell — same dimensions as real card ────────────────────
 
 const CardRoot = styled(Flex, {
   defaultVariants: {
@@ -22,17 +19,13 @@ const CardRoot = styled(Flex, {
   overflow: 'hidden',
   border: '1px solid $main',
   boxShadow: '$shadows$cardShadow',
-  width: '$px$280',
-
-  '@xs_max': {
-    width: '100%',
-  },
+  width: '$percent$100',
+  minWidth: 0,
 });
 
-// Image placeholder — same 4:3 ratio
 const ImagePlaceholder = styled(Shimmer, {
   width: '$percent$100',
-  paddingTop: '60%',
+  paddingTop: '$percent$60',
   borderRadius: '0',
 });
 
@@ -51,7 +44,6 @@ const NameRow = styled(Flex, {
   gap: '$px$8',
 });
 
-// Name block
 const NameLine = styled(Shimmer, {
   height: '$px$18',
   width: '$percent$50',
@@ -60,7 +52,6 @@ const NameLine = styled(Shimmer, {
 const BreedLine = styled(Shimmer, { height: '$px$13', width: '$percent$70' });
 
 
-// Badge placeholders
 const BadgeRow = styled(Flex, { gap: '$px$6' });
 const BadgePill = styled(Shimmer, {
   height: '$px$22',
@@ -74,7 +65,6 @@ const BadgePill = styled(Shimmer, {
   },
 });
 
-// Button placeholder
 const ButtonPlaceholder = styled(Shimmer, {
   height: '$px$38',
   width: '$percent$100',
@@ -82,7 +72,6 @@ const ButtonPlaceholder = styled(Shimmer, {
   mt: '$px$4',
 });
 
-// ─── Component ───────────────────────────────────────────────────
 
 export function AnimalCardSkeleton() {
   return (

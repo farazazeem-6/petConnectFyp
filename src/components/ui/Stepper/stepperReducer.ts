@@ -45,7 +45,6 @@ export function stepperReducer(state: StepperState, action: StepperAction): Step
         }
 
         case 'GO_TO': {
-            // Only allow jumping to already-visited steps
             if (!state.visitedIndices.includes(action.payload)) return state;
             return {
                 ...state,

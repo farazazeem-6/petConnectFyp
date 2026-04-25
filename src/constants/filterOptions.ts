@@ -1,10 +1,4 @@
-// ─── Filter Sidebar Constants ──────────────────────────────────────────────
-
-export const ANIMAL_TYPE_OPTIONS = [
-  { label: 'Dog', value: 'dog' },
-  { label: 'Cat', value: 'cat' },
-  { label: 'Bird', value: 'bird' },
-] as const;
+export { ANIMAL_OPTIONS as ANIMAL_TYPE_OPTIONS } from '@/utils/types/animal';
 
 export const DEFAULT_BREED_OPTIONS: string[] = [
   'Labrador',

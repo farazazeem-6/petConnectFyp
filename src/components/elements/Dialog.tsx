@@ -170,8 +170,8 @@ const StyledCloseButton = styled(DialogPrimitive.Close, {
   },
 
   '&:hover': {
-    backgroundColor: '$slate12',
-    borderRadius: '$radius$rounded',
+    backgroundColor: '$transparent',
+    borderRadius: '$px$12',
   },
 
   variants: {
@@ -191,16 +191,6 @@ const StyledCloseButton = styled(DialogPrimitive.Close, {
     alignHorizontal: false,
   },
 });
-// TODO latter
-// const StickyHeader = styled('div', {
-//   position: 'sticky',
-//   top: 0,
-//   zIndex: 10,
-//   backgroundColor: '$slate12',
-//   display: 'flex',
-//   justifyContent: 'flex-end',
-
-// })
 
 type DialogContentPrimitiveProps = React.ComponentProps<
   typeof DialogPrimitive.Content
@@ -232,7 +222,7 @@ const DialogContent = React.forwardRef<
               {/* <StickyHeader> */}
               {showCloseIcon && (
                 <StyledCloseButton alignHorizontal={alignCloseButtonHorizontal}>
-                  <CloseIcon aria-hidden="true" css={{ fill: '$light' }} />
+                  <CloseIcon aria-hidden="true" css={{ fill: '$main' }} />
                 </StyledCloseButton>
               )}
               {/* </StickyHeader> */}

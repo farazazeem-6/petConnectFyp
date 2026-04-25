@@ -12,20 +12,18 @@ export const CardRoot = styled(Flex, {
     boxShadow: '$shadows$cardShadow',
     transition: 'transform 0.2s ease, box-shadow 0.2s ease',
     cursor: 'pointer',
-    width: '$px$280',
+    width: '$percent$100',
+    minWidth: 0,
 
     '&:hover': {
         transform: 'translateY(-2px)',
-    },
-    '@xs_max': {
-        width: '$percent$100',
     },
 });
 
 export const ImageWrapper = styled(Box, {
     position: 'relative',
     width: '$percent$100',
-    paddingTop: '60%',
+    paddingTop: '$percent$60',
     overflow: 'hidden',
     backgroundColor: '$lightGray',
 });
@@ -62,6 +60,8 @@ export const NameBlock = styled(Flex, {
         direction: 'column'
     },
     gap: '$px$2',
+    width: '$percent$100',
+    minWidth: 0,
 });
 
 export const BadgeRow = styled(Flex, {
@@ -85,14 +85,52 @@ export const Badge = styled('span', {
 });
 
 export const AdoptButton = styled(Button, {
-    width: '$percent$100',
+    flex: 1,
     boxSizing: 'border-box',
-    mt: '$px$4',
     backgroundColor: '$main !important',
     letterSpacing: '0.04em',
     color: '$white !important',
 
     '&:hover': {
         backgroundColor: '$darkMain !important',
+    },
+});
+
+export const AgeBadge = styled('span', {
+    display: 'inline-flex',
+    alignItems: 'center',
+    px: '$px$10',
+    py: '$px$2',
+    borderRadius: '$radius$lg',
+    fontSize: '$px$12',
+    fontWeight: '$fontWeight$semibold',
+    letterSpacing: '0.03em',
+    backgroundColor: '$dimWhite',
+    color: '$main',
+    border: '1px solid $main',
+    whiteSpace: 'nowrap',
+});
+
+export const ButtonGroup = styled(Flex, {
+    gap: '$px$8',
+    width: '$percent$100',
+    mt: '$px$4',
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    '@xs_max': {
+        flexDirection: 'column',
+    },
+});
+
+export const ViewDetailButton = styled(Button, {
+    flex: 1,
+    boxSizing: 'border-box',
+    backgroundColor: 'transparent !important',
+    color: '$main !important',
+    border: '1px solid $main !important',
+    letterSpacing: '0.04em',
+
+    '&:hover': {
+        backgroundColor: '$dimWhite !important',
     },
 });

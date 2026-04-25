@@ -17,11 +17,9 @@ const SelectTrigger = styled(SelectPrimitive.Trigger, {
   alignItems: 'center',
   justifyContent: 'space-between',
   width: '100%',
-  padding: '$px$10 $px$14',
   borderRadius: '$radius$md',
   border: '1px solid $main',
   cursor: 'pointer',
-  fontSize: '$rem$0_87',
   color: '$foreground',
   backgroundColor: '$white',
   boxSizing: 'border-box',
@@ -29,8 +27,17 @@ const SelectTrigger = styled(SelectPrimitive.Trigger, {
   gap: '$px$8',
   '&:hover': { borderColor: '$main' },
   '&:focus': { outline: 'none', borderColor: '$main' },
-  // Placeholder text color
   '& [data-placeholder]': { color: '$slateGray' },
+  variants: {
+    inputSize: {
+      sm: { padding: '$rem$0_37 $rem$0_75', fontSize: '$rem$0_75' },
+      md: { padding: '$rem$1 $rem$1', fontSize: '$rem$0_87' },
+      lg: { padding: '$rem$1_25 $rem$1', fontSize: '$rem$1_06' },
+    },
+  },
+  defaultVariants: {
+    inputSize: 'md',
+  },
 });
 
 const SelectContent = styled(SelectPrimitive.Content, {
@@ -74,6 +81,8 @@ type TOption = {
   value: string;
 };
 
+type TComponentSize = 'sm' | 'md' | 'lg';
+
 type Props = {
   options: readonly TOption[];
   value: string;
@@ -82,6 +91,7 @@ type Props = {
   enableSearch?: boolean;
   enableClear?: boolean;
   loading?: boolean;
+  inputSize?: TComponentSize;
 };
 
 // ------------------- ITEM -------------------
@@ -103,6 +113,7 @@ export const Selection = ({
   enableSearch = true,
   enableClear = false,
   loading = false,
+  inputSize = 'md',
 }: Props) => {
   const parentRef = useRef<HTMLDivElement>(null);
   const [search, setSearch] = useState('');
@@ -127,7 +138,7 @@ export const Selection = ({
 
   return (
     <SelectRoot value={selectValue} onValueChange={onChange}>
-      <SelectTrigger>
+      <SelectTrigger inputSize={inputSize}>
         <SelectPrimitive.Value placeholder={placeholder} />
         <ArrowIcon css={{ fill: '$main', transform: 'rotate(90deg)', flexShrink: 0, width: '16px', height: '16px' }} />
       </SelectTrigger>

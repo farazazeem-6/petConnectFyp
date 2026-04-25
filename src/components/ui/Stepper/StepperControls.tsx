@@ -19,10 +19,7 @@ export function StepperControls({ onNext, onSubmit }: StepperControlsProps) {
 
   return (
     <StepperControlsRoot>
-      <StepProgress>
-        Step {state.currentIndex + 1} of {steps.length}
-      </StepProgress>
-
+      <div />
       <ButtonGroup>
         <Button
           variant="secondary"
