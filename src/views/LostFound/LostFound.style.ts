@@ -1,5 +1,5 @@
-import { Box, Flex } from "@/components/elements";
-import { styled } from "@/theme";
+import { Box, Flex } from '@/components/elements';
+import { styled } from '@/theme';
 
 export const PageRoot = styled(Box, {
   minHeight: '100dvh',
@@ -32,14 +32,6 @@ export const ContentRow = styled(Flex, {
 export const GridArea = styled(Box, {
   flex: 1,
   minWidth: 0,
-});
-
-export const ResultsBar = styled(Flex, {
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  marginBottom: '$px$16',
-  paddingBottom: '$px$12',
-  borderBottom: '1px solid $lightGrayLine',
 });
 
 export const MobileFilterBtn = styled('button', {
@@ -95,7 +87,7 @@ export const AddActionButton = styled('button', {
   '&:active': { transform: 'translateY(0)' },
 });
 
-// ── Full-width CTA banner — shown when no pets loaded yet ─────────
+// ── Full-width CTA banner shown when no data yet ───────────────
 
 export const CTABanner = styled('button', {
   all: 'unset',

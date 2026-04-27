@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { HeaderEnum } from '@/utils/enums';
 import {
   HeaderContent,
@@ -20,11 +20,8 @@ import {
   TDropdownMenuItem,
 } from '@/components/ui/HeaderDropdown';
 
-interface HeaderProps {
-  activeNav?: HeaderEnum;
-}
-
-export const Header = ({ activeNav = HeaderEnum.HOME }: HeaderProps) => {
+export const Header = () => {
+  const pathname = usePathname();
   const {
     isMobileMenuOpen,
     setIsMobileMenuOpen,
@@ -36,6 +33,16 @@ export const Header = ({ activeNav = HeaderEnum.HOME }: HeaderProps) => {
   const { user, handleLogout, loading } = useAuth();
   const router = useRouter();
   const { isMobile } = useScreenWidth();
+
+  // ── Derive active nav from current route ──────────────────────────
+  const activeNav = (() => {
+    if (pathname?.startsWith('/browse-pets') || pathname?.startsWith('/create-listing'))
+      return HeaderEnum.PETS;
+    if (pathname?.startsWith('/lost-found') || pathname?.startsWith('/report-animal'))
+      return HeaderEnum.LOSTFOUND;
+    if (pathname?.startsWith('/contact')) return HeaderEnum.CONTACT;
+    return HeaderEnum.HOME;
+  })();
 
   const onLogout = async () => {
     await handleLogout();

@@ -318,6 +318,7 @@ const defaultTokens = {
     inputFocusError: '0 0 0 3px rgba(220, 38, 38, 0.12)',
     googleBtnHover: '0 2px 8px rgba(160, 48, 72, 0.1)',
     cardShadow2: '0 4px 20px rgba(0, 0, 0, 0.3)',
+    ctaShadow: '0 4px 14px rgba(160, 48, 72, 0.35)',
   },
 };
 const defaultColors = {

@@ -16,7 +16,7 @@ import {
   CharSection,
 } from './CreateListing.style';
 
-import { CameraIcon } from '@/components/svgs';
+import { CameraIcon, TickIcon } from '@/components/svgs';
 import { Step2Fields, Step2Errors, Step2Refs } from './types';
 import {
   HEALTH_CONDITIONS,
@@ -188,8 +188,10 @@ export function Step2_MediaInfo({
                 aria-pressed={isSelected}
                 id={`health-${item.replace(/\s+/g, '-').toLowerCase()}`}
               >
-                {isSelected && '✓ '}
-                {item}
+                      {isSelected && (
+                        <TickIcon width={11} height={11} css={{ color: '$white' }} />
+                      )}
+                      {item}
               </MultiPill>
             );
           })}
@@ -220,7 +222,9 @@ export function Step2_MediaInfo({
                       aria-pressed={isSelected}
                       id={`char-${item.replace(/\s+/g, '-').toLowerCase()}`}
                     >
-                      {isSelected && '✓ '}
+                      {isSelected && (
+                        <TickIcon width={11} height={11} css={{ color: '$white' }} />
+                      )}
                       {item}
                     </MultiPill>
                   );

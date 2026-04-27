@@ -36,5 +36,29 @@ export const messages = {
     tooManyRequests: 'Too many attempts. Please wait a moment and try again.',
     network: 'Network error. Check your connection and retry.',
     googleCancelled: 'Google sign-in was cancelled.',
+    reportLogin: 'You must be logged in to report an animal.',
+  },
+  browsePets: {
+    title: 'Browse Pets',
+    subtitle: 'Find your perfect companion',
+    filterButton: 'Filters',
+    emptyTitle: 'No pets listed yet — add yours!',
+    emptySubtitle: 'Help animals find loving homes by listing your pet for adoption. It only takes a few minutes.',
+    ctaButton: '+ Add Your Pet',
+  },
+  lostFound: {
+    title: 'Lost & Found',
+    subtitle: 'Reunite pets with their families',
+    filterButton: 'Filters',
+    emptyTitle: 'No reports yet — be the first!',
+    emptySubtitle: 'Lost your pet or found a stray? Click here to submit a report and help connect animals with their families.',
+    ctaButton: '+ Report an Animal',
+    foundReportButton: 'Found / Report an Animal',
+    reportFound: 'Found / Report',
+    tabs: {
+      all: 'All',
+      lost: 'Lost',
+      found: 'Found',
+    }
   },
 };

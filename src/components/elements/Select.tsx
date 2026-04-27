@@ -62,7 +62,7 @@ const SelectItem = styled(SelectPrimitive.Item, {
   alignItems: 'center',
   cursor: 'pointer',
   borderRadius: '$radius$md',
-  fontSize: '$rem$0_87',
+  fontSize: '$px$14',
   outline: 'none',
   transition: 'background 0.15s ease',
   '&[data-highlighted]': {
@@ -140,7 +140,15 @@ export const Selection = ({
     <SelectRoot value={selectValue} onValueChange={onChange}>
       <SelectTrigger inputSize={inputSize}>
         <SelectPrimitive.Value placeholder={placeholder} />
-        <ArrowIcon css={{ fill: '$main', transform: 'rotate(90deg)', flexShrink: 0, width: '16px', height: '16px' }} />
+        <ArrowIcon
+          css={{
+            fill: '$main',
+            transform: 'rotate(90deg)',
+            flexShrink: 0,
+            width: '16px',
+            height: '16px',
+          }}
+        />
       </SelectTrigger>
 
       <SelectPrimitive.Portal>
