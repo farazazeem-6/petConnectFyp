@@ -47,3 +47,5 @@ export { default as TickIcon } from './Icons/TickIcon';
 export { default as FilterIcon } from './Icons/FilterIcon';
 export { default as ArrowLeftIcon } from './Icons/ArrowLeftIcon';
 export { default as CameraIcon } from './Icons/CameraIcon';
+export { default as CalendarIcon } from './Icons/CalendarIcon';
+export { default as PaletteIcon } from './Icons/PaletteIcon';

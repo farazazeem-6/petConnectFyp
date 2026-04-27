@@ -15,16 +15,21 @@ import { fetchAnimals } from '@/store/animal';
 import type { RootState } from '@/store/store';
 import type { TAnimal, TFilterState } from '@/utils/types';
 import {
-  AddPetCard,
-  AddPetIcon,
+  AddActionBar,
+  AddActionButton,
   BrowseHeading,
   ContentRow,
+  CTABanner,
+  CTAIconRing,
+  CTAContent,
+  CTAButton,
   GridArea,
   MobileFilterBtn,
   PageRoot,
   TopBar,
 } from './BrowsePets.style';
-import { FilterIcon, PawIcon } from '@/components/svgs';
+import { FilterIcon, PawIcon, HeartArrowIcon } from '@/components/svgs';
+import { messages } from '@/constants';
 import { EmptyPlaceholder } from '@/components/elements';
 
 const defaultFilters: TFilterState = {
@@ -37,19 +42,22 @@ const defaultFilters: TFilterState = {
   vaccinated: false,
 };
 
+const GRID_CSS = {
+  gridTemplateColumns: 'repeat(4, 1fr)',
+  gap: '$px$10',
+  '@lg_max': { gridTemplateColumns: 'repeat(3, 1fr)' },
+  '@md_max': { gridTemplateColumns: 'repeat(2, 1fr)', gap: '$px$8' },
+};
+
 export function BrowsePets() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { user } = useAuth();
   const { list: animals, loading } = useAppSelector((s: RootState) => s.animal);
   const [selectedAnimal, setSelectedAnimal] = useState<TAnimal | null>(null);
-
   const [drawerOpen, setDrawerOpen] = useState(false);
-
-  // Active filter state
   const [filters, setFilters] = useState<TFilterState>(defaultFilters);
 
-  // Fetch animals from Firebase on mount
   React.useEffect(() => {
     dispatch(fetchAnimals());
   }, [dispatch]);
@@ -67,14 +75,10 @@ export function BrowsePets() {
     }
   }, [user, router]);
 
-  // ── Client-side filter logic ────────────────────────────────
   const filtered = useMemo(() => {
     return animals.filter((a: TAnimal) => {
-      // user cannot saw his own listing
       if (user && a.userId === user.uid) return false;
-      // Animal type — single-select, '' means no filter
       if (filters.animalType && a.type !== filters.animalType) return false;
-      // Breed — '' means no filter
       if (filters.breed && a.breed !== filters.breed) return false;
       if (filters.minAge !== '' && a.age < Number(filters.minAge)) return false;
       if (filters.maxAge !== '' && a.age > Number(filters.maxAge)) return false;
@@ -85,10 +89,13 @@ export function BrowsePets() {
     });
   }, [animals, filters]);
 
+  const hasResults = !loading && filtered.length > 0;
+  const emptyAndDoneLoading = !loading && filtered.length === 0;
+
   return (
     <PageRoot>
       <Container>
-        {/* Heading: hidden on desktop (md+), shown only on mobile */}
+        {/* Mobile heading */}
         <BrowseHeading>
           <TopBar>
             <Flex direction="column" css={{ gap: '4px' }}>
@@ -97,20 +104,19 @@ export function BrowsePets() {
                 heading="h3"
                 css={{ color: '$main', fontWeight: '$fontWeight$bold' }}
               >
-                Browse Pets
+                {messages.browsePets.title}
               </Text>
               <Text heading="h8" css={{ color: '$slateGray' }}>
-                Find your perfect companion
+                {messages.browsePets.subtitle}
               </Text>
             </Flex>
-
             <MobileFilterBtn
               type="button"
               aria-label="Open filter panel"
               onClick={handleToggle}
             >
               <FilterIcon css={{ color: '$white' }} width={16} height={16} />
-              Filters
+              {messages.browsePets.filterButton}
             </MobileFilterBtn>
           </TopBar>
         </BrowseHeading>
@@ -125,63 +131,75 @@ export function BrowsePets() {
           />
 
           <GridArea>
-            {loading ? (
-              <CardGrid
-                css={{
-                  gridTemplateColumns: 'repeat(4, 1fr)',
-                  gap: '$px$10',
-                  '@lg_max': { gridTemplateColumns: 'repeat(3, 1fr)' },
-                  '@md_max': {
-                    gridTemplateColumns: 'repeat(2, 1fr)',
-                    gap: '$px$8',
-                  },
-                }}
+            {/* ── Action bar: always visible, independent of loading state ── */}
+            <AddActionBar>
+              <Text
+                heading="h8"
+                css={{ color: '$slateGray', fontWeight: '$fontWeight$medium' }}
               >
+                {!loading && `${filtered.length} pet${filtered.length !== 1 ? 's' : ''} found`}
+              </Text>
+              <AddActionButton
+                type="button"
+                id="add-pet-btn"
+                aria-label="Add your pet"
+                onClick={handleAddPet}
+              >
+                {messages.browsePets.ctaButton}
+              </AddActionButton>
+            </AddActionBar>
+
+            {/* ── Loading ── */}
+            {loading && (
+              <CardGrid css={GRID_CSS}>
                 {Array.from({ length: 8 }).map((_, i) => (
                   <AnimalCardSkeleton key={i} />
                 ))}
               </CardGrid>
-            ) : filtered.length === 0 ? (
-              <EmptyPlaceholder
-                title="No pets found"
-                subtitle="Try adjusting your filters to discover more pets."
-                icon={
-                  <PawIcon css={{ color: '$main' }} width={48} height={48} />
-                }
-              />
-            ) : (
-              <CardGrid
-                css={{
-                  gridTemplateColumns: 'repeat(4, 1fr)',
-                  gap: '$px$10',
-                  '@lg_max': { gridTemplateColumns: 'repeat(3, 1fr)' },
-                  '@md_max': {
-                    gridTemplateColumns: 'repeat(2, 1fr)',
-                    gap: '$px$8',
-                  },
-                }}
+            )}
+
+            {/* ── Empty state: full-width CTA banner ── */}
+            {emptyAndDoneLoading && (
+              <CTABanner
+                type="button"
+                aria-label="Add your pet"
+                onClick={handleAddPet}
+                id="add-pet-cta-banner"
               >
-                {/* "Add Your Pet" placeholder — navigates to create-listing */}
-                <AddPetCard
-                  role="button"
-                  tabIndex={0}
-                  aria-label="Add your pet"
-                  onClick={handleAddPet}
-                  onKeyDown={(e) => e.key === 'Enter' && handleAddPet()}
-                >
-                  <AddPetIcon aria-hidden="true">+</AddPetIcon>
+                <CTAIconRing>
+                  <HeartArrowIcon
+                    width={36}
+                    height={36}
+                    css={{ color: '$main' }}
+                  />
+                </CTAIconRing>
+                <CTAContent>
                   <Text
-                    heading="h5"
+                    heading="h3"
                     css={{
                       color: '$main',
-                      fontWeight: '$fontWeight$semibold',
-                      textAlign: 'center',
+                      fontWeight: '$fontWeight$bold',
+                      lineHeight: 1.3,
                     }}
                   >
-                    Add Your Pet
+                    {messages.browsePets.emptyTitle}
                   </Text>
-                </AddPetCard>
+                  <Text
+                    heading="h8"
+                    css={{ color: '$slateGray', lineHeight: 1.6 }}
+                  >
+                    {messages.browsePets.emptySubtitle}
+                  </Text>
+                </CTAContent>
+                <CTAButton>
+                  {messages.browsePets.ctaButton}
+                </CTAButton>
+              </CTABanner>
+            )}
 
+            {/* ── Has results: grid ── */}
+            {hasResults && (
+              <CardGrid css={GRID_CSS}>
                 {filtered.map((animal: TAnimal) => (
                   <AnimalCard
                     key={animal.id}
@@ -204,6 +222,7 @@ export function BrowsePets() {
             )}
           </GridArea>
         </ContentRow>
+
         <AnimalDetailModal
           isOpen={!!selectedAnimal}
           onClose={() => setSelectedAnimal(null)}

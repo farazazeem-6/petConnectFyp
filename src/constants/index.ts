@@ -5,6 +5,7 @@ export * from './messages';
 export * from './howItWorks';
 export * from './petServices';
 export * from './stats';
+export * from './tabs';
 export * from './testimonials';
 export * from './footer';
 export * from './getAlertStyle';

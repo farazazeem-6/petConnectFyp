@@ -18,49 +18,47 @@ import {
 import { ArrowLeftIcon } from '@/components/svgs';
 import { useScrollToError } from '@/hooks';
 import { useAuth } from '@/hooks/useAuth';
-import { PageRoot, FormCard, PageHeader, BackBtn } from './CreateListing.style';
-import { Step1_AnimalInfo } from './Step1_AnimalInfo';
-import { Step2_MediaInfo } from './Step2_MediaInfo';
-import { Step3_ContactInfo } from './Step3_ContactInfo';
-import { validateStep1, validateStep2, validateStep3 } from './schema';
+import { PageRoot, FormCard, PageHeader, BackBtn } from './ReportAnimal.style';
+import { Step0_ReportType } from './Step0_ReportType';
+import { Step1_AnimalDetails } from './Step1_AnimalDetails';
+import { Step2_PhotoInfo } from './Step2_PhotoInfo';
+import { Step3_LocationContact } from './Step3_LocationContact';
+import {
+  validateStep0,
+  validateStep1,
+  validateStep2,
+  validateStep3,
+} from './schema';
 import type {
-  Step1Fields,
-  Step1Errors,
-  Step1Refs,
-  Step2Fields,
-  Step2Errors,
-  Step2Refs,
-  Step3Fields,
-  Step3Errors,
-  Step3Refs,
+  Step0Fields, Step0Errors, Step0Refs,
+  Step1Fields, Step1Errors, Step1Refs,
+  Step2Fields, Step2Errors, Step2Refs,
+  Step3Fields, Step3Errors, Step3Refs,
 } from './types';
 import {
   STEPS,
   FLOW_ID,
+  defaultStep0,
   defaultStep1,
   defaultStep2,
   defaultStep3,
 } from './constants';
-import { addAnimal } from '@/lib/firebase/animal.service';
+import { addLostFoundReport } from '@/lib/firebase/animal.service';
 import { uploadImageToCloudinary } from '@/lib/cloudinary';
 
-// ── Guarded controls (inside provider context) ────────────────────
+// ── Guarded controls ──────────────────────────────────────────────
 interface GuardedControlsProps {
   onNextGuard: (currentIndex: number) => boolean;
   onFinalSubmit: () => void;
   isSubmitting: boolean;
 }
 
-function GuardedControls({
-  onNextGuard,
-  onFinalSubmit,
-  isSubmitting,
-}: GuardedControlsProps) {
+function GuardedControls({ onNextGuard, onFinalSubmit, isSubmitting }: GuardedControlsProps) {
   const { state, dispatch, steps } = useStepper();
   const isFirst = state.currentIndex === 0;
   const isLast = state.currentIndex === steps.length - 1;
 
-  // ── Scroll to top whenever step changes ──────────────────────────
+  // ── Scroll to top whenever step changes ──────────────────
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [state.currentIndex]);
@@ -96,100 +94,113 @@ function GuardedControls({
 }
 
 // ── Inner view ────────────────────────────────────────────────────
-function CreateListingInner() {
+function ReportAnimalInner() {
   const router = useRouter();
   const { user, loading } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Redirect to login if unauthenticated
+  // Redirect to auth if not logged in
   React.useEffect(() => {
     if (!loading && !user) {
-      toast.error('You must be logged in to access this page.');
+      toast.error('You must be logged in to report an animal.');
       router.replace('/auth');
     }
   }, [user, loading, router]);
 
-  // ── Step 1 ──────────────────────────────────────────────
+  // ── Step 0 ────────────────────────────────────────────────
+  const [step0, setStep0] = useState<Step0Fields>(defaultStep0);
+  const [step0Errors, setStep0Errors] = useState<Step0Errors>({});
+  const step0Refs: Step0Refs = {
+    reportType: useRef<HTMLDivElement>(null),
+  };
+  const { scrollToFirstError: scrollStep0 } = useScrollToError<Step0Errors>(
+    step0Refs as Record<keyof Step0Errors, React.RefObject<HTMLElement | null>>,
+    step0Errors,
+  );
+  const handleStep0Change = useCallback((patch: Partial<Step0Fields>) => {
+    setStep0((prev) => ({ ...prev, ...patch }));
+    setStep0Errors({});
+  }, []);
+
+  // ── Step 1 ────────────────────────────────────────────────
   const [step1, setStep1] = useState<Step1Fields>(defaultStep1);
   const [step1Errors, setStep1Errors] = useState<Step1Errors>({});
-
   const step1Refs: Step1Refs = {
     name: useRef<HTMLInputElement>(null),
-    age: useRef<HTMLInputElement>(null),
     type: useRef<HTMLDivElement>(null),
-    breed: useRef<HTMLInputElement>(null),
+    color: useRef<HTMLInputElement>(null),
+    age: useRef<HTMLInputElement>(null),
+    distinguishingFeatures: useRef<HTMLTextAreaElement>(null),
   };
-
   const { scrollToFirstError: scrollStep1 } = useScrollToError<Step1Errors>(
     step1Refs as Record<keyof Step1Errors, React.RefObject<HTMLElement | null>>,
     step1Errors,
   );
-
   const handleStep1Change = useCallback((patch: Partial<Step1Fields>) => {
     setStep1((prev) => ({ ...prev, ...patch }));
     setStep1Errors((prev) => {
       const next = { ...prev };
-      (Object.keys(patch) as (keyof Step1Errors)[]).forEach(
-        (k) => delete next[k],
-      );
+      (Object.keys(patch) as (keyof Step1Errors)[]).forEach((k) => delete next[k]);
       return next;
     });
   }, []);
 
-  // ── Step 2 ──────────────────────────────────────────────
+  // ── Step 2 ────────────────────────────────────────────────
   const [step2, setStep2] = useState<Step2Fields>(defaultStep2);
   const [step2Errors, setStep2Errors] = useState<Step2Errors>({});
-
   const step2Refs: Step2Refs = {
     image: useRef<HTMLDivElement>(null),
-    healthCondition: useRef<HTMLDivElement>(null),
   };
-
   const { scrollToFirstError: scrollStep2 } = useScrollToError<Step2Errors>(
     step2Refs as Record<keyof Step2Errors, React.RefObject<HTMLElement | null>>,
     step2Errors,
   );
-
   const handleStep2Change = useCallback((patch: Partial<Step2Fields>) => {
     setStep2((prev) => ({ ...prev, ...patch }));
     setStep2Errors((prev) => {
       const next = { ...prev };
       if (patch.imageFile !== undefined || patch.imagePreviewUrl !== undefined)
         delete next.image;
-      if (patch.healthCondition !== undefined) delete next.healthCondition;
       return next;
     });
   }, []);
 
-  // ── Step 3 ──────────────────────────────────────────────
+  // ── Step 3 ────────────────────────────────────────────────
   const [step3, setStep3] = useState<Step3Fields>(defaultStep3);
   const [step3Errors, setStep3Errors] = useState<Step3Errors>({});
-
   const step3Refs: Step3Refs = {
-    phoneNumber: useRef<HTMLInputElement>(null),
-    city: useRef<HTMLInputElement>(null),
+    lastSeenLocation: useRef<HTMLInputElement>(null),
+    lastSeenDate: useRef<HTMLInputElement>(null),
+    contactNumber: useRef<HTMLInputElement>(null),
   };
-
   const { scrollToFirstError: scrollStep3 } = useScrollToError<Step3Errors>(
     step3Refs as Record<keyof Step3Errors, React.RefObject<HTMLElement | null>>,
     step3Errors,
   );
-
   const handleStep3Change = useCallback((patch: Partial<Step3Fields>) => {
     setStep3((prev) => ({ ...prev, ...patch }));
     setStep3Errors((prev) => {
       const next = { ...prev };
-      (Object.keys(patch) as (keyof Step3Errors)[]).forEach(
-        (k) => delete next[k],
-      );
+      (Object.keys(patch) as (keyof Step3Errors)[]).forEach((k) => delete next[k]);
       return next;
     });
   }, []);
 
-  // ── Next guard ──────────────────────────────────────────
+  // ── Next guard ────────────────────────────────────────────
   const onNextGuard = useCallback(
     (currentIndex: number): boolean => {
       if (currentIndex === 0) {
+        const errors = validateStep0(step0);
+        if (Object.keys(errors).length > 0) {
+          setStep0Errors(errors);
+          setTimeout(() => scrollStep0(errors), 0);
+          toast.error('Please select a report type to continue.');
+          return false;
+        }
+        setStep0Errors({});
+      }
+
+      if (currentIndex === 1) {
         const errors = validateStep1(step1);
         if (Object.keys(errors).length > 0) {
           setStep1Errors(errors);
@@ -200,12 +211,12 @@ function CreateListingInner() {
         setStep1Errors({});
       }
 
-      if (currentIndex === 1) {
+      if (currentIndex === 2) {
         const errors = validateStep2(step2);
         if (Object.keys(errors).length > 0) {
           setStep2Errors(errors);
           setTimeout(() => scrollStep2(errors), 0);
-          toast.error('Please fill in all required fields first.');
+          toast.error('Please upload a photo of the animal.');
           return false;
         }
         setStep2Errors({});
@@ -213,12 +224,11 @@ function CreateListingInner() {
 
       return true;
     },
-    [step1, step2, scrollStep1, scrollStep2],
+    [step0, step1, step2, scrollStep0, scrollStep1, scrollStep2],
   );
 
-  // ── Final submit ────────────────────────────────────────
+  // ── Final submit ──────────────────────────────────────────
   const handleFinalSubmit = useCallback(async () => {
-    // Validate step 3 first
     const errors = validateStep3(step3);
     if (Object.keys(errors).length > 0) {
       setStep3Errors(errors);
@@ -231,59 +241,71 @@ function CreateListingInner() {
     setIsSubmitting(true);
 
     if (!user?.uid) {
-      toast.error('You must be logged in to create a listing.');
+      toast.error('You must be logged in to report an animal.');
       setIsSubmitting(false);
       return;
     }
 
     try {
-      //  Try uploading image to Cloudinary — never block on failure
+      // Upload image to Cloudinary — isolated so a failure doesn't block submission
       let imageUrl = '';
       if (step2.imageFile) {
-        const uploaded = await uploadImageToCloudinary(step2.imageFile);
-        if (uploaded) {
-          imageUrl = uploaded;
-        } else {
-          console.log(
-            '[CreateListing] Cloudinary upload failed — continuing without image.',
-          );
+        try {
+          const uploaded = await uploadImageToCloudinary(step2.imageFile);
+          if (uploaded) {
+            imageUrl = uploaded;
+          } else {
+            toast('Photo upload failed — report will be saved without an image.', {
+              icon: '⚠️',
+            });
+          }
+        } catch {
+          toast('Photo upload failed — report will be saved without an image.', {
+            icon: '⚠️',
+          });
         }
       }
 
-      //  Build Firestore payload
+      // Build Firestore payload — strip undefined/empty optional fields
       const payload = {
         userId: user.uid,
+        reportType: step0.reportType as 'lost' | 'found',
         name: step1.name.trim(),
         type: step1.type,
-        breed: step1.breed.trim(),
-        age: Number(step1.age),
+        color: step1.color.trim(),
+        age: step1.age.trim(),
         sex: step1.gender,
         image: imageUrl,
-        healthCondition: step2.healthCondition,
-        characteristics: step2.characteristics,
-        city: step3.city.trim(),
-        address: step3.address.trim() || '',
-        phoneNumber: step3.phoneNumber.trim(),
-        description: step3.description.trim() || '',
+        distinguishingFeatures: step1.distinguishingFeatures.trim(),
+        lastSeenLocation: step3.lastSeenLocation.trim(),
+        lastSeenDate: step3.lastSeenDate,
+        lastSeenTime: step3.lastSeenTime || '',
+        contactNumber: step3.contactNumber.trim(),
+        // Optional fields — only include when non-empty to avoid Firestore undefined error
+        ...(step1.breed.trim() ? { breed: step1.breed.trim() } : {}),
+        ...(step3.additionalDetails.trim() ? { additionalDetails: step3.additionalDetails.trim() } : {}),
       };
 
-      // Persist to Firestore
-      await addAnimal(payload);
+      await addLostFoundReport(payload);
 
-      toast.success('Animal listed for adoption!');
+      toast.success(
+        step0.reportType === 'lost'
+          ? 'Lost animal report submitted!'
+          : 'Found animal report submitted!',
+      );
       clearState(FLOW_ID);
-      router.push('/browse-pets');
+      router.push('/lost-found');
     } catch (err) {
-      console.error('[CreateListing] Firestore error:', err);
+      console.error('[ReportAnimal] Firestore error:', err);
       toast.error('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
-  }, [step1, step2, step3, user, router, scrollStep3]);
+  }, [step0, step1, step2, step3, user, router, scrollStep3]);
 
   const handleBack = useCallback(() => {
     clearState(FLOW_ID);
-    router.push('/browse-pets');
+    router.push('/lost-found');
   }, [router]);
 
   return (
@@ -317,16 +339,26 @@ function CreateListingInner() {
                   lineHeight: 1.2,
                 }}
               >
-                Add Animal for Donation
+                Report an Animal
               </Text>
             </PageHeader>
 
             {/* ── Stepper nav ── */}
             <StepperNav />
 
-            {/* ── Step 1 ── */}
+            {/* ── Step 0 — Report Type ── */}
             <StepPanel stepIndex={0}>
-              <Step1_AnimalInfo
+              <Step0_ReportType
+                fields={step0}
+                errors={step0Errors}
+                onChange={handleStep0Change}
+                fieldRefs={step0Refs}
+              />
+            </StepPanel>
+
+            {/* ── Step 1 — Animal Details ── */}
+            <StepPanel stepIndex={1}>
+              <Step1_AnimalDetails
                 fields={step1}
                 errors={step1Errors}
                 onChange={handleStep1Change}
@@ -334,9 +366,9 @@ function CreateListingInner() {
               />
             </StepPanel>
 
-            {/* ── Step 2 ── */}
-            <StepPanel stepIndex={1}>
-              <Step2_MediaInfo
+            {/* ── Step 2 — Photo ── */}
+            <StepPanel stepIndex={2}>
+              <Step2_PhotoInfo
                 fields={step2}
                 errors={step2Errors}
                 onChange={handleStep2Change}
@@ -344,9 +376,9 @@ function CreateListingInner() {
               />
             </StepPanel>
 
-            {/* ── Step 3 – Contact Info ── */}
-            <StepPanel stepIndex={2}>
-              <Step3_ContactInfo
+            {/* ── Step 3 — Location & Contact ── */}
+            <StepPanel stepIndex={3}>
+              <Step3_LocationContact
                 fields={step3}
                 errors={step3Errors}
                 onChange={handleStep3Change}
@@ -368,10 +400,10 @@ function CreateListingInner() {
 }
 
 // ── Public export ─────────────────────────────────────────────────
-export function CreateListing() {
+export function ReportAnimal() {
   return (
     <StepperProvider steps={STEPS} flowId={FLOW_ID}>
-      <CreateListingInner />
+      <ReportAnimalInner />
     </StepperProvider>
   );
 }

@@ -90,7 +90,7 @@ const StyledInput = styled('input', {
           color: '$colors$errorColor',
         },
         '&:focus': {
-          boxShadow: '0 0 0 3px rgba(255, 0, 0, 0.25)',
+          boxShadow: 'none',
         },
       },
     },

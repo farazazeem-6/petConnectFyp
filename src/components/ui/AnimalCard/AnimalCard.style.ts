@@ -1,4 +1,4 @@
-import { Box, Button, Flex } from "@/components/elements";
+import { Box, Button, Flex, ImageWithSkeleton } from "@/components/elements";
 import { styled } from "@/theme";
 
 export const CardRoot = styled(Flex, {
@@ -28,17 +28,13 @@ export const ImageWrapper = styled(Box, {
     backgroundColor: '$lightGray',
 });
 
-export const AnimalImage = styled('img', {
+export const AnimalImage = styled(ImageWithSkeleton, {
     position: 'absolute',
     inset: 0,
     width: '$percent$100',
     height: '$percent$100',
     objectFit: 'cover',
     transition: 'transform 0.3s ease',
-
-    [`${CardRoot}:hover &`]: {
-        transform: 'scale(1.03)',
-    },
 });
 
 export const ContentWrapper = styled(Flex, {
