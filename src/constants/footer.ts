@@ -1,7 +1,9 @@
 // ---- Quick Links ----
 
+import { StaticRoutes } from "./staticRoutes";
+
 export const FOOTER_QUICK_LINKS = [
-    { id: 1, label: 'Home', href: '/' },
+    { id: 1, label: 'Home', href: StaticRoutes.HOME },
     { id: 2, label: 'About Us', href: '/about' },
     { id: 3, label: 'Contact Us', href: '/contact' },
     { id: 4, label: 'Terms & Conditions', href: '/terms-and-conditions' },

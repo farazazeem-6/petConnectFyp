@@ -26,7 +26,7 @@ export const Button = styled('button', {
         background: 'none',
         color: '$main',
         '&:hover': {
-          background: '$none',
+          background: 'none',
         },
       },
       primary: {

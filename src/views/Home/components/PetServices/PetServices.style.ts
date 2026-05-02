@@ -174,6 +174,7 @@ export const CardDescription = styled(Text, {
 });
 
 export const CardButton = styled('button', {
+  textDecoration:'none',
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',

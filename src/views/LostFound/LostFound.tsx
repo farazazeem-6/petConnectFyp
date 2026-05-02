@@ -2,7 +2,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
-import { Text, Flex, Container, CardGrid } from '@/components/elements';
+import { Text, Flex, Container, CardGrid, Button } from '@/components/elements';
 import { useAuth } from '@/hooks';
 import {
   AnimalCard,
@@ -13,7 +13,12 @@ import {
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { fetchLostFoundReports } from '@/store';
 import type { RootState } from '@/store/store';
-import type { TLostFoundReport, TFilterState, ReportTypeFilter, TabPillProps } from '@/utils/types';
+import type {
+  TLostFoundReport,
+  TFilterState,
+  ReportTypeFilter,
+  TabPillProps,
+} from '@/utils/types';
 import { messages, LOST_FOUND_TABS } from '@/constants';
 import {
   AddActionBar,
@@ -28,6 +33,7 @@ import {
   MobileFilterBtn,
   PageRoot,
   TopBar,
+  FilterTopButton,
 } from './LostFound.style';
 import {
   FilterIcon,
@@ -35,8 +41,6 @@ import {
   SearchIcon,
   LocationIcon,
 } from '@/components/svgs';
-import { EmptyPlaceholder } from '@/components/elements';
-
 
 const defaultFilters: TFilterState = {
   animalType: '',
@@ -55,34 +59,13 @@ const GRID_CSS = {
   '@md_max': { gridTemplateColumns: 'repeat(2, 1fr)', gap: '$px$8' },
 };
 
-// ── SVG tab pill ──────────────────────────────────────────────────
+// ── Filter Buttons ──────────────────────────────────────────────────
 function TabPill({ id, label, icon, active, onClick }: TabPillProps) {
   return (
-    <button
-      id={id}
-      type="button"
-      onClick={onClick}
-      style={{
-        all: 'unset',
-        cursor: 'pointer',
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: '6px',
-        padding: '8px 18px',
-        borderRadius: '999px',
-        fontSize: '0.875rem',
-        fontWeight: 600,
-        border: `1.5px solid ${active ? '#a03048' : '#e2e8f0'}`,
-        backgroundColor: active ? '#a03048' : '#ffffff',
-        color: active ? '#ffffff' : '#64748b',
-        transition: 'all 0.15s ease',
-        boxShadow: active ? '0 3px 10px rgba(160,48,72,0.22)' : 'none',
-        lineHeight: 1,
-      }}
-    >
+    <FilterTopButton variant={'default'} active={active} id={id} type="button" onClick={onClick}>
       {icon}
       {label}
-    </button>
+    </FilterTopButton>
   );
 }
 
@@ -130,8 +113,6 @@ export function LostFound() {
       return true;
     });
   }, [reports, filters, reportTypeFilter, user]);
-
-
 
   const hasResults = !loading && filtered.length > 0;
   const emptyAndDoneLoading = !loading && filtered.length === 0;
@@ -227,7 +208,11 @@ export function LostFound() {
                   id="report-cta-banner"
                 >
                   <CTAIconRing>
-                    <PawIcon width={36} height={36} css={{ color: '$main' }} />
+                    <PawIcon
+                      width={36}
+                      height={36}
+                      css={{ color: '$main', fill: '$main' }}
+                    />
                   </CTAIconRing>
                   <CTAContent>
                     <Text
