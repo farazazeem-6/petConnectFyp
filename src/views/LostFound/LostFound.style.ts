@@ -1,4 +1,4 @@
-import { Box, Flex } from '@/components/elements';
+import { Box, Button, Flex } from '@/components/elements';
 import { styled } from '@/theme';
 
 export const PageRoot = styled(Box, {
@@ -81,7 +81,7 @@ export const AddActionButton = styled('button', {
   transition: 'background 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease',
   '&:hover': {
     backgroundColor: '$darkMain',
-    boxShadow: '0 5px 18px rgba(160,48,72,0.38)',
+    boxShadow: '0 5px 18px $shadows$ctaShadow',
     transform: 'translateY(-1px)',
   },
   '&:active': { transform: 'translateY(0)' },
@@ -92,7 +92,7 @@ export const AddActionButton = styled('button', {
 export const CTABanner = styled('button', {
   all: 'unset',
   cursor: 'pointer',
-  width: '100%',
+  width: '$percent$100',
   boxSizing: 'border-box',
   display: 'flex',
   flexDirection: 'column',
@@ -103,7 +103,7 @@ export const CTABanner = styled('button', {
   marginBottom: '$px$16',
   borderRadius: '$radius$xl',
   background: 'linear-gradient(135deg, rgba(160,48,72,0.08) 0%, rgba(160,48,72,0.03) 100%)',
-  border: '2px dashed rgba(160,48,72,0.35)',
+  border: '2px dashed $shadows$ctaShadown',
   transition: 'border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease',
   textAlign: 'center',
 
@@ -120,18 +120,18 @@ export const CTABanner = styled('button', {
 });
 
 export const CTAIconRing = styled(Box, {
-  width: '72px',
-  height: '72px',
+  width: '$px$72',
+  height: '$px$72',
   borderRadius: '$radius$full',
-  backgroundColor: 'rgba(160,48,72,0.1)',
-  border: '2px solid rgba(160,48,72,0.25)',
+  backgroundColor: '$shadows$ctaShadow',
+  border: '2px solid $main',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   transition: 'background 0.2s ease',
 });
 
-export const CTAContent = styled('div', {
+export const CTAContent = styled(Box, {
   display: 'flex',
   flexDirection: 'column',
   gap: '$px$6',
@@ -139,7 +139,7 @@ export const CTAContent = styled('div', {
   margin: '0 auto',
 });
 
-export const CTAButton = styled('div', {
+export const CTAButton = styled(Box, {
   display: 'flex',
   alignItems: 'center',
   gap: '$px$8',
@@ -153,3 +153,40 @@ export const CTAButton = styled('div', {
   boxShadow: '$shadows$ctaShadow',
   transition: 'box-shadow 0.2s ease',
 });
+
+export const FilterTopButton = styled(Button, {
+  cursor: 'pointer !important',
+  display: 'inline-flex !important',
+  alignItems: 'center',
+  gap: '$px$6 !important',
+  padding: '$px$8 $px$18 !important',
+  borderRadius: '$radius$full !important',
+  fontSize: '0.875rem',
+  fontWeight: '$fontWeight$semibold',
+  transition: 'all 0.15s ease',
+  lineHeight: 1,
+
+  variants: {
+    active: {
+      true: {
+        border: '1.5px solid $main !important',
+        backgroundColor: '$main !important',
+        color: '$white !important',
+        boxShadow: '$ctaShadow !important',
+        '&:hover': {
+          background: '$main !important'
+        }
+      },
+      false: {
+        border: '1.5px solid $lightBlue !important',
+        backgroundColor: '$white !important',
+        color: '$darkGray !important',
+        boxShadow: 'none !important',
+      },
+    },
+  },
+
+  '&:hover': {
+    background: 'none !important',
+  },
+})

@@ -1,16 +1,14 @@
 // It receives an email, validates it, and adds it to your Mailchimp audience list.
+import { REGEX } from '@/constants';
 import { logger } from '@/lib/logger';
 import { NextRequest, NextResponse } from 'next/server';
-
-// Simple server-side email regex (same pattern as client)
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: NextRequest) {
     try {
         const { email } = await req.json();
 
         // ---- Validate ----
-        if (!email || !EMAIL_REGEX.test(email)) {
+        if (!email || !REGEX.EMAIL.test(email)) {
             return NextResponse.json(
                 { error: 'Please enter a valid email address.' },
                 { status: 400 }

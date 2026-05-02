@@ -12,3 +12,4 @@ export * from './getAlertStyle';
 export * from './staticRoutes';
 export * from './devices';
 export * from './filterOptions';
+export * from './serverRoutes';

@@ -13,6 +13,7 @@ import {
   ServiceCard,
 } from './PetServices.style';
 import { Box } from '@/components/elements';
+import Link from 'next/link';
 
 export const PetServices = () => {
   return (
@@ -36,7 +37,7 @@ export const PetServices = () => {
               <CardIconWrapper>{card.icon}</CardIconWrapper>
               <CardTitle>{card.title}</CardTitle>
               <CardDescription>{card.description}</CardDescription>
-              <CardButton type="button">{card.buttonLabel}</CardButton>
+              <CardButton href={card.href} as={Link} type="button">{card.buttonLabel}</CardButton>
             </ServiceCard>
           ))}
         </CardsGrid>

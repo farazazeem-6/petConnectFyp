@@ -1,4 +1,5 @@
 import { CatIcon, DogIcon, PetLitterIcon } from '@/components/svgs';
+import { StaticRoutes } from './staticRoutes';
 
 export const PET_SERVICE_CARDS = [
   {
@@ -9,7 +10,7 @@ export const PET_SERVICE_CARDS = [
     title: 'Adopt Pets',
     description: 'Find cats, dogs & more looking for loving homes',
     buttonLabel: 'Adopt Now',
-    href: '/adopt',
+    href: StaticRoutes.BROWSE_PETS,
   },
   {
     id: 'lost-animal',
@@ -19,7 +20,7 @@ export const PET_SERVICE_CARDS = [
     title: 'Lost Pets',
     description: 'Report missing pets and spread the word quickly.',
     buttonLabel: 'Lost Pet',
-    href: '/',
+    href: StaticRoutes.LOST_FOUND,
   },
   {
     id: 'found-animal',
@@ -30,7 +31,7 @@ export const PET_SERVICE_CARDS = [
     description:
       'Share details of animals you’ve found so owners can reconnect.',
     buttonLabel: 'Report Founds',
-    href: '/',
+    href: StaticRoutes.LOST_FOUND,
   },
   {
     id: 'animal-doctor',

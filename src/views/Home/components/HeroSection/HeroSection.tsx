@@ -18,8 +18,11 @@ import {
   WhyChooseTitle,
 } from './HeroSection.style';
 import { Container } from '@/components/elements';
+import { StaticRoutes } from '@/constants';
+import { useRouter } from 'next/navigation';
 
 export const HeroSection = () => {
+  const router = useRouter();
   return (
     <Container>
       <HeroSectionWrapper>
@@ -50,7 +53,10 @@ export const HeroSection = () => {
             <HeroDescription>
               <HeroBrandName>PetConnect </HeroBrandName>
               is Pakistan&apos;s premier pet adoption and care hub,helping you{' '}
-              <b>adopt dogs and cats</b>, all in one seamless online platform.
+              <b onClick={() => router.push(StaticRoutes.BROWSE_PETS)}>
+                adopt dogs and cats
+              </b>
+              , all in one seamless online platform.
             </HeroDescription>
           </Flex>
         </HeroSectionContentLeft>
@@ -67,7 +73,11 @@ export const HeroSection = () => {
               Connect with pet owners nationwide.
             </WhyChooseBullet>
             <WhyChooseBullet>
-              Find and <b>adopt pets in Pakistan</b> with ease.
+              Find and{' '}
+              <b style={{cursor:'pointer'}} onClick={() => router.push(StaticRoutes.BROWSE_PETS)}>
+                adopt pets in Pakistan
+              </b>{' '}
+              with ease.
             </WhyChooseBullet>
             <WhyChooseBullet>
               Discover adoption stories and <b>tips</b> for pet care.
@@ -76,10 +86,13 @@ export const HeroSection = () => {
               Join Pakistan’s trusted online pet‑lover community.
             </WhyChooseBullet>
             <WhyChooseBullet>
-              <b>Adopt pets near you</b> with our matching algorithm.
+              <b style={{cursor:'pointer'}} onClick={() => router.push(StaticRoutes.BROWSE_PETS)}>
+                Adopt pets near you
+              </b>{' '}
+              with our matching algorithm.
             </WhyChooseBullet>
 
-            <GoToButton>
+            <GoToButton onClick={() => router.push(StaticRoutes.BROWSE_PETS)}>
               <PawIcon
                 css={{ fill: '$white', stroke: '$white' }}
                 width={18}

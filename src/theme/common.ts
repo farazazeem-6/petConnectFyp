@@ -424,6 +424,7 @@ const defaultColors = {
   dimWhite: '#F5F0F1',
   neutralGray: '#ddd',
   whisperGray: '#f1f1f1',
+  lightBlue:'#e2e8f0',
   aliceBlue: '#e6f2ff',
   darkGray: '#666',
   secondary: '$purple9',
