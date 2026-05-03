@@ -30,10 +30,18 @@ import {
   validateStep3,
 } from './schema';
 import type {
-  Step0Fields, Step0Errors, Step0Refs,
-  Step1Fields, Step1Errors, Step1Refs,
-  Step2Fields, Step2Errors, Step2Refs,
-  Step3Fields, Step3Errors, Step3Refs,
+  Step0Fields,
+  Step0Errors,
+  Step0Refs,
+  Step1Fields,
+  Step1Errors,
+  Step1Refs,
+  Step2Fields,
+  Step2Errors,
+  Step2Refs,
+  Step3Fields,
+  Step3Errors,
+  Step3Refs,
 } from './types';
 import {
   STEPS,
@@ -45,6 +53,7 @@ import {
 } from './constants';
 import { addLostFoundReport } from '@/lib/firebase/animal.service';
 import { uploadImageToCloudinary } from '@/lib/cloudinary';
+import { logger } from '@/lib/logger';
 
 // ── Guarded controls ──────────────────────────────────────────────
 interface GuardedControlsProps {
@@ -53,7 +62,11 @@ interface GuardedControlsProps {
   isSubmitting: boolean;
 }
 
-function GuardedControls({ onNextGuard, onFinalSubmit, isSubmitting }: GuardedControlsProps) {
+function GuardedControls({
+  onNextGuard,
+  onFinalSubmit,
+  isSubmitting,
+}: GuardedControlsProps) {
   const { state, dispatch, steps } = useStepper();
   const isFirst = state.currentIndex === 0;
   const isLast = state.currentIndex === steps.length - 1;
@@ -140,7 +153,9 @@ function ReportAnimalInner() {
     setStep1((prev) => ({ ...prev, ...patch }));
     setStep1Errors((prev) => {
       const next = { ...prev };
-      (Object.keys(patch) as (keyof Step1Errors)[]).forEach((k) => delete next[k]);
+      (Object.keys(patch) as (keyof Step1Errors)[]).forEach(
+        (k) => delete next[k],
+      );
       return next;
     });
   }, []);
@@ -181,7 +196,9 @@ function ReportAnimalInner() {
     setStep3((prev) => ({ ...prev, ...patch }));
     setStep3Errors((prev) => {
       const next = { ...prev };
-      (Object.keys(patch) as (keyof Step3Errors)[]).forEach((k) => delete next[k]);
+      (Object.keys(patch) as (keyof Step3Errors)[]).forEach(
+        (k) => delete next[k],
+      );
       return next;
     });
   }, []);
@@ -255,14 +272,20 @@ function ReportAnimalInner() {
           if (uploaded) {
             imageUrl = uploaded;
           } else {
-            toast('Photo upload failed — report will be saved without an image.', {
-              icon: '⚠️',
-            });
+            toast(
+              'Photo upload failed — report will be saved without an image.',
+              {
+                icon: '⚠️',
+              },
+            );
           }
         } catch {
-          toast('Photo upload failed — report will be saved without an image.', {
-            icon: '⚠️',
-          });
+          toast(
+            'Photo upload failed — report will be saved without an image.',
+            {
+              icon: '⚠️',
+            },
+          );
         }
       }
 
@@ -283,7 +306,9 @@ function ReportAnimalInner() {
         contactNumber: step3.contactNumber.trim(),
         // Optional fields — only include when non-empty to avoid Firestore undefined error
         ...(step1.breed.trim() ? { breed: step1.breed.trim() } : {}),
-        ...(step3.additionalDetails.trim() ? { additionalDetails: step3.additionalDetails.trim() } : {}),
+        ...(step3.additionalDetails.trim()
+          ? { additionalDetails: step3.additionalDetails.trim() }
+          : {}),
       };
 
       await addLostFoundReport(payload);
@@ -296,7 +321,7 @@ function ReportAnimalInner() {
       clearState(FLOW_ID);
       router.push('/lost-found');
     } catch (err) {
-      console.error('[ReportAnimal] Firestore error:', err);
+      logger.error('[ReportAnimal] Firestore error:', err);
       toast.error('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);

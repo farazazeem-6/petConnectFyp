@@ -62,7 +62,13 @@ const GRID_CSS = {
 // ── Filter Buttons ──────────────────────────────────────────────────
 function TabPill({ id, label, icon, active, onClick }: TabPillProps) {
   return (
-    <FilterTopButton variant={'default'} active={active} id={id} type="button" onClick={onClick}>
+    <FilterTopButton
+      variant={'default'}
+      active={active}
+      id={id}
+      type="button"
+      onClick={onClick}
+    >
       {icon}
       {label}
     </FilterTopButton>
@@ -123,16 +129,13 @@ export function LostFound() {
         {/* Mobile heading */}
         <BrowseHeading>
           <TopBar>
-            <Flex direction="column" css={{ gap: '4px' }}>
+            <Flex direction="column" gap={'4'}>
               <Text
                 as="h1"
                 heading="h3"
                 css={{ color: '$main', fontWeight: '$fontWeight$bold' }}
               >
                 {messages.lostFound.title}
-              </Text>
-              <Text heading="h8" css={{ color: '$slateGray' }}>
-                {messages.lostFound.subtitle}
               </Text>
             </Flex>
             <MobileFilterBtn
