@@ -106,9 +106,6 @@ export function BrowsePets() {
               >
                 {messages.browsePets.title}
               </Text>
-              <Text heading="h8" css={{ color: '$slateGray' }}>
-                {messages.browsePets.subtitle}
-              </Text>
             </Flex>
             <MobileFilterBtn
               type="button"
@@ -137,7 +134,8 @@ export function BrowsePets() {
                 heading="h8"
                 css={{ color: '$slateGray', fontWeight: '$fontWeight$medium' }}
               >
-                {!loading && `${filtered.length} pet${filtered.length !== 1 ? 's' : ''} found`}
+                {!loading &&
+                  `${filtered.length} pet${filtered.length !== 1 ? 's' : ''} found`}
               </Text>
               <AddActionButton
                 type="button"
@@ -191,9 +189,7 @@ export function BrowsePets() {
                     {messages.browsePets.emptySubtitle}
                   </Text>
                 </CTAContent>
-                <CTAButton>
-                  {messages.browsePets.ctaButton}
-                </CTAButton>
+                <CTAButton>{messages.browsePets.ctaButton}</CTAButton>
               </CTABanner>
             )}
 

@@ -103,7 +103,7 @@ export const CTABanner = styled('button', {
   marginBottom: '$px$16',
   borderRadius: '$radius$xl',
   background: 'linear-gradient(135deg, rgba(160,48,72,0.08) 0%, rgba(160,48,72,0.03) 100%)',
-  border: '2px dashed $shadows$ctaShadown',
+  border: '2px dashed rgba(160,48,72,0.35)',
   transition: 'border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease',
   textAlign: 'center',
 

@@ -36,9 +36,15 @@ export const Header = () => {
 
   // ── Derive active nav from current route ──────────────────────────
   const activeNav = (() => {
-    if (pathname?.startsWith('/browse-pets') || pathname?.startsWith('/create-listing'))
+    if (
+      pathname?.startsWith('/browse-pets') ||
+      pathname?.startsWith('/create-listing')
+    )
       return HeaderEnum.PETS;
-    if (pathname?.startsWith('/lost-found') || pathname?.startsWith('/report-animal'))
+    if (
+      pathname?.startsWith('/lost-found') ||
+      pathname?.startsWith('/report-animal')
+    )
       return HeaderEnum.LOSTFOUND;
     if (pathname?.startsWith('/contact')) return HeaderEnum.CONTACT;
     return HeaderEnum.HOME;

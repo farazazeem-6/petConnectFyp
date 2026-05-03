@@ -43,6 +43,7 @@ import {
 } from './constants';
 import { addAnimal } from '@/lib/firebase/animal.service';
 import { uploadImageToCloudinary } from '@/lib/cloudinary';
+import { logger } from '@/lib/logger';
 
 // ── Guarded controls (inside provider context) ────────────────────
 interface GuardedControlsProps {
@@ -244,7 +245,7 @@ function CreateListingInner() {
         if (uploaded) {
           imageUrl = uploaded;
         } else {
-          console.log(
+          logger.error(
             '[CreateListing] Cloudinary upload failed — continuing without image.',
           );
         }
@@ -274,7 +275,7 @@ function CreateListingInner() {
       clearState(FLOW_ID);
       router.push('/browse-pets');
     } catch (err) {
-      console.error('[CreateListing] Firestore error:', err);
+      logger.error('[CreateListing] Firestore error:', err);
       toast.error('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
