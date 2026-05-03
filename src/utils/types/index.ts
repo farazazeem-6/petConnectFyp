@@ -5,3 +5,4 @@ export * from './stepper';
 export * from './animalCardProps';
 export * from './filterProps';
 export * from './ui';
+export * from './profile';

@@ -7,14 +7,36 @@ import {
   StyledInput,
 } from '../Auth.Style';
 import { EyeIcon, EyeClosedIcon } from '@/components/svgs';
+import { CSS } from '@/theme';
 
-export const PasswordInput = ({ value, onChange, error, placeholder }: any) => {
+type PasswordInputProps = {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
+  placeholder: string;
+  id?: string;
+  disabled?: boolean;
+  css?: CSS;
+};
+
+export const PasswordInput = ({
+  value,
+  onChange,
+  error,
+  placeholder,
+  id,
+  disabled,
+  css,
+}: PasswordInputProps) => {
   const [show, setShow] = useState(false);
 
   return (
     <FieldWrapper>
       <InputRelative>
         <StyledInput
+          css={css}
+          id={id}
+          disabled={disabled}
           type={show ? 'text' : 'password'}
           value={value}
           onChange={onChange}

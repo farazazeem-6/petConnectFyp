@@ -10,3 +10,4 @@ export * from './useAuth';
 export * from './useAlertModal';
 export * from './useClickOutside';
 export * from './useScrollToError';
+export * from './useProfile';
