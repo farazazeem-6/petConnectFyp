@@ -13,6 +13,12 @@ const nextConfig: NextConfig = {
         hostname: 'cdn.mcauto-images-production.sendgrid.net',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   allowedDevOrigins: ['192.168.1.17'],

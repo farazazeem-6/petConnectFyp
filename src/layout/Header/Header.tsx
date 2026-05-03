@@ -30,11 +30,11 @@ export const Header = () => {
     handleNavigation,
   } = useHeader();
 
+  // user here is TAuthUser from Redux — has .photo and .name typed correctly
   const { user, handleLogout, loading } = useAuth();
   const router = useRouter();
   const { isMobile } = useScreenWidth();
 
-  // ── Derive active nav from current route ──────────────────────────
   const activeNav = (() => {
     if (
       pathname?.startsWith('/browse-pets') ||
@@ -67,9 +67,7 @@ export const Header = () => {
       label: 'Sign Out',
       icon: <SignOutIcon css={{ height: '$px$20', color: '$main' }} />,
       onClick: onLogout,
-      css: {
-        color: '$main',
-      },
+      css: { color: '$main' },
     },
   ];
 
@@ -77,7 +75,6 @@ export const Header = () => {
     <>
       <HeaderWrapper>
         <HeaderContent css={{ '@lg_max': { position: 'relative' } }}>
-          {/* Mobile menu icon */}
           <MobileMenuButton
             onClick={toggleMobileMenu}
             aria-label="Toggle mobile menu"
@@ -89,7 +86,6 @@ export const Header = () => {
             />
           </MobileMenuButton>
 
-          {/* Logo */}
           <Box
             css={{
               '@lg_max': {
@@ -102,7 +98,6 @@ export const Header = () => {
             <WebLogo onClick={() => router.push(StaticRoutes.HOME)} />
           </Box>
 
-          {/* Desktop nav */}
           <Flex css={{ '@lg_max': { display: 'none' } }} gap={'20'}>
             <NavList>
               {NAV_ITEMS.map(({ label, href }) => (
@@ -115,15 +110,12 @@ export const Header = () => {
             </NavList>
           </Flex>
 
-          {/* Auth area */}
           {loading ? (
             <Box css={{ width: '$px$70' }} />
           ) : user ? (
             <HeaderDropdown
-              avatarSrc={(user as any).photo ?? undefined}
-              avatarFallbackText={
-                (user as any).name ?? (user as any).email ?? 'U'
-              }
+              avatarSrc={user.photo ?? undefined} // ← typed, no cast
+              avatarFallbackText={user.name ?? user.email ?? 'U'} // ← typed, no cast
               avatarSize={isMobile ? 'sm' : 'md'}
               menuItems={menuItems}
             />
@@ -135,8 +127,7 @@ export const Header = () => {
         </HeaderContent>
       </HeaderWrapper>
 
-      {/* Spacer to prevent layout shift because HeaderWrapper is now position fixed instead of sticky */}
-      <Box css={{ height: '$px$85', width: '100%', flexShrink: 0 }} />
+      <Box css={{ height: '$px$85', width: '$percent$100', flexShrink: 0 }} />
 
       <Sidebar
         isMobileMenuOpen={isMobileMenuOpen}

@@ -193,45 +193,50 @@ const ImageSkeltonWrapper = styled(Box, {
   zIndex: 1,
 });
 
-export const ImageWithSkeleton = React.forwardRef<HTMLImageElement, React.ImgHTMLAttributes<HTMLImageElement> & { fallbackImage?: string }>(
-  ({ src, alt, fallbackImage, className, style, ...props }, ref) => {
-    const { isLoading, onImageError, onImageLoad } = useImgLoadingState();
-    const [hasError, setHasError] = useState(false);
-    const [currentSrc, setCurrentSrc] = useState(src);
+export const ImageWithSkeleton = React.forwardRef<
+  HTMLImageElement,
+  React.ImgHTMLAttributes<HTMLImageElement> & { fallbackImage?: string }
+>(({ src, alt, fallbackImage, className, style, ...props }, ref) => {
+  const { isLoading, onImageError, onImageLoad } = useImgLoadingState();
+  const [hasError, setHasError] = useState(false);
+  const [currentSrc, setCurrentSrc] = useState(src);
 
-    useEffect(() => {
-      setCurrentSrc(src);
-      setHasError(false);
-    }, [src]);
+  useEffect(() => {
+    setCurrentSrc(src);
+    setHasError(false);
+  }, [src]);
 
-    const handleError = (e: any) => {
-      onImageError();
-      if (fallbackImage && !hasError) {
-        setHasError(true);
-        setCurrentSrc(fallbackImage);
-      }
-      props.onError?.(e);
-    };
+  const handleError = (e: any) => {
+    onImageError();
+    if (fallbackImage && !hasError) {
+      setHasError(true);
+      setCurrentSrc(fallbackImage);
+    }
+    props.onError?.(e);
+  };
 
-    return (
-      <>
-        {isLoading && (
-          <ImageSkeltonWrapper>
-            <SkeletonLoader width="100%" height="100%" borderRadius={0} />
-          </ImageSkeltonWrapper>
-        )}
-        <img
-          ref={ref}
-          src={currentSrc}
-          alt={alt}
-          onLoad={onImageLoad}
-          onError={handleError}
-          className={className}
-          style={{ ...style, opacity: isLoading ? 0 : 1, transition: 'opacity 0.2s ease' }}
-          {...props}
-        />
-      </>
-    );
-  }
-);
+  return (
+    <>
+      {isLoading && (
+        <ImageSkeltonWrapper>
+          <SkeletonLoader width="100%" height="100%" borderRadius={0} />
+        </ImageSkeltonWrapper>
+      )}
+      <img
+        ref={ref}
+        src={currentSrc}
+        alt={alt}
+        onLoad={onImageLoad}
+        onError={handleError}
+        className={className}
+        style={{
+          ...style,
+          opacity: isLoading ? 0 : 1,
+          transition: 'opacity 0.2s ease',
+        }}
+        {...props}
+      />
+    </>
+  );
+});
 ImageWithSkeleton.displayName = 'ImageWithSkeleton';
