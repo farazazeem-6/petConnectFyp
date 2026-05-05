@@ -43,6 +43,7 @@ import {
   SUBSCRIBE_MESSAGES,
   SubscribeStatus,
 } from '@/hooks';
+import { Dots } from '@/components/elements/Dots';
 
 // ---- Social icon map ----
 
@@ -134,7 +135,7 @@ export const Footer = () => {
               disabled={isLoading}
             />
             <FooterSubscribeButton type="submit" disabled={isLoading}>
-              {isLoading ? 'Subscribing...' : buttonLabel}
+              {isLoading ? <Dots /> : buttonLabel}
             </FooterSubscribeButton>
           </FooterSubscribeForm>
 

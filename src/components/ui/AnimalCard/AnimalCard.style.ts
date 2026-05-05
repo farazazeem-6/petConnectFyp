@@ -1,12 +1,10 @@
-import { Box, Button, Flex, ImageWithSkeleton } from "@/components/elements";
+import { Box, Button, Flex, ImageWithSkeleton, Text } from "@/components/elements";
 import { styled } from "@/theme";
 
 export const CardRoot = styled(Flex, {
-    'defaultVariants': {
-        direction: 'column'
-    },
+    defaultVariants: { direction: 'column' },
     backgroundColor: '$cardBgColor',
-    borderRadius: '$radius$xl',
+    borderRadius: '$radius$lg',
     overflow: 'hidden',
     border: '1px solid $main',
     boxShadow: '$shadows$cardShadow',
@@ -21,29 +19,26 @@ export const CardRoot = styled(Flex, {
 });
 
 export const ImageWrapper = styled(Box, {
-    position: 'relative',
     width: '$percent$100',
-    paddingTop: '$percent$60',
+    aspectRatio: '4 / 3',
     overflow: 'hidden',
     backgroundColor: '$lightGray',
 });
 
 export const AnimalImage = styled(ImageWithSkeleton, {
-    position: 'absolute',
-    inset: 0,
     width: '$percent$100',
     height: '$percent$100',
     objectFit: 'cover',
-    transition: 'transform 0.3s ease',
+    objectPosition: 'center',
+    display: 'block',
 });
 
 export const ContentWrapper = styled(Flex, {
-    'defaultVariants': {
-        direction: 'column'
-    },
+    defaultVariants: { direction: 'column' },
     flex: 1,
     gap: '$px$10',
-    p: '$px$14',
+    py: '$px$8',
+    px: '$px$6',
 });
 
 export const NameRow = styled(Flex, {
@@ -53,9 +48,7 @@ export const NameRow = styled(Flex, {
 });
 
 export const NameBlock = styled(Flex, {
-    'defaultVariants': {
-        direction: 'column'
-    },
+    defaultVariants: { direction: 'column' },
     gap: '$px$2',
     width: '$percent$100',
     minWidth: 0,
@@ -71,26 +64,12 @@ export const Badge = styled('span', {
     alignItems: 'center',
     px: '$px$10',
     py: '$px$4',
-    borderRadius: '$radius$full',
-    fontSize: '$fontSize$xxs',
+    borderRadius: '$radius$sm',
+    fontSize: '$px$10',
     fontWeight: '$fontWeight$semibold',
     letterSpacing: '0.03em',
-    textTransform: 'uppercase',
     backgroundColor: '$veryLightGreen',
     color: '$dGreen',
-    border: '1px solid $borderGreen',
-});
-
-export const AdoptButton = styled(Button, {
-    flex: 1,
-    boxSizing: 'border-box',
-    backgroundColor: '$main !important',
-    letterSpacing: '0.04em',
-    color: '$white !important',
-
-    '&:hover': {
-        backgroundColor: '$darkMain !important',
-    },
 });
 
 export const AgeBadge = styled('span', {
@@ -98,7 +77,7 @@ export const AgeBadge = styled('span', {
     alignItems: 'center',
     px: '$px$10',
     py: '$px$2',
-    borderRadius: '$radius$lg',
+    borderRadius: '$radius$sm',
     fontSize: '$px$12',
     fontWeight: '$fontWeight$semibold',
     letterSpacing: '0.03em',
@@ -106,43 +85,81 @@ export const AgeBadge = styled('span', {
     color: '$main',
     border: '1px solid $main',
     whiteSpace: 'nowrap',
+    '@sm_max': {
+        fontSize: '$px$8',
+        px: '$px$6',
+        py: '$px$2',
+    }
+});
+
+// Report type badge — Lost (red) / Found (green)
+export const ReportTypeBadge = styled('span', {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '$px$4',
+    px: '$px$10',
+    py: '$px$2',
+    borderRadius: '$radius$sm',
+    fontSize: '$fontSize$xxs',
+    fontWeight: '$fontWeight$bold',
+    letterSpacing: '0.04em',
+    textTransform: 'uppercase',
+    whiteSpace: 'nowrap',
+    flexShrink: 0,
+
+    variants: {
+        reportType: {
+            lost: {
+                backgroundColor: '$reportLostBg',
+                color: '$reportLostColor',
+                border: '1px solid $reportLostBorder',
+                '& svg': { color: '$reportLostColor' },
+            },
+            found: {
+                backgroundColor: '$reportFoundBg',
+                color: '$reportFoundColor',
+                border: '1px solid $reportFoundBorder',
+                '& svg': { color: '$reportFoundColor' },
+            },
+        },
+    },
+    '@sm_max': {
+        fontSize: '$px$8',
+        px: '$px$6',
+        py: '$px$2',
+    }
+});
+
+// Status badge — Open / Resolved
+export const StatusBadge = styled(Badge, {
+    variants: {
+        resolved: {
+            true: {
+                backgroundColor: '$reportFoundBg',
+                color: '$reportFoundColor',
+                border: '1px solid $reportFoundBorder',
+            },
+            false: {
+                color: '$main',
+                backgroundColor: '$dimWhite',
+                borderColor: '$dimWhite',
+            },
+        },
+    },
 });
 
 export const ButtonGroup = styled(Flex, {
     gap: '$px$8',
     width: '$percent$100',
     mt: 'auto',
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    '@xs_max': {
-        flexDirection: 'column',
-    },
 });
 
-export const ViewDetailButton = styled(Button, {
-    flex: 1,
-    boxSizing: 'border-box',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '$px$6',
-    backgroundColor: 'transparent !important',
-    color: '$main !important',
-    border: '1px solid $main !important',
-    letterSpacing: '0.04em',
-
-    '&:hover': {
-        backgroundColor: '$dimWhite !important',
-    },
-});
-
-// ── Owner action row (edit / delete) — only visible in My Listing ─────────────
+// ── Owner action row (Edit / Delete) — visible in My Listings only ────────────
 
 export const OwnerActionRow = styled(Flex, {
     gap: '$px$6',
     width: '$percent$100',
-    flexDirection: 'row',
-    borderTop: '1px dashed rgba(160,48,72,0.2)',
+    borderTop: '1px dashed $ownerActionDivider',
     pt: '$px$8',
     mt: 'auto',
 
@@ -150,16 +167,15 @@ export const OwnerActionRow = styled(Flex, {
         display: 'none',
     },
     '@md_max': {
-        '& button .btn-text': {
-            display: 'none',
-        },
-        '& button .btn-icon': {
-            display: 'block',
-        }
-    }
+        '& button .btn-text': { display: 'none' },
+        '& button .btn-icon': { display: 'block' },
+    },
 });
 
-export const EditButton = styled(Button, {
+// ── Unified card button with default / danger variants ────────────────────────
+
+export const AnimalCardButton = styled(Button, {
+    defaultVariants: { variant: 'default' },
     flex: 1,
     boxSizing: 'border-box',
     display: 'flex',
@@ -168,34 +184,96 @@ export const EditButton = styled(Button, {
     gap: '$px$6',
     fontSize: '$fontSize$sm',
     fontWeight: '$fontWeight$semibold',
+    letterSpacing: '0.04em',
+    padding: '$px$12 $px$16 !important',
     backgroundColor: 'transparent !important',
-    color: '$main !important',
     border: '1px solid $main !important',
-    letterSpacing: '0.03em',
-    padding: '$px$10 $px$16 !important',
+    color: '$main !important',
+    width: '$percent$100',
 
     '&:hover': {
         backgroundColor: '$dimWhite !important',
     },
-});
 
-export const DeleteButton = styled(Button, {
-    flex: 1,
-    boxSizing: 'border-box',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '$px$6',
-    fontSize: '$fontSize$sm',
-    fontWeight: '$fontWeight$semibold',
-    backgroundColor: 'transparent !important',
-    color: '$error1 !important',
-    border: '1px solid $error1 !important',
-    letterSpacing: '0.03em',
-    padding: '$px$10 $px$16 !important',
+    variants: {
+        variant: {
+            default: {},
+            danger: {
+                border: '1px solid $error1 !important',
+                color: '$error1 !important',
 
-    '&:hover': {
-        backgroundColor: 'rgba(220,38,38,0.06) !important',
+                '&:hover': {
+                    backgroundColor: '$errorHoverBg !important',
+                },
+            },
+            main: {
+                backgroundColor: '$main !important',
+                color: '$white !important',
+                '&:hover': {
+                    backgroundColor: '$darkMain !important',
+                },
+            }
+        },
     },
+    '& svg': {
+        width: '$px$16',
+        height: '$px$16',
+    },
+    '@sm_max': {
+        padding: '$px$10 $px$10 !important',
+        '& svg': {
+            width: '$px$10',
+            height: '$px$10',
+        },
+    }
 });
 
+export const AnimalName = styled(Text, {
+    defaultVariants: { ellipsis: 1 },
+    color: '$main !important',
+    fontSize: '$px$16 !important',
+    fontWeight: '$fontWeight$bold !important',
+    letterSpacing: '0.03em !important',
+    lineHeight: 1.2,
+    textOverflow: 'ellipsis !important',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
+    '@sm_max': {
+        fontSize: '$px$12 !important',
+    }
+});
+
+export const LocationWrapper = styled(Flex, {
+    defaultVariants: { align: 'center', gap: '2' },
+    '& svg': {
+        height: '$px$15',
+        width: '$px$15',
+        color: '$main',
+    },
+    '@sm_max': {
+        '& svg': {
+            height: '$px$10',
+            width: '$px$10',
+        }
+    }
+});
+
+export const LocationText = styled(Text, {
+    defaultVariants: { ellipsis: 1 },
+    color: '$slateGray !important',
+    fontSize: '$px$10 !important',
+    fontWeight: '$fontWeight$medium !important',
+    letterSpacing: '0.03em !important',
+    lineHeight: 1.2,
+});
+
+export const BreedText = styled(Text, {
+    defaultVariants: { ellipsis: 1 },
+    color: '$slateGray !important',
+    fontSize: '$px$10 !important',
+    fontWeight: '$fontWeight$medium !important',
+    letterSpacing: '0.03em !important',
+    lineHeight: 1.2,
+});
