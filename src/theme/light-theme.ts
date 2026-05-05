@@ -84,6 +84,14 @@ const lightThemeOpt = {
     white75: 'rgba(255,255,255,0.75)',
     white22: 'rgba(255,255,255,0.22)',
     white12: 'rgba(255,255,255,0.12)',
+    reportLostBg: 'rgba(239,68,68,0.1)',
+    reportLostColor: '#dc2626',
+    reportLostBorder: 'rgba(239,68,68,0.3)',
+    reportFoundBg: 'rgba(34,197,94,0.1)',
+    reportFoundColor: '#16a34a',
+    reportFoundBorder: 'rgba(34,197,94,0.3)',
+    errorHoverBg: 'rgba(220,38,38,0.06)',
+    ownerActionDivider: 'rgba(160,48,72,0.2)',
 
     // Empty Banner Colors
     bannerBorder: 'rgba(160,48,72,0.35)',

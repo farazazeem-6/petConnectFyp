@@ -1,6 +1,5 @@
 import { AnimalCardProps } from '@/utils/types';
 import {
-  AdoptButton,
   AnimalImage,
   Badge,
   BadgeRow,
@@ -11,30 +10,81 @@ import {
   NameRow,
   AgeBadge,
   ButtonGroup,
-  ViewDetailButton,
   OwnerActionRow,
-  EditButton,
-  DeleteButton,
+  AnimalName,
+  LocationWrapper,
+  LocationText,
+  BreedText,
+  AnimalCardButton,
+  ReportTypeBadge,
+  StatusBadge,
 } from './AnimalCard.style';
-import { Text, EmptyPlaceholder, Flex } from '@/components/elements';
-import { PawIcon, LocationIcon, SearchIcon, PaletteIcon, CalendarIcon, EditIcon, TrashIcon, EyeIcon } from '@/components/svgs';
+import { EmptyPlaceholder, Flex } from '@/components/elements';
+import {
+  PawIcon,
+  LocationIcon,
+  SearchIcon,
+  EditIcon,
+  TrashIcon,
+  EyeIcon,
+} from '@/components/svgs';
 
-// ── Report-type badge colours ─────────────────────────────────────
-const REPORT_BADGE_STYLES: Record<
-  'lost' | 'found',
-  { backgroundColor: string; color: string; border: string }
-> = {
-  lost: {
-    backgroundColor: 'rgba(239,68,68,0.1)',
-    color: '#dc2626',
-    border: '1px solid rgba(239,68,68,0.3)',
-  },
-  found: {
-    backgroundColor: 'rgba(34,197,94,0.1)',
-    color: '#16a34a',
-    border: '1px solid rgba(34,197,94,0.3)',
-  },
-};
+// ─── Shared sub-components ───────────────────────────────────────────────────
+
+function AnimalImageBlock({ image, name }: { image?: string; name: string }) {
+  return (
+    <ImageWrapper>
+      {image ? (
+        <AnimalImage src={image} alt={`Photo of ${name}`} loading="lazy" />
+      ) : (
+        <EmptyPlaceholder
+          variant="card"
+          title="No Image"
+          icon={<PawIcon css={{ color: '$main' }} width={36} height={36} />}
+        />
+      )}
+    </ImageWrapper>
+  );
+}
+
+function OwnerActions({
+  onViewDetail,
+  onEdit,
+  onDelete,
+}: Pick<AnimalCardProps, 'onViewDetail' | 'onEdit' | 'onDelete'>) {
+  const stop = (fn?: () => void) => (e: React.MouseEvent) => {
+    e.stopPropagation();
+    fn?.();
+  };
+
+  return (
+    <OwnerActionRow>
+      <AnimalCardButton size="md" onClick={stop(onViewDetail)}>
+        <span className="btn-text">View</span>
+        <EyeIcon className="btn-icon" css={{ color: '$main', flexShrink: 0 }} />
+      </AnimalCardButton>
+
+      {onEdit && (
+        <AnimalCardButton size="md" onClick={stop(onEdit)}>
+          <span className="btn-text">Edit</span>
+          <EditIcon
+            className="btn-icon"
+            css={{ color: '$main', flexShrink: 0 }}
+          />
+        </AnimalCardButton>
+      )}
+
+      {onDelete && (
+        <AnimalCardButton size="md" variant="danger" onClick={stop(onDelete)}>
+          <span className="btn-text">Delete</span>
+          <TrashIcon className="btn-icon" css={{ flexShrink: 0 }} />
+        </AnimalCardButton>
+      )}
+    </OwnerActionRow>
+  );
+}
+
+// ─── Main component ──────────────────────────────────────────────────────────
 
 export function AnimalCard({
   image,
@@ -43,195 +93,89 @@ export function AnimalCard({
   age,
   location,
   badges = [],
-  color,
   onAdopt,
   onViewDetail,
   onEdit,
   onDelete,
-  // report variant
   variant = 'adoption',
   reportType,
-  dateSeen,
   reportStatus,
 }: AnimalCardProps) {
-  // ──────────────────── REPORT VARIANT ─────────────────────────────
+  const isOwner = !!(onEdit || onDelete);
+  const stop = (fn?: () => void) => (e: React.MouseEvent) => {
+    e.stopPropagation();
+    fn?.();
+  };
+
+  // ── REPORT VARIANT ────────────────────────────────────────────────
   if (variant === 'report') {
-    const badgeStyle = reportType ? REPORT_BADGE_STYLES[reportType] : undefined;
     return (
-      <CardRoot role="article" aria-label={`${name} — ${reportType ?? 'report'}`}>
-        {/* Animal photo */}
-        <ImageWrapper>
-          {image ? (
-            <AnimalImage src={image} alt={`Photo of ${name}`} loading="lazy" />
-          ) : (
-            <EmptyPlaceholder
-              variant="card"
-              title="No Image"
-              icon={<PawIcon css={{ color: '$main' }} width={36} height={36} />}
-            />
-          )}
-        </ImageWrapper>
+      <CardRoot
+        role="article"
+        aria-label={`${name} — ${reportType ?? 'report'}`}
+      >
+        <AnimalImageBlock image={image} name={name} />
 
         <ContentWrapper>
           <NameRow>
             <NameBlock css={{ flex: 1 }}>
-              <Flex align="start" justify="between" css={{ width: '100%', gap: '8px' }}>
-                <Text
-                  as="h3"
-                  heading="h4"
-                  color="main"
-                  textEllipsis="1"
-                  css={{ fontWeight: '$fontWeight$bold', lineHeight: 1.2, minWidth: 0 }}
-                >
-                  {name}
-                </Text>
-                {/* Report-type badge */}
-                  {reportType && badgeStyle && (
-                  <span
-                    style={{
-                      ...badgeStyle,
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                      padding: '2px 10px',
-                      borderRadius: '999px',
-                      fontSize: '0.7rem',
-                      fontWeight: 700,
-                      letterSpacing: '0.04em',
-                      textTransform: 'uppercase',
-                      whiteSpace: 'nowrap',
-                      flexShrink: 0,
-                    }}
-                  >
+              <Flex
+                align="start"
+                justify="between"
+                css={{ width: '$percent$100', gap: '$px$8' }}
+              >
+                <AnimalName>{name}</AnimalName>
+                {reportType && (
+                  <ReportTypeBadge reportType={reportType}>
                     {reportType === 'lost' ? (
-                      <SearchIcon width={10} height={10} css={{ color: '#dc2626' }} />
+                      <SearchIcon width={10} height={10} />
                     ) : (
-                      <LocationIcon width={10} height={10} css={{ color: '#16a34a' }} />
+                      <LocationIcon width={10} height={10} />
                     )}
                     {reportType === 'lost' ? 'Lost' : 'Found'}
-                  </span>
+                  </ReportTypeBadge>
                 )}
               </Flex>
 
-              <Flex align={'center'} justify={'between'}>
-                {location && (
-                  <Flex gap={'2'} align="center">
-                    <LocationIcon
-                      css={{
-                        color: '$main',
-                        width: '16px',
-                        height: '16px',
-                        flexShrink: 0,
-                      }}
-                    />
-                    <Text
-                      heading="h4"
-                      css={{
-                        color: '$slateGray',
-                        fontSize: '$px$13',
-                        fontWeight: '$fontWeight$medium',
-                        lineHeight: 1.2,
-                      }}
-                    >
-                      {location}
-                    </Text>
-                  </Flex>
-                )}
-              </Flex>
+              {location && (
+                <LocationWrapper>
+                  <LocationIcon />
+                  <LocationText>{location}</LocationText>
+                </LocationWrapper>
+              )}
             </NameBlock>
           </NameRow>
 
-          {/* Status badge */}
           {reportStatus && (
             <BadgeRow>
-              <Badge
-                css={
-                  reportStatus === 'resolved'
-                    ? {
-                        backgroundColor: 'rgba(34,197,94,0.1)',
-                        color: '#16a34a',
-                        border: '1px solid rgba(34,197,94,0.3)',
-                      }
-                    : { color: '$main', backgroundColor: '$dimWhite', borderColor: '$dimWhite' }
-                }
-              >
+              <StatusBadge resolved={reportStatus === 'resolved'}>
                 {reportStatus === 'resolved' ? 'Resolved ✓' : 'Open'}
-              </Badge>
+              </StatusBadge>
             </BadgeRow>
           )}
 
-          {/* View detail */}
-          {!(onEdit || onDelete) && (
+          {isOwner ? (
+            <OwnerActions
+              onViewDetail={onViewDetail}
+              onEdit={onEdit}
+              onDelete={onDelete}
+            />
+          ) : (
             <ButtonGroup>
-              <ViewDetailButton
-                variant="default"
-                size="md"
-                onClick={(e: React.MouseEvent) => {
-                  e.stopPropagation();
-                  onViewDetail?.();
-                }}
-              >
+              <AnimalCardButton size="md" onClick={stop(onViewDetail)}>
                 View Details
-              </ViewDetailButton>
+              </AnimalCardButton>
             </ButtonGroup>
-          )}
-
-          {/* Edit / Delete — only when owner actions are provided */}
-          {(onEdit || onDelete) && (
-            <OwnerActionRow>
-              <ViewDetailButton
-                variant="default"
-                size="md"
-                onClick={(e: React.MouseEvent) => {
-                  e.stopPropagation();
-                  onViewDetail?.();
-                }}
-              >
-                <span className="btn-text">View</span>
-                <EyeIcon className="btn-icon" width={16} height={16} css={{ color: '$main', flexShrink: 0 }} />
-              </ViewDetailButton>
-              {onEdit && (
-                <EditButton
-                  variant="default"
-                  size="md"
-                  onClick={(e: React.MouseEvent) => { e.stopPropagation(); onEdit(); }}
-                >
-                  <span className="btn-text">Edit</span>
-                  <EditIcon className="btn-icon" width={16} height={16} css={{ color: '$main', flexShrink: 0 }} />
-                </EditButton>
-              )}
-              {onDelete && (
-                <DeleteButton
-                  variant="default"
-                  size="md"
-                  onClick={(e: React.MouseEvent) => { e.stopPropagation(); onDelete(); }}
-                >
-                  <span className="btn-text">Delete</span>
-                  <TrashIcon className="btn-icon" width={16} height={16} css={{ color: '$error1', flexShrink: 0 }} />
-                </DeleteButton>
-              )}
-            </OwnerActionRow>
           )}
         </ContentWrapper>
       </CardRoot>
     );
   }
 
-  // ──────────────────── ADOPTION VARIANT (default) ──────────────────
+  // ── ADOPTION VARIANT (default) ────────────────────────────────────
   return (
     <CardRoot role="article" aria-label={`${name} — available for adoption`}>
-      {/* Animal photo */}
-      <ImageWrapper>
-        {image ? (
-          <AnimalImage src={image} alt={`Photo of ${name}`} loading="lazy" />
-        ) : (
-          <EmptyPlaceholder
-            variant="card"
-            title="No Image"
-            icon={<PawIcon css={{ color: '$main' }} width={36} height={36} />}
-          />
-        )}
-      </ImageWrapper>
+      <AnimalImageBlock image={image} name={name} />
 
       <ContentWrapper>
         <NameRow>
@@ -239,149 +183,62 @@ export function AnimalCard({
             <Flex
               align="start"
               justify="between"
-              css={{ width: '100%', gap: '8px' }}
+              css={{ width: '$percent$100', gap: '$px$8' }}
             >
-              <Text
-                as="h3"
-                heading="h4"
-                color="main"
-                textEllipsis="1"
-                css={{
-                  fontWeight: '$fontWeight$bold',
-                  lineHeight: 1.2,
-                  minWidth: 0,
-                }}
-              >
-                {name}
-              </Text>
+              <AnimalName>{name}</AnimalName>
               {age && <AgeBadge>{age}</AgeBadge>}
             </Flex>
 
-            <Flex align={'center'} justify={'between'}>
+            <Flex align="center" justify="between" css={{ mt: '$px$5' }}>
               {location && (
-                <Flex gap={'2'} align="center">
-                  <LocationIcon
-                    css={{
-                      color: '$main',
-                      width: '16px',
-                      height: '16px',
-                      flexShrink: 0,
-                    }}
-                  />
-                  <Text
-                    heading="h4"
-                    css={{
-                      color: '$slateGray',
-                      fontSize: '$px$13',
-                      fontWeight: '$fontWeight$medium',
-                      lineHeight: 1.2,
-                    }}
-                  >
+                <LocationWrapper>
+                  <LocationIcon />
+                  <LocationText title={`${location} Location`}>
                     {location}
-                  </Text>
-                </Flex>
+                  </LocationText>
+                </LocationWrapper>
               )}
-              {/* Breed */}
-              {breed && (
-                <Text
-                  heading="h8"
-                  css={{
-                    color: '$slateGray',
-                    fontWeight: '$fontWeight$medium',
-                    marginTop: '2px',
-                  }}
-                >
-                  {breed}
-                </Text>
-              )}
+              {breed && <BreedText title={`${breed} Breed`}>{breed}</BreedText>}
             </Flex>
           </NameBlock>
         </NameRow>
 
         {badges.length > 0 && (
           <BadgeRow>
-            {badges.map((badge) => {
-              const isAvailable = badge.toLowerCase() === 'available';
-              return (
-                <Badge
-                  key={badge}
-                  css={{
-                    ...(isAvailable && {
-                      color: '$main',
-                      backgroundColor: '$dimWhite',
-                      borderColor: '$dimWhite',
-                    }),
-                  }}
-                >
-                  {badge}
-                </Badge>
-              );
-            })}
+            {badges.map((badge) => (
+              <Badge
+                key={badge}
+                css={
+                  badge.toLowerCase() === 'available'
+                    ? {
+                        color: '$main',
+                        backgroundColor: '$dimWhite',
+                        borderColor: '$dimWhite',
+                      }
+                    : undefined
+                }
+              >
+                {badge}
+              </Badge>
+            ))}
           </BadgeRow>
         )}
 
-        {/* CTA */}
-        {!(onEdit || onDelete) && (
+        {isOwner ? (
+          <OwnerActions
+            onViewDetail={onViewDetail}
+            onEdit={onEdit}
+            onDelete={onDelete}
+          />
+        ) : (
           <ButtonGroup>
-            <ViewDetailButton
-              variant="default"
-              size="md"
-              onClick={(e: React.MouseEvent) => {
-                e.stopPropagation();
-                onViewDetail?.();
-              }}
-            >
+            <AnimalCardButton onClick={stop(onViewDetail)}>
               View
-            </ViewDetailButton>
-
-            <AdoptButton
-              variant="default"
-              size="md"
-              onClick={(e: React.MouseEvent) => {
-                e.stopPropagation();
-                onAdopt?.();
-              }}
-            >
-              Adopt
-            </AdoptButton>
+            </AnimalCardButton>
+            <AnimalCardButton variant="main" onClick={stop(onAdopt)}>
+              Contact
+            </AnimalCardButton>
           </ButtonGroup>
-        )}
-
-        {/* Edit / Delete — only when owner actions are provided */}
-        {(onEdit || onDelete) && (
-          <OwnerActionRow>
-            <ViewDetailButton
-              variant="default"
-              size="md"
-              onClick={(e: React.MouseEvent) => {
-                e.stopPropagation();
-                onViewDetail?.();
-              }}
-            >
-              <span className="btn-text">View</span>
-              <EyeIcon className="btn-icon" width={16} height={16} css={{ color: '$main', flexShrink: 0 }} />
-            </ViewDetailButton>
-            {onEdit && (
-              <EditButton
-                variant="default"
-                size="md"
-                onClick={(e: React.MouseEvent) => { e.stopPropagation(); onEdit(); }}
-              >
-                <span className="btn-text">Edit</span>
-                <EditIcon className="btn-icon" width={16} height={16} css={{ color: '$main', flexShrink: 0 }} />
-              </EditButton>
-            )}
-            {onDelete && (
-              <DeleteButton
-                variant="default"
-                size="md"
-                onClick={(e: React.MouseEvent) => { e.stopPropagation(); onDelete(); }}
-              >
-                <span className="btn-text">Delete</span>
-                <TrashIcon className="btn-icon" width={16} height={16} css={{ color: '$error1', flexShrink: 0 }} />
-              </DeleteButton>
-            )}
-          </OwnerActionRow>
         )}
       </ContentWrapper>
     </CardRoot>

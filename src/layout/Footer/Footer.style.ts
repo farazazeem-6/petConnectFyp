@@ -252,6 +252,7 @@ export const FooterSubscribeButton = styled(Button, {
     flexShrink: '0',
     transition: 'opacity 0.2s ease',
     whiteSpace: 'nowrap',
+    width: '$px$50',
 
     '&:hover': {
         opacity: '0.9 !important',
