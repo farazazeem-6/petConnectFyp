@@ -49,3 +49,4 @@ export { default as ArrowLeftIcon } from './Icons/ArrowLeftIcon';
 export { default as CameraIcon } from './Icons/CameraIcon';
 export { default as CalendarIcon } from './Icons/CalendarIcon';
 export { default as PaletteIcon } from './Icons/PaletteIcon';
+export { default as ListingIcon } from './Icons/ListingIcon';

@@ -11,7 +11,12 @@ import {
   NavList,
 } from './Header.Style';
 import { Box, Flex, WebLogo } from '@/components/elements';
-import { MenuIcon, UserIcon, SignOutIcon } from '@/components/svgs';
+import {
+  MenuIcon,
+  UserIcon,
+  SignOutIcon,
+  ListingIcon,
+} from '@/components/svgs';
 import { Sidebar } from '../SideBar';
 import { NAV_ITEMS, StaticRoutes } from '@/constants';
 import { useHeader, useAuth, useScreenWidth } from '@/hooks';
@@ -62,6 +67,15 @@ export const Header = () => {
         <UserIcon css={{ height: '$px$20', color: '$main', stroke: '$main' }} />
       ),
       onClick: () => router.push(StaticRoutes.PROFILE),
+    },
+    {
+      label: 'My Listing',
+      icon: (
+        <ListingIcon
+          css={{ height: '$px$20', color: '$main', stroke: '$main' }}
+        />
+      ),
+      onClick: () => router.push(StaticRoutes.MY_LISTING),
     },
     {
       label: 'Sign Out',

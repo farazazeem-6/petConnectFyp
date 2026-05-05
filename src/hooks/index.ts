@@ -11,3 +11,5 @@ export * from './useAlertModal';
 export * from './useClickOutside';
 export * from './useScrollToError';
 export * from './useProfile';
+export * from './useTypewriter';
+export * from './useChatVet';
