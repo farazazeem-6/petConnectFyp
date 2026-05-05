@@ -12,9 +12,12 @@ import {
   AgeBadge,
   ButtonGroup,
   ViewDetailButton,
+  OwnerActionRow,
+  EditButton,
+  DeleteButton,
 } from './AnimalCard.style';
 import { Text, EmptyPlaceholder, Flex } from '@/components/elements';
-import { PawIcon, LocationIcon, SearchIcon, PaletteIcon, CalendarIcon } from '@/components/svgs';
+import { PawIcon, LocationIcon, SearchIcon, PaletteIcon, CalendarIcon, EditIcon, TrashIcon, EyeIcon } from '@/components/svgs';
 
 // ── Report-type badge colours ─────────────────────────────────────
 const REPORT_BADGE_STYLES: Record<
@@ -43,6 +46,8 @@ export function AnimalCard({
   color,
   onAdopt,
   onViewDetail,
+  onEdit,
+  onDelete,
   // report variant
   variant = 'adoption',
   reportType,
@@ -108,58 +113,31 @@ export function AnimalCard({
                 )}
               </Flex>
 
-              {/* Color */}
-              {color && (
-                <Flex gap="2" align="center" css={{ marginTop: '2px' }}>
-                  <PaletteIcon
-                    css={{ color: '$main', width: '13px', height: '13px', flexShrink: 0 }}
-                  />
-                  <Text
-                    heading="h8"
-                    css={{ color: '$slateGray', fontWeight: '$fontWeight$medium' }}
-                  >
-                    {color}
-                  </Text>
-                </Flex>
-              )}
-
-              {/* Location */}
-              {location && (
-                <Flex gap="2" align="center" css={{ marginTop: '2px' }}>
-                  <LocationIcon
-                    css={{ color: '$main', width: '14px', height: '14px', flexShrink: 0 }}
-                  />
-                  <Text
-                    heading="h4"
-                    css={{
-                      color: '$slateGray',
-                      fontSize: '$px$13',
-                      fontWeight: '$fontWeight$medium',
-                      lineHeight: 1.2,
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    {location}
-                  </Text>
-                </Flex>
-              )}
-
-              {/* Date */}
-              {dateSeen && (
-                <Flex gap="2" align="center" css={{ marginTop: '2px' }}>
-                  <CalendarIcon
-                    css={{ color: '$main', width: '13px', height: '13px', flexShrink: 0 }}
-                  />
-                  <Text
-                    heading="h8"
-                    css={{ color: '$slateGray', fontWeight: '$fontWeight$medium' }}
-                  >
-                    {dateSeen}
-                  </Text>
-                </Flex>
-              )}
+              <Flex align={'center'} justify={'between'}>
+                {location && (
+                  <Flex gap={'2'} align="center">
+                    <LocationIcon
+                      css={{
+                        color: '$main',
+                        width: '16px',
+                        height: '16px',
+                        flexShrink: 0,
+                      }}
+                    />
+                    <Text
+                      heading="h4"
+                      css={{
+                        color: '$slateGray',
+                        fontSize: '$px$13',
+                        fontWeight: '$fontWeight$medium',
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      {location}
+                    </Text>
+                  </Flex>
+                )}
+              </Flex>
             </NameBlock>
           </NameRow>
 
@@ -183,18 +161,57 @@ export function AnimalCard({
           )}
 
           {/* View detail */}
-          <ButtonGroup>
-            <ViewDetailButton
-              variant="default"
-              size="md"
-              onClick={(e: React.MouseEvent) => {
-                e.stopPropagation();
-                onViewDetail?.();
-              }}
-            >
-              View Details
-            </ViewDetailButton>
-          </ButtonGroup>
+          {!(onEdit || onDelete) && (
+            <ButtonGroup>
+              <ViewDetailButton
+                variant="default"
+                size="md"
+                onClick={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+                  onViewDetail?.();
+                }}
+              >
+                View Details
+              </ViewDetailButton>
+            </ButtonGroup>
+          )}
+
+          {/* Edit / Delete — only when owner actions are provided */}
+          {(onEdit || onDelete) && (
+            <OwnerActionRow>
+              <ViewDetailButton
+                variant="default"
+                size="md"
+                onClick={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+                  onViewDetail?.();
+                }}
+              >
+                <span className="btn-text">View</span>
+                <EyeIcon className="btn-icon" width={16} height={16} css={{ color: '$main', flexShrink: 0 }} />
+              </ViewDetailButton>
+              {onEdit && (
+                <EditButton
+                  variant="default"
+                  size="md"
+                  onClick={(e: React.MouseEvent) => { e.stopPropagation(); onEdit(); }}
+                >
+                  <span className="btn-text">Edit</span>
+                  <EditIcon className="btn-icon" width={16} height={16} css={{ color: '$main', flexShrink: 0 }} />
+                </EditButton>
+              )}
+              {onDelete && (
+                <DeleteButton
+                  variant="default"
+                  size="md"
+                  onClick={(e: React.MouseEvent) => { e.stopPropagation(); onDelete(); }}
+                >
+                  <span className="btn-text">Delete</span>
+                  <TrashIcon className="btn-icon" width={16} height={16} css={{ color: '$error1', flexShrink: 0 }} />
+                </DeleteButton>
+              )}
+            </OwnerActionRow>
+          )}
         </ContentWrapper>
       </CardRoot>
     );
@@ -304,29 +321,68 @@ export function AnimalCard({
         )}
 
         {/* CTA */}
-        <ButtonGroup>
-          <ViewDetailButton
-            variant="default"
-            size="md"
-            onClick={(e: React.MouseEvent) => {
-              e.stopPropagation();
-              onViewDetail?.();
-            }}
-          >
-            View
-          </ViewDetailButton>
+        {!(onEdit || onDelete) && (
+          <ButtonGroup>
+            <ViewDetailButton
+              variant="default"
+              size="md"
+              onClick={(e: React.MouseEvent) => {
+                e.stopPropagation();
+                onViewDetail?.();
+              }}
+            >
+              View
+            </ViewDetailButton>
 
-          <AdoptButton
-            variant="default"
-            size="md"
-            onClick={(e: React.MouseEvent) => {
-              e.stopPropagation();
-              onAdopt?.();
-            }}
-          >
-            Adopt
-          </AdoptButton>
-        </ButtonGroup>
+            <AdoptButton
+              variant="default"
+              size="md"
+              onClick={(e: React.MouseEvent) => {
+                e.stopPropagation();
+                onAdopt?.();
+              }}
+            >
+              Adopt
+            </AdoptButton>
+          </ButtonGroup>
+        )}
+
+        {/* Edit / Delete — only when owner actions are provided */}
+        {(onEdit || onDelete) && (
+          <OwnerActionRow>
+            <ViewDetailButton
+              variant="default"
+              size="md"
+              onClick={(e: React.MouseEvent) => {
+                e.stopPropagation();
+                onViewDetail?.();
+              }}
+            >
+              <span className="btn-text">View</span>
+              <EyeIcon className="btn-icon" width={16} height={16} css={{ color: '$main', flexShrink: 0 }} />
+            </ViewDetailButton>
+            {onEdit && (
+              <EditButton
+                variant="default"
+                size="md"
+                onClick={(e: React.MouseEvent) => { e.stopPropagation(); onEdit(); }}
+              >
+                <span className="btn-text">Edit</span>
+                <EditIcon className="btn-icon" width={16} height={16} css={{ color: '$main', flexShrink: 0 }} />
+              </EditButton>
+            )}
+            {onDelete && (
+              <DeleteButton
+                variant="default"
+                size="md"
+                onClick={(e: React.MouseEvent) => { e.stopPropagation(); onDelete(); }}
+              >
+                <span className="btn-text">Delete</span>
+                <TrashIcon className="btn-icon" width={16} height={16} css={{ color: '$error1', flexShrink: 0 }} />
+              </DeleteButton>
+            )}
+          </OwnerActionRow>
+        )}
       </ContentWrapper>
     </CardRoot>
   );

@@ -9,6 +9,7 @@ import {
   AnimalCardSkeleton,
   FilterSidebar,
   LostFoundDetailModal,
+  EmptyActionBanner,
 } from '@/components/ui';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { fetchLostFoundReports } from '@/store';
@@ -25,10 +26,6 @@ import {
   AddActionButton,
   BrowseHeading,
   ContentRow,
-  CTABanner,
-  CTAIconRing,
-  CTAContent,
-  CTAButton,
   GridArea,
   MobileFilterBtn,
   PageRoot,
@@ -203,48 +200,27 @@ export function LostFound() {
 
             {/* ── Empty state: full-width CTA banner ── */}
             {emptyAndDoneLoading && (
-              <>
-                <CTABanner
-                  type="button"
-                  aria-label="Report an animal"
-                  onClick={handleAddReport}
-                  id="report-cta-banner"
-                >
-                  <CTAIconRing>
-                    <PawIcon
-                      width={36}
-                      height={36}
-                      css={{ color: '$main', fill: '$main' }}
-                    />
-                  </CTAIconRing>
-                  <CTAContent>
-                    <Text
-                      heading="h3"
-                      css={{
-                        color: '$main',
-                        fontWeight: '$fontWeight$bold',
-                        lineHeight: 1.3,
-                      }}
-                    >
-                      {messages.lostFound.emptyTitle}
-                    </Text>
-                    <Text
-                      heading="h8"
-                      css={{ color: '$slateGray', lineHeight: 1.6 }}
-                    >
-                      {messages.lostFound.emptySubtitle}
-                    </Text>
-                  </CTAContent>
-                  <CTAButton>
-                    <SearchIcon
-                      width={16}
-                      height={16}
-                      css={{ color: '$white' }}
-                    />
-                    {messages.lostFound.foundReportButton}
-                  </CTAButton>
-                </CTABanner>
-              </>
+              <EmptyActionBanner
+                id="report-cta-banner"
+                title={messages.lostFound.emptyTitle}
+                subtitle={messages.lostFound.emptySubtitle}
+                buttonText={messages.lostFound.foundReportButton}
+                icon={
+                  <PawIcon
+                    width={36}
+                    height={36}
+                    css={{ color: '$main', fill: '$main' }}
+                  />
+                }
+                buttonIcon={
+                  <SearchIcon
+                    width={16}
+                    height={16}
+                    css={{ color: '$white' }}
+                  />
+                }
+                onClick={handleAddReport}
+              />
             )}
 
             {/* ── Has results: grid ── */}

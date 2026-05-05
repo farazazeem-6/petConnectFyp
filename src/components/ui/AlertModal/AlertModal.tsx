@@ -1,5 +1,5 @@
 import React, { type FC } from 'react';
-import { Dialog, DialogTitle, DialogDescription } from '@/components/elements';
+import { Dialog, DialogTitle, DialogDescription } from '@/components/elements/Dialog';
 import {
   AlertDialogContent,
   IconContainer,

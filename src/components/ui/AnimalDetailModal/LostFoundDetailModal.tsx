@@ -1,14 +1,17 @@
 import { TLostFoundReport } from '@/utils/types';
+import { Text, Flex, EmptyPlaceholder, Badge } from '@/components/elements';
 import {
   Dialog,
   DialogContent,
-  Text,
-  Flex,
-  EmptyPlaceholder,
-  Badge,
   DialogTitle,
-} from '@/components/elements';
-import { PawIcon, LocationIcon, SearchIcon, CalendarIcon, PaletteIcon } from '@/components/svgs';
+} from '@/components/elements/Dialog';
+import {
+  PawIcon,
+  LocationIcon,
+  SearchIcon,
+  CalendarIcon,
+  PaletteIcon,
+} from '@/components/svgs';
 import {
   ModalContent,
   ImageSection,
@@ -96,7 +99,9 @@ export function LostFoundDetailModal({ isOpen, onClose, report }: Props) {
                 {/* Location */}
                 {report.lastSeenLocation && (
                   <Flex align="center" gap="4">
-                    <LocationIcon css={{ color: '$slateGray', width: '14px' }} />
+                    <LocationIcon
+                      css={{ color: '$slateGray', width: '14px' }}
+                    />
                     <Text heading="h8" color="secondry">
                       {report.lastSeenLocation}
                     </Text>
@@ -122,9 +127,17 @@ export function LostFoundDetailModal({ isOpen, onClose, report }: Props) {
                   }}
                 >
                   {report.reportType === 'lost' ? (
-                    <SearchIcon width={11} height={11} css={{ color: '#dc2626' }} />
+                    <SearchIcon
+                      width={11}
+                      height={11}
+                      css={{ color: '#dc2626' }}
+                    />
                   ) : (
-                    <LocationIcon width={11} height={11} css={{ color: '#16a34a' }} />
+                    <LocationIcon
+                      width={11}
+                      height={11}
+                      css={{ color: '#16a34a' }}
+                    />
                   )}
                   {report.reportType === 'lost' ? 'Lost' : 'Found'}
                 </span>
@@ -164,16 +177,28 @@ export function LostFoundDetailModal({ isOpen, onClose, report }: Props) {
             {/* Info Grid */}
             <InfoGrid>
               <InfoItem>
-                <Text heading="h8" color="secondry" css={{ fontWeight: '$fontWeight$medium' }}>
+                <Text
+                  heading="h8"
+                  color="secondry"
+                  css={{ fontWeight: '$fontWeight$medium' }}
+                >
                   Type
                 </Text>
-                <Text heading="h7" color="primary" css={{ textTransform: 'capitalize' }}>
+                <Text
+                  heading="h7"
+                  color="primary"
+                  css={{ textTransform: 'capitalize' }}
+                >
                   {report.type || 'N/A'}
                 </Text>
               </InfoItem>
 
               <InfoItem>
-                <Text heading="h8" color="secondry" css={{ fontWeight: '$fontWeight$medium' }}>
+                <Text
+                  heading="h8"
+                  color="secondry"
+                  css={{ fontWeight: '$fontWeight$medium' }}
+                >
                   Breed
                 </Text>
                 <Text heading="h7" color="primary">
@@ -182,16 +207,28 @@ export function LostFoundDetailModal({ isOpen, onClose, report }: Props) {
               </InfoItem>
 
               <InfoItem>
-                <Text heading="h8" color="secondry" css={{ fontWeight: '$fontWeight$medium' }}>
+                <Text
+                  heading="h8"
+                  color="secondry"
+                  css={{ fontWeight: '$fontWeight$medium' }}
+                >
                   Gender
                 </Text>
-                <Text heading="h7" color="primary" css={{ textTransform: 'capitalize' }}>
+                <Text
+                  heading="h7"
+                  color="primary"
+                  css={{ textTransform: 'capitalize' }}
+                >
                   {report.sex || 'Unknown'}
                 </Text>
               </InfoItem>
 
               <InfoItem>
-                <Text heading="h8" color="secondry" css={{ fontWeight: '$fontWeight$medium' }}>
+                <Text
+                  heading="h8"
+                  color="secondry"
+                  css={{ fontWeight: '$fontWeight$medium' }}
+                >
                   Age
                 </Text>
                 <Text heading="h7" color="primary">
@@ -203,7 +240,11 @@ export function LostFoundDetailModal({ isOpen, onClose, report }: Props) {
             {/* Color tag */}
             {report.color && (
               <Flex direction="column" gap="4" css={{ mt: '$px$10' }}>
-                <Text heading="h8" color="secondry" css={{ fontWeight: '$fontWeight$medium' }}>
+                <Text
+                  heading="h8"
+                  color="secondry"
+                  css={{ fontWeight: '$fontWeight$medium' }}
+                >
                   Color / Markings
                 </Text>
                 <TagsContainer>
@@ -215,7 +256,9 @@ export function LostFoundDetailModal({ isOpen, onClose, report }: Props) {
                     }}
                   >
                     <Flex align="center" gap="2">
-                      <PaletteIcon css={{ color: '$main', width: '12px', height: '12px' }} />
+                      <PaletteIcon
+                        css={{ color: '$main', width: '12px', height: '12px' }}
+                      />
                       {report.color}
                     </Flex>
                   </Badge>
@@ -226,20 +269,30 @@ export function LostFoundDetailModal({ isOpen, onClose, report }: Props) {
             {/* Date & Time seen */}
             {(report.lastSeenDate || report.lastSeenTime) && (
               <Flex direction="column" gap="4" css={{ mt: '$px$10' }}>
-                <Text heading="h8" color="secondry" css={{ fontWeight: '$fontWeight$medium' }}>
+                <Text
+                  heading="h8"
+                  color="secondry"
+                  css={{ fontWeight: '$fontWeight$medium' }}
+                >
                   Last Seen
                 </Text>
                 <Flex align="center" gap="4">
-                  <CalendarIcon css={{ color: '$main', width: '14px', height: '14px' }} />
+                  <CalendarIcon
+                    css={{ color: '$main', width: '14px', height: '14px' }}
+                  />
                   <Text heading="h8" color="primary">
-                    {[report.lastSeenDate, report.lastSeenTime].filter(Boolean).join(' at ')}
+                    {[report.lastSeenDate, report.lastSeenTime]
+                      .filter(Boolean)
+                      .join(' at ')}
                   </Text>
                 </Flex>
               </Flex>
             )}
 
             {/* Description & Contact */}
-            {(report.distinguishingFeatures || report.additionalDetails || report.contactNumber) && (
+            {(report.distinguishingFeatures ||
+              report.additionalDetails ||
+              report.contactNumber) && (
               <DescriptionBox>
                 {report.distinguishingFeatures && (
                   <Flex direction="column" css={{ mb: '$px$16' }}>

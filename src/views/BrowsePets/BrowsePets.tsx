@@ -9,6 +9,7 @@ import {
   AnimalCardSkeleton,
   AnimalDetailModal,
   FilterSidebar,
+  EmptyActionBanner,
 } from '@/components/ui';
 import { useAppDispatch, useAppSelector } from '@/store/store';
 import { fetchAnimals } from '@/store/animal';
@@ -19,16 +20,17 @@ import {
   AddActionButton,
   BrowseHeading,
   ContentRow,
-  CTABanner,
-  CTAIconRing,
-  CTAContent,
-  CTAButton,
   GridArea,
   MobileFilterBtn,
   PageRoot,
   TopBar,
 } from './BrowsePets.style';
-import { FilterIcon, PawIcon, HeartArrowIcon } from '@/components/svgs';
+import {
+  FilterIcon,
+  PawIcon,
+  HeartArrowIcon,
+  PlusIcon,
+} from '@/components/svgs';
 import { messages } from '@/constants';
 import { EmptyPlaceholder } from '@/components/elements';
 
@@ -42,7 +44,7 @@ const defaultFilters: TFilterState = {
   vaccinated: false,
 };
 
-const GRID_CSS = {
+export const GRID_CSS = {
   gridTemplateColumns: 'repeat(4, 1fr)',
   gap: '$px$10',
   '@lg_max': { gridTemplateColumns: 'repeat(3, 1fr)' },
@@ -143,7 +145,7 @@ export function BrowsePets() {
                 aria-label="Add your pet"
                 onClick={handleAddPet}
               >
-                {messages.browsePets.ctaButton}
+                + {messages.browsePets.ctaButton}
               </AddActionButton>
             </AddActionBar>
 
@@ -158,39 +160,27 @@ export function BrowsePets() {
 
             {/* ── Empty state: full-width CTA banner ── */}
             {emptyAndDoneLoading && (
-              <CTABanner
-                type="button"
-                aria-label="Add your pet"
-                onClick={handleAddPet}
+              <EmptyActionBanner
                 id="add-pet-cta-banner"
-              >
-                <CTAIconRing>
+                title={messages.browsePets.emptyTitle}
+                subtitle={messages.browsePets.emptySubtitle}
+                buttonText={messages.browsePets.ctaButton}
+                buttonIcon={
+                  <PlusIcon
+                    width={16}
+                    height={16}
+                    css={{ color: '$white', fill: '$white' }}
+                  />
+                }
+                icon={
                   <HeartArrowIcon
                     width={36}
                     height={36}
                     css={{ color: '$main' }}
                   />
-                </CTAIconRing>
-                <CTAContent>
-                  <Text
-                    heading="h3"
-                    css={{
-                      color: '$main',
-                      fontWeight: '$fontWeight$bold',
-                      lineHeight: 1.3,
-                    }}
-                  >
-                    {messages.browsePets.emptyTitle}
-                  </Text>
-                  <Text
-                    heading="h8"
-                    css={{ color: '$slateGray', lineHeight: 1.6 }}
-                  >
-                    {messages.browsePets.emptySubtitle}
-                  </Text>
-                </CTAContent>
-                <CTAButton>{messages.browsePets.ctaButton}</CTAButton>
-              </CTABanner>
+                }
+                onClick={handleAddPet}
+              />
             )}
 
             {/* ── Has results: grid ── */}

@@ -1,6 +1,6 @@
 'use client';
-import React, { useCallback, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { Text, Container } from '@/components/elements';
 import {
@@ -41,9 +41,14 @@ import {
   defaultStep2,
   defaultStep3,
 } from './constants';
-import { addAnimal } from '@/lib/firebase/animal.service';
+import {
+  addAnimal,
+  updateAnimal,
+  getAnimalById,
+} from '@/lib/firebase/animal.service';
 import { uploadImageToCloudinary } from '@/lib/cloudinary';
 import { logger } from '@/lib/logger';
+import type { AnimalType } from '@/utils/types/animal';
 
 // ── Guarded controls (inside provider context) ────────────────────
 interface GuardedControlsProps {
@@ -61,7 +66,7 @@ function GuardedControls({
   const isFirst = state.currentIndex === 0;
   const isLast = state.currentIndex === steps.length - 1;
 
-  // ── Scroll to top whenever step changes ──────────────────────────
+  // Scroll to top on every step change
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [state.currentIndex]);
@@ -99,8 +104,13 @@ function GuardedControls({
 // ── Inner view ────────────────────────────────────────────────────
 function CreateListingInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const editId = searchParams.get('edit'); // truthy when editing an existing listing
+  const isEditMode = !!editId;
+
   const { user, loading } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [prefillLoading, setPrefillLoading] = useState(isEditMode);
 
   // Redirect to login if unauthenticated
   React.useEffect(() => {
@@ -130,9 +140,7 @@ function CreateListingInner() {
     setStep1((prev) => ({ ...prev, ...patch }));
     setStep1Errors((prev) => {
       const next = { ...prev };
-      (Object.keys(patch) as (keyof Step1Errors)[]).forEach(
-        (k) => delete next[k],
-      );
+      (Object.keys(patch) as (keyof Step1Errors)[]).forEach((k) => delete next[k]);
       return next;
     });
   }, []);
@@ -155,8 +163,7 @@ function CreateListingInner() {
     setStep2((prev) => ({ ...prev, ...patch }));
     setStep2Errors((prev) => {
       const next = { ...prev };
-      if (patch.imageFile !== undefined || patch.imagePreviewUrl !== undefined)
-        delete next.image;
+      if (patch.imageFile !== undefined || patch.imagePreviewUrl !== undefined) delete next.image;
       if (patch.healthCondition !== undefined) delete next.healthCondition;
       return next;
     });
@@ -180,12 +187,48 @@ function CreateListingInner() {
     setStep3((prev) => ({ ...prev, ...patch }));
     setStep3Errors((prev) => {
       const next = { ...prev };
-      (Object.keys(patch) as (keyof Step3Errors)[]).forEach(
-        (k) => delete next[k],
-      );
+      (Object.keys(patch) as (keyof Step3Errors)[]).forEach((k) => delete next[k]);
       return next;
     });
   }, []);
+
+  // ── Pre-fill from Firestore when editing ────────────────
+  useEffect(() => {
+    if (!isEditMode || !editId) return;
+    (async () => {
+      try {
+        const animal = await getAnimalById(editId);
+        if (!animal) {
+          toast.error('Listing not found.');
+          router.replace('/my-listing');
+          return;
+        }
+        setStep1({
+          name: animal.name,
+          age: String(animal.age),
+          type: animal.type as AnimalType,
+          breed: animal.breed ?? '',
+          gender: (animal.sex ?? 'male') as Step1Fields['gender'],
+        });
+        setStep2({
+          imageFile: null,
+          imagePreviewUrl: animal.image ?? '',
+          healthCondition: animal.healthCondition ?? [],
+          characteristics: animal.characteristics ?? [],
+        });
+        setStep3({
+          city: animal.city ?? '',
+          address: animal.address ?? '',
+          phoneNumber: animal.phoneNumber ?? '',
+          description: animal.description ?? '',
+        });
+      } catch {
+        toast.error('Failed to load listing data.');
+      } finally {
+        setPrefillLoading(false);
+      }
+    })();
+  }, [editId, isEditMode, router]);
 
   // ── Next guard ──────────────────────────────────────────
   const onNextGuard = useCallback(
@@ -219,7 +262,6 @@ function CreateListingInner() {
 
   // ── Final submit ────────────────────────────────────────
   const handleFinalSubmit = useCallback(async () => {
-    // Validate step 3 first
     const errors = validateStep3(step3);
     if (Object.keys(errors).length > 0) {
       setStep3Errors(errors);
@@ -238,20 +280,17 @@ function CreateListingInner() {
     }
 
     try {
-      //  Try uploading image to Cloudinary — never block on failure
-      let imageUrl = '';
+      // Keep existing URL in edit mode; re-upload only when user selected a new file
+      let imageUrl = step2.imagePreviewUrl;
       if (step2.imageFile) {
         const uploaded = await uploadImageToCloudinary(step2.imageFile);
         if (uploaded) {
           imageUrl = uploaded;
         } else {
-          logger.error(
-            '[CreateListing] Cloudinary upload failed — continuing without image.',
-          );
+          logger.error('[CreateListing] Cloudinary upload failed — continuing without image.');
         }
       }
 
-      //  Build Firestore payload
       const payload = {
         userId: user.uid,
         name: step1.name.trim(),
@@ -268,24 +307,32 @@ function CreateListingInner() {
         description: step3.description.trim() || '',
       };
 
-      // Persist to Firestore
-      await addAnimal(payload);
+      if (isEditMode && editId) {
+        await updateAnimal(editId, payload);
+        toast.success('Listing updated!');
+      } else {
+        await addAnimal(payload);
+        toast.success('Animal listed for adoption!');
+      }
 
-      toast.success('Animal listed for adoption!');
       clearState(FLOW_ID);
-      router.push('/browse-pets');
+      // Edit → back to My Listing; create → browse-pets
+      router.push(isEditMode ? '/my-listing' : '/browse-pets');
     } catch (err) {
       logger.error('[CreateListing] Firestore error:', err);
       toast.error('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
-  }, [step1, step2, step3, user, router, scrollStep3]);
+  }, [step1, step2, step3, user, router, scrollStep3, isEditMode, editId]);
 
   const handleBack = useCallback(() => {
     clearState(FLOW_ID);
-    router.push('/browse-pets');
-  }, [router]);
+    router.push(isEditMode ? '/my-listing' : '/browse-pets');
+  }, [router, isEditMode]);
+
+  // Show nothing until pre-fill data is loaded to avoid a flash of empty form
+  if (prefillLoading) return null;
 
   return (
     <>
@@ -312,20 +359,16 @@ function CreateListingInner() {
               <Text
                 as="h1"
                 heading="h4"
-                css={{
-                  fontWeight: '$fontWeight$bold',
-                  color: '$main',
-                  lineHeight: 1.2,
-                }}
+                css={{ fontWeight: '$fontWeight$bold', color: '$main', lineHeight: 1.2 }}
               >
-                Add Animal for Donation
+                {isEditMode ? 'Edit Donation Listing' : 'Add Animal for Donation'}
               </Text>
             </PageHeader>
 
             {/* ── Stepper nav ── */}
             <StepperNav />
 
-            {/* ── Step 1 ── */}
+            {/* ── Step 1 – Animal Info ── */}
             <StepPanel stepIndex={0}>
               <Step1_AnimalInfo
                 fields={step1}
@@ -335,7 +378,7 @@ function CreateListingInner() {
               />
             </StepPanel>
 
-            {/* ── Step 2 ── */}
+            {/* ── Step 2 – Media & Health ── */}
             <StepPanel stepIndex={1}>
               <Step2_MediaInfo
                 fields={step2}

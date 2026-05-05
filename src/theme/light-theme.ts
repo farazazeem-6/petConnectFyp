@@ -85,6 +85,11 @@ const lightThemeOpt = {
     white22: 'rgba(255,255,255,0.22)',
     white12: 'rgba(255,255,255,0.12)',
 
+    // Empty Banner Colors
+    bannerBorder: 'rgba(160,48,72,0.35)',
+    bannerIconBg: 'rgba(160,48,72,0.1)',
+
+
     // Alert Modal Colors
     alertErrorBg: '#FEE2E2',
     alertErrorBorder: '#FCA5A5',
@@ -134,6 +139,8 @@ const lightThemeOpt = {
     greenGradient2: 'linear-gradient(to right, #15803D, #34D399)',
     greenishGradient: 'linear-gradient(to top, #006400, #228B22, #32CD32)',
     profileDropdownBg: 'linear-gradient(135deg, #f8fafc 60%, #e0e7ff 100%)',
+    bannerGradient: 'linear-gradient(135deg, rgba(160,48,72,0.08) 0%, rgba(160,48,72,0.03) 100%)',
+    bannerGradientHover: 'linear-gradient(135deg, rgba(160,48,72,0.12) 0%, rgba(160,48,72,0.05) 100%)',
   },
   opacity: {
     mid: '$ul$0.9',

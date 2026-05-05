@@ -5,7 +5,26 @@ import { contentShow } from '@/theme';
 import { CloseIcon } from '../svgs';
 import { Box } from './Box';
 import { overlayStyles } from './Overlay';
-import { scrollStyle } from '../styles';
+
+const scrollStyle = {
+    '&::-webkit-scrollbar': {
+        paddingRight: '$space$15',
+        width: '5px',
+        height: '5px',
+    },
+    '&::-webkit-scrollbar-track': {
+        my: '$space$5',
+        background: 'transparent',
+        boxShadow: 'inset 0 0 5px $colors$scrollbarShadow',
+        borderRadius: '$radius$20',
+        borderLeft: '1.5px solid transparent',
+        borderRight: '1.5px solid transparent',
+    },
+    '&::-webkit-scrollbar-thumb': {
+        background: '$colors$scrollbarBackground',
+        borderRadius: '$radius$20',
+    },
+}
 
 const Dialog = DialogPrimitive.Root;
 const DialogTrigger = DialogPrimitive.Trigger;

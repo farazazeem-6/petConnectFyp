@@ -7,6 +7,9 @@ export interface AnimalCardProps {
     badges?: string[];
     onAdopt?: () => void;
     onViewDetail?: () => void;
+    // ── Owner actions (shown only in My Listing) ──────────
+    onEdit?: () => void;
+    onDelete?: () => void;
     // ── Report (lost/found) variant ────────────
     variant?: 'adoption' | 'report';
     reportType?: 'lost' | 'found';
