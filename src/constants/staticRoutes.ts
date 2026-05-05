@@ -3,5 +3,6 @@ export const StaticRoutes = {
     AUTH: '/auth',
     HOME: '/',
     BROWSE_PETS: '/browse-pets',
-    LOST_FOUND: '/lost-found'
+    LOST_FOUND: '/lost-found',
+    MY_LISTING: '/my-listing'
 };
