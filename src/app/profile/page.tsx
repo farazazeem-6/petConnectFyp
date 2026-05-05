@@ -1,13 +1,13 @@
 'use client';
 
 import { Divider, Loader } from '@/components/elements';
+import { RoutePageWrapper } from '@/components/styles';
 import DashBoardHeader from '@/components/ui/DashBoardHeader/DashBoardHeader';
 import { useProfile } from '@/hooks/useProfile';
 import {
   ChangePassword,
   ProfileCard,
   ProfileInfo,
-  ProfilePageWrapper,
   ProfilePhoto,
 } from '@/views/Profile';
 
@@ -33,7 +33,7 @@ export default function ProfilePage() {
   return (
     <>
    
-    <ProfilePageWrapper>
+    <RoutePageWrapper>
       <DashBoardHeader heading='My Profile'/>
       <ProfileCard>
         {/* ── Photo ── */}
@@ -62,7 +62,7 @@ export default function ProfilePage() {
           onPasswordChange={handleUpdatePassword}
         />
       </ProfileCard>
-    </ProfilePageWrapper>
+    </RoutePageWrapper>
      </>
   );
 }

@@ -50,3 +50,5 @@ export { default as CameraIcon } from './Icons/CameraIcon';
 export { default as CalendarIcon } from './Icons/CalendarIcon';
 export { default as PaletteIcon } from './Icons/PaletteIcon';
 export { default as ListingIcon } from './Icons/ListingIcon';
+export { default as PlusIcon } from './Icons/PlusIcon';
+export { default as TrashIcon } from './Icons/TrashIcon';

@@ -16,7 +16,6 @@ export * from './Tooltip';
 export * from './Avatar';
 export * from './Skeleton';
 export * from './WebLogo';
-export * from './Dialog';
 export * from './Overlay';
 export * from './IconButton';
 export * from './Select';

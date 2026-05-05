@@ -10,26 +10,6 @@ export const fadeSlideIn = keyframes({
   to: { opacity: 1, transform: 'translateY(0)' },
 });
 
-export const ProfilePageWrapper = styled(Box, {
-  width: '$percent$100',
-  boxSizing: 'border-box',
-  mx: 'auto',
-  py: '$rem$2',
-  px: '$px$100',
-  animation: `${fadeSlideIn} 0.25s ease`,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$px$20',
-
-  '@md_max': {
-    px: '$px$50',
-    py: '$rem$1_5',
-  },
-
-  '@sm_max': {
-    px: '$px$10',
-  },
-});
 
 export const ProfileCard = styled(Box, {
   backgroundColor: '$cardBgColor',

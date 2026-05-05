@@ -1,6 +1,6 @@
 'use client';
-import React, { useCallback, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { Text, Container } from '@/components/elements';
 import {
@@ -51,9 +51,14 @@ import {
   defaultStep2,
   defaultStep3,
 } from './constants';
-import { addLostFoundReport } from '@/lib/firebase/animal.service';
+import {
+  addLostFoundReport,
+  updateLostFoundReport,
+  getLostFoundReportById,
+} from '@/lib/firebase/animal.service';
 import { uploadImageToCloudinary } from '@/lib/cloudinary';
 import { logger } from '@/lib/logger';
+import type { AnimalType, ReportType } from '@/utils/types/animal';
 
 // ── Guarded controls ──────────────────────────────────────────────
 interface GuardedControlsProps {
@@ -71,7 +76,7 @@ function GuardedControls({
   const isFirst = state.currentIndex === 0;
   const isLast = state.currentIndex === steps.length - 1;
 
-  // ── Scroll to top whenever step changes ──────────────────
+  // Scroll to top on step change
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [state.currentIndex]);
@@ -109,8 +114,13 @@ function GuardedControls({
 // ── Inner view ────────────────────────────────────────────────────
 function ReportAnimalInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const editId = searchParams.get('edit'); // truthy when editing an existing report
+  const isEditMode = !!editId;
+
   const { user, loading } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [prefillLoading, setPrefillLoading] = useState(isEditMode);
 
   // Redirect to auth if not logged in
   React.useEffect(() => {
@@ -153,9 +163,7 @@ function ReportAnimalInner() {
     setStep1((prev) => ({ ...prev, ...patch }));
     setStep1Errors((prev) => {
       const next = { ...prev };
-      (Object.keys(patch) as (keyof Step1Errors)[]).forEach(
-        (k) => delete next[k],
-      );
+      (Object.keys(patch) as (keyof Step1Errors)[]).forEach((k) => delete next[k]);
       return next;
     });
   }, []);
@@ -174,8 +182,7 @@ function ReportAnimalInner() {
     setStep2((prev) => ({ ...prev, ...patch }));
     setStep2Errors((prev) => {
       const next = { ...prev };
-      if (patch.imageFile !== undefined || patch.imagePreviewUrl !== undefined)
-        delete next.image;
+      if (patch.imageFile !== undefined || patch.imagePreviewUrl !== undefined) delete next.image;
       return next;
     });
   }, []);
@@ -196,12 +203,50 @@ function ReportAnimalInner() {
     setStep3((prev) => ({ ...prev, ...patch }));
     setStep3Errors((prev) => {
       const next = { ...prev };
-      (Object.keys(patch) as (keyof Step3Errors)[]).forEach(
-        (k) => delete next[k],
-      );
+      (Object.keys(patch) as (keyof Step3Errors)[]).forEach((k) => delete next[k]);
       return next;
     });
   }, []);
+
+  // ── Pre-fill from Firestore when editing ──────────────────
+  useEffect(() => {
+    if (!isEditMode || !editId) return;
+    (async () => {
+      try {
+        const report = await getLostFoundReportById(editId);
+        if (!report) {
+          toast.error('Report not found.');
+          router.replace('/my-listing');
+          return;
+        }
+        setStep0({ reportType: report.reportType as ReportType });
+        setStep1({
+          name: report.name,
+          type: report.type as AnimalType,
+          breed: report.breed ?? '',
+          color: report.color,
+          age: report.age,
+          gender: report.sex,
+          distinguishingFeatures: report.distinguishingFeatures,
+        });
+        setStep2({
+          imageFile: null,
+          imagePreviewUrl: report.image ?? '',
+        });
+        setStep3({
+          lastSeenLocation: report.lastSeenLocation,
+          lastSeenDate: report.lastSeenDate,
+          lastSeenTime: report.lastSeenTime ?? '',
+          additionalDetails: report.additionalDetails ?? '',
+          contactNumber: report.contactNumber,
+        });
+      } catch {
+        toast.error('Failed to load report data.');
+      } finally {
+        setPrefillLoading(false);
+      }
+    })();
+  }, [editId, isEditMode, router]);
 
   // ── Next guard ────────────────────────────────────────────
   const onNextGuard = useCallback(
@@ -264,32 +309,21 @@ function ReportAnimalInner() {
     }
 
     try {
-      // Upload image to Cloudinary — isolated so a failure doesn't block submission
-      let imageUrl = '';
+      // Upload new image if selected, otherwise keep existing URL
+      let imageUrl = step2.imagePreviewUrl;
       if (step2.imageFile) {
         try {
           const uploaded = await uploadImageToCloudinary(step2.imageFile);
           if (uploaded) {
             imageUrl = uploaded;
           } else {
-            toast(
-              'Photo upload failed — report will be saved without an image.',
-              {
-                icon: '⚠️',
-              },
-            );
+            toast('Photo upload failed — saving without image.', { icon: '⚠️' });
           }
         } catch {
-          toast(
-            'Photo upload failed — report will be saved without an image.',
-            {
-              icon: '⚠️',
-            },
-          );
+          toast('Photo upload failed — saving without image.', { icon: '⚠️' });
         }
       }
 
-      // Build Firestore payload — strip undefined/empty optional fields
       const payload = {
         userId: user.uid,
         reportType: step0.reportType as 'lost' | 'found',
@@ -304,34 +338,42 @@ function ReportAnimalInner() {
         lastSeenDate: step3.lastSeenDate,
         lastSeenTime: step3.lastSeenTime || '',
         contactNumber: step3.contactNumber.trim(),
-        // Optional fields — only include when non-empty to avoid Firestore undefined error
         ...(step1.breed.trim() ? { breed: step1.breed.trim() } : {}),
         ...(step3.additionalDetails.trim()
           ? { additionalDetails: step3.additionalDetails.trim() }
           : {}),
       };
 
-      await addLostFoundReport(payload);
+      if (isEditMode && editId) {
+        await updateLostFoundReport(editId, payload);
+        toast.success('Report updated!');
+      } else {
+        await addLostFoundReport(payload);
+        toast.success(
+          step0.reportType === 'lost'
+            ? 'Lost animal report submitted!'
+            : 'Found animal report submitted!',
+        );
+      }
 
-      toast.success(
-        step0.reportType === 'lost'
-          ? 'Lost animal report submitted!'
-          : 'Found animal report submitted!',
-      );
       clearState(FLOW_ID);
-      router.push('/lost-found');
+      // Edit → back to My Listing; create → lost-found
+      router.push(isEditMode ? '/my-listing' : '/lost-found');
     } catch (err) {
       logger.error('[ReportAnimal] Firestore error:', err);
       toast.error('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
-  }, [step0, step1, step2, step3, user, router, scrollStep3]);
+  }, [step0, step1, step2, step3, user, router, scrollStep3, isEditMode, editId]);
 
   const handleBack = useCallback(() => {
     clearState(FLOW_ID);
-    router.push('/lost-found');
-  }, [router]);
+    router.push(isEditMode ? '/my-listing' : '/lost-found');
+  }, [router, isEditMode]);
+
+  // Show nothing until pre-fill data is loaded to avoid flashing an empty form
+  if (prefillLoading) return null;
 
   return (
     <>
@@ -358,13 +400,9 @@ function ReportAnimalInner() {
               <Text
                 as="h1"
                 heading="h4"
-                css={{
-                  fontWeight: '$fontWeight$bold',
-                  color: '$main',
-                  lineHeight: 1.2,
-                }}
+                css={{ fontWeight: '$fontWeight$bold', color: '$main', lineHeight: 1.2 }}
               >
-                Report an Animal
+                {isEditMode ? 'Edit Report' : 'Report an Animal'}
               </Text>
             </PageHeader>
 

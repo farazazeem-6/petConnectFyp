@@ -46,6 +46,7 @@ export const PasswordInput = ({
         />
         <InputIconBtn
           type="button"
+          disabled={disabled}
           onClick={() => setShow((p) => !p)}
           aria-label={show ? 'Hide password' : 'Show password'}
         >

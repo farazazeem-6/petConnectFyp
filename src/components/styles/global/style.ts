@@ -1,5 +1,6 @@
-import { Text } from "@/components/elements";
+import { Box, Text } from "@/components/elements";
 import { styled } from "@/theme";
+import { fadeSlideIn } from "@/views/Profile";
 
 export const MainHeading = styled(Text, {
     fontSize: '$fontSize$display',
@@ -51,3 +52,24 @@ export const scrollStyle = {
         borderRadius: '$radius$20',
     },
 }
+
+export const RoutePageWrapper = styled(Box, {
+  width: '$percent$100',
+  boxSizing: 'border-box',
+  mx: 'auto',
+  py: '$rem$2',
+  px: '$px$100',
+  animation: `${fadeSlideIn} 0.25s ease`,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$px$20',
+
+  '@md_max': {
+    px: '$px$50',
+    py: '$rem$1_5',
+  },
+
+  '@sm_max': {
+    px: '$px$10',
+  },
+});

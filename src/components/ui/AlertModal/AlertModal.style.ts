@@ -1,6 +1,7 @@
-import { DialogContent, DialogFooter, Text, Button } from '@/components/elements'
+import { Text, Button } from '@/components/elements'
 import { Flex } from '@/components/elements'
 import { slideUpAndFade, styled } from '@/theme'
+import { DialogContent, DialogFooter } from '@/components/elements/Dialog'
 
 export const AlertDialogContent = styled(DialogContent, {
     'width': '420px',

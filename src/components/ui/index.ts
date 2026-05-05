@@ -1,4 +1,5 @@
 export * from './EmptyBox';
+export * from './EmptyActionBanner';
 export * from './StickyPageHeader';
 export * from './AlertModal';
 export * from './AnimalCard';

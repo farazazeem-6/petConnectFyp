@@ -79,6 +79,11 @@ const darkThemeOpt = {
     skeletonBaseColor: '#2d2f3a',
     skeletonHighlightColor: '#f5f5f51a',
 
+    // Empty Banner Colors
+    bannerBorder: 'rgba(160,48,72,0.4)',
+    bannerIconBg: 'rgba(160,48,72,0.15)',
+
+
     // Alert Modal Colors
     alertErrorBg: '#450A0A',
     alertErrorBorder: '#7F1D1D',
@@ -127,6 +132,8 @@ const darkThemeOpt = {
     greenGradient1: 'linear-gradient(to right, #1E7B3D, #3ABF78)',
     greenGradient2: 'linear-gradient(to right, #15803D, #34D399)',
     greenishGradient: 'linear-gradient(to top, #006400, #228B22, #32CD32)',
+    bannerGradient: 'linear-gradient(135deg, rgba(160,48,72,0.15) 0%, rgba(160,48,72,0.05) 100%)',
+    bannerGradientHover: 'linear-gradient(135deg, rgba(160,48,72,0.2) 0%, rgba(160,48,72,0.08) 100%)',
   },
   opacity: {
     mid: '$ul$0.5',

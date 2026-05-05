@@ -44,7 +44,7 @@ export const messages = {
     filterButton: 'Filters',
     emptyTitle: 'No pets listed yet — add yours!',
     emptySubtitle: 'Help animals find loving homes by listing your pet for adoption. It only takes a few minutes.',
-    ctaButton: '+ Add Your Pet',
+    ctaButton: 'Add Your Pet',
   },
   lostFound: {
     title: 'Lost & Found',

@@ -220,6 +220,11 @@ export const InputIconBtn = styled('button', {
   cursor: 'pointer',
   color: '$slateGray',
   '&:hover': { color: '$main' },
+  '&:disabled': {
+    cursor: 'not-allowed',
+    opacity: 0.5,
+    pointerEvents: 'none',
+  },
 });
 
 export const ErrorText = styled(Text, {

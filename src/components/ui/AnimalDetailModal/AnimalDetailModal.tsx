@@ -2,12 +2,8 @@ import { TAnimal } from '@/utils/types';
 import {
   Dialog,
   DialogContent,
-  Text,
-  Flex,
-  EmptyPlaceholder,
-  Badge,
   DialogTitle,
-} from '@/components/elements';
+} from '@/components/elements/Dialog';
 import { PawIcon, LocationIcon } from '@/components/svgs';
 import {
   ModalContent,
@@ -20,6 +16,7 @@ import {
   TagsContainer,
   DescriptionBox,
 } from './AnimalDetailModal.style';
+import { Badge, EmptyPlaceholder, Flex, Text } from '@/components/elements';
 
 interface Props {
   isOpen: boolean;

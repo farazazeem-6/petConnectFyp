@@ -27,18 +27,26 @@ export const IconWrapper = styled(Box, {
 });
 export const TextWrapper = styled(Flex, {
   defaultVariants: {
-    align: 'center',
-    justify: 'center',
     direction: 'column',
     gap: '8',
   },
+  '@sm_max': {
+    alignItems: 'center !important'
+  }
 });
 export const HeadingText = styled(Text, {
   fontSize: '$px$30 !important',
   color: '$black !important',
   fontWeight: '$fontWeight$extrabold',
+  '@sm_max': {
+    fontSize: '$px$24 !important',
+  }
 });
 export const SubHeadingText = styled(Text, {
   fontSize: '$px$16 !important',
   fontWeight: '$fontWeight$light',
+  textAlign: 'center',
+  '@sm_max': {
+    fontSize: '$px$14 !important',
+  }
 });
