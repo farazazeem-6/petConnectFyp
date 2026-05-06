@@ -1,11 +1,11 @@
 import { StepConfig } from '@/components/ui/Stepper';
-import { Gender, Step1Fields, Step2Fields, Step3Fields } from './types';
+import { Gender, Step1Fields, Step2Fields, Step3Fields } from '@/utils/types';
 
 // ── Flow & Steps ───────────────────────────────────────────────────
 
 export const FLOW_ID = 'create-listing';
 
-export const STEPS: StepConfig[] = [
+export const ADD_ANIMAL_STEPS: StepConfig[] = [
   { id: 'animal-info', label: 'Animal Info', sublabel: 'Basic details' },
   { id: 'media', label: 'Media', sublabel: 'Photos & health' },
   { id: 'contact', label: 'Contact', sublabel: 'Your details' },

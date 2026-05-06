@@ -5,7 +5,6 @@ export const FooterWrapper = styled(Box, {
     width: '$percent$100',
     boxSizing: 'border-box',
     background: '$main',
-    borderRadius: '$radius$xl $radius$xl 0 0',
     pt: '$px$50',
     pb: '$px$24',
     px: '$px$60',
@@ -20,7 +19,6 @@ export const FooterWrapper = styled(Box, {
     '@sm_max': {
         px: '$px$20',
         pt: '$px$36',
-        borderRadius: '$radius$lg $radius$lg 0 0',
     },
 });
 
