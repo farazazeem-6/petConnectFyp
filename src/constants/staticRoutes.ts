@@ -4,5 +4,6 @@ export const StaticRoutes = {
     HOME: '/',
     BROWSE_PETS: '/browse-pets',
     LOST_FOUND: '/lost-found',
-    MY_LISTING: '/my-listing'
+    MY_LISTING: '/my-listing',
+    FAVOURITES: '/favourites',
 };

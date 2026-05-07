@@ -11,9 +11,9 @@ import {
   StepContent,
 } from './CreateListing.style';
 
-import { Step1Fields, Step1Errors, Step1Refs } from './types';
 import { AnimalType } from '@/utils/types/animal';
-import { ANIMAL_TYPE_OPTIONS, GENDERS } from './constants';
+import { ANIMAL_TYPE_OPTIONS, GENDERS } from '@/constants';
+import { Step1Fields, Step1Errors, Step1Refs } from '@/utils/types';
 
 // ── Component ─────────────────────────────────────────────────────
 interface Props {

@@ -12,13 +12,7 @@ export const HeaderWrapper = styled(Flex, {
   height: '$px$85',
   boxSizing: 'border-box',
   backgroundColor: '$main',
-  borderBottomLeftRadius: '$px$20',
-  borderBottomRightRadius: '$px$20',
   justifyContent: 'center !important',
-  '@sm_max': {
-    borderBottomLeftRadius: '$px$15',
-    borderBottomRightRadius: '$px$15',
-  }
 });
 
 export const HeaderContent = styled(Flex, {

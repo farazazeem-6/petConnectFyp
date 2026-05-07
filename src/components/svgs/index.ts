@@ -52,3 +52,6 @@ export { default as PaletteIcon } from './Icons/PaletteIcon';
 export { default as ListingIcon } from './Icons/ListingIcon';
 export { default as PlusIcon } from './Icons/PlusIcon';
 export { default as TrashIcon } from './Icons/TrashIcon';
+export { default as ProfileIcon } from './Icons/ProfileIcon';
+export { default as PetLostIcon } from './Icons/PetLostIcon';
+export { default as NavPawIcon } from './Icons/NavPawIcon';

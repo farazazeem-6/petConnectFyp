@@ -22,7 +22,7 @@ import { PageRoot, FormCard, PageHeader, BackBtn } from './CreateListing.style';
 import { Step1_AnimalInfo } from './Step1_AnimalInfo';
 import { Step2_MediaInfo } from './Step2_MediaInfo';
 import { Step3_ContactInfo } from './Step3_ContactInfo';
-import { validateStep1, validateStep2, validateStep3 } from './schema';
+import { validateStep1, validateStep2, validateStep3 } from '@/utils/schemas';
 import type {
   Step1Fields,
   Step1Errors,
@@ -33,14 +33,14 @@ import type {
   Step3Fields,
   Step3Errors,
   Step3Refs,
-} from './types';
+} from '@/utils/types';
 import {
-  STEPS,
+  ADD_ANIMAL_STEPS,
   FLOW_ID,
   defaultStep1,
   defaultStep2,
   defaultStep3,
-} from './constants';
+} from '@/constants';
 import {
   addAnimal,
   updateAnimal,
@@ -140,7 +140,9 @@ function CreateListingInner() {
     setStep1((prev) => ({ ...prev, ...patch }));
     setStep1Errors((prev) => {
       const next = { ...prev };
-      (Object.keys(patch) as (keyof Step1Errors)[]).forEach((k) => delete next[k]);
+      (Object.keys(patch) as (keyof Step1Errors)[]).forEach(
+        (k) => delete next[k],
+      );
       return next;
     });
   }, []);
@@ -163,7 +165,8 @@ function CreateListingInner() {
     setStep2((prev) => ({ ...prev, ...patch }));
     setStep2Errors((prev) => {
       const next = { ...prev };
-      if (patch.imageFile !== undefined || patch.imagePreviewUrl !== undefined) delete next.image;
+      if (patch.imageFile !== undefined || patch.imagePreviewUrl !== undefined)
+        delete next.image;
       if (patch.healthCondition !== undefined) delete next.healthCondition;
       return next;
     });
@@ -187,7 +190,9 @@ function CreateListingInner() {
     setStep3((prev) => ({ ...prev, ...patch }));
     setStep3Errors((prev) => {
       const next = { ...prev };
-      (Object.keys(patch) as (keyof Step3Errors)[]).forEach((k) => delete next[k]);
+      (Object.keys(patch) as (keyof Step3Errors)[]).forEach(
+        (k) => delete next[k],
+      );
       return next;
     });
   }, []);
@@ -287,7 +292,9 @@ function CreateListingInner() {
         if (uploaded) {
           imageUrl = uploaded;
         } else {
-          logger.error('[CreateListing] Cloudinary upload failed — continuing without image.');
+          logger.error(
+            '[CreateListing] Cloudinary upload failed — continuing without image.',
+          );
         }
       }
 
@@ -359,9 +366,15 @@ function CreateListingInner() {
               <Text
                 as="h1"
                 heading="h4"
-                css={{ fontWeight: '$fontWeight$bold', color: '$main', lineHeight: 1.2 }}
+                css={{
+                  fontWeight: '$fontWeight$bold',
+                  color: '$main',
+                  lineHeight: 1.2,
+                }}
               >
-                {isEditMode ? 'Edit Donation Listing' : 'Add Animal for Donation'}
+                {isEditMode
+                  ? 'Edit Donation Listing'
+                  : 'Add Animal for Donation'}
               </Text>
             </PageHeader>
 
@@ -414,7 +427,7 @@ function CreateListingInner() {
 // ── Public export ─────────────────────────────────────────────────
 export function CreateListing() {
   return (
-    <StepperProvider steps={STEPS} flowId={FLOW_ID}>
+    <StepperProvider steps={ADD_ANIMAL_STEPS} flowId={FLOW_ID}>
       <CreateListingInner />
     </StepperProvider>
   );

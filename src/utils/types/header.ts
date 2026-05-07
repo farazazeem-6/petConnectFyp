@@ -13,3 +13,11 @@ export type TSidebarProps = {
   handleLogoClick: () => void;
   activeNav: HeaderEnum;
 };
+
+export type TMobileNavItems = {
+  id: string
+  label: string
+  icon?: React.ComponentType<any>
+  route: string
+  headerEnum?: HeaderEnum
+}

@@ -8,7 +8,7 @@ import {
   FieldError,
   StepContent,
 } from './CreateListing.style';
-import { Step3Fields, Step3Errors, Step3Refs } from './types';
+import { Step3Fields, Step3Errors, Step3Refs } from '@/utils/types';
 
 // ── Component ─────────────────────────────────────────────────────
 interface Props {
@@ -18,7 +18,12 @@ interface Props {
   fieldRefs: Step3Refs;
 }
 
-export function Step3_ContactInfo({ fields, errors, onChange, fieldRefs }: Props) {
+export function Step3_ContactInfo({
+  fields,
+  errors,
+  onChange,
+  fieldRefs,
+}: Props) {
   return (
     <StepContent>
       {/* ── Section hint ── */}

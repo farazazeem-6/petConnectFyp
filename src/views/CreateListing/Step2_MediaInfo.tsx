@@ -17,12 +17,12 @@ import {
 } from './CreateListing.style';
 
 import { CameraIcon, TickIcon } from '@/components/svgs';
-import { Step2Fields, Step2Errors, Step2Refs } from './types';
+import { Step2Fields, Step2Errors, Step2Refs } from '@/utils/types';
 import {
   HEALTH_CONDITIONS,
   CHARACTERISTICS_GROUPS,
   ACCEPTED_IMAGE_TYPES,
-} from './constants';
+} from '@/constants';
 
 // ── Component ─────────────────────────────────────────────────────
 interface Props {
