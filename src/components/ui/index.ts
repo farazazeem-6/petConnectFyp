@@ -6,3 +6,4 @@ export * from './AnimalCard';
 export * from './Stepper';
 export * from './FilterSidebar';
 export * from './AnimalDetailModal';
+export * from './SmartMatch';

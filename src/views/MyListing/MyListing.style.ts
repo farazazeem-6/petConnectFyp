@@ -145,7 +145,7 @@ export const ChoiceIcon = styled(Box, {
 
 export const MobileListingAddButton = styled('button', {
   position: 'fixed',
-  bottom: '$px$20',
+  bottom: '$px$80',
   right: '$px$20',
   display: 'none',
   alignItems: 'center',

@@ -7,3 +7,4 @@ export * from './filterProps';
 export * from './ui';
 export * from './profile';
 export * from './createListing';
+export * from './smartMatch';
