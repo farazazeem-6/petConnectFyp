@@ -17,20 +17,7 @@ export const DEFAULT_CITY_OPTIONS: string[] = [
   'Peshawar',
   'Gujranwala',
   'Quetta',
-  'Sialkot',
-  'Hyderabad',
-  'Multan',
-  'Bahawalpur',
-  'Sargodha',
-  'Sukkur',
-  'Shaheed Benazirabad',
-  'Mirpur Khas',
-  'Nawabshah',
-  'Dera Ghazi Khan',
-  'Sahiwal',
-  'Okara',
-  'Skardu',
-  'Mardan',
+
 ];
 
 export const GENDER_OPTIONS = ['Male', 'Female'] as const;
