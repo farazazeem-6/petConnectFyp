@@ -92,7 +92,7 @@ export const Header = () => {
           <MobileMenuButton
             onClick={toggleMobileMenu}
             aria-label="Toggle mobile menu"
-            css={{ '@lg': { display: 'none' } }}
+            css={{ '@lg': { display: 'none' }, '@sm_max': { display: 'none' } }}
           >
             <MenuIcon
               css={{ color: '$white' }}
@@ -106,6 +106,10 @@ export const Header = () => {
                 position: 'absolute',
                 left: '50%',
                 transform: 'translateX(-50%)',
+              },
+              '@sm_max': {
+                position: 'relative',
+                left: '80px',
               },
             }}
           >

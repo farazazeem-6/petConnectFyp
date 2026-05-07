@@ -1,4 +1,4 @@
-import Svg, { SvgProps } from '../svgs';
+import Svg, { SvgPath, SvgProps } from "../svgs";
 
 const Icon: React.FC<SvgProps> = (props) => {
   return (
@@ -7,12 +7,16 @@ const Icon: React.FC<SvgProps> = (props) => {
       width="24"
       height="24"
       viewBox="0 0 24 24"
-      fill="currentColor"
-      stroke="none"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       {...props}
       css={{ ...props?.css }}
     >
-      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+      <SvgPath d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+      <SvgPath d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
     </Svg>
   );
 };

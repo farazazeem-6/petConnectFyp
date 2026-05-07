@@ -10,9 +10,9 @@ import { store } from '@/store';
 import { usePathname } from 'next/navigation';
 
 import { useAppDispatch } from '@/hooks/useAppDispatch';
-import { useAuth } from '@/hooks/useAuth';
 import { listenToAuthChanges } from '@/lib/firebase/auth.listener';
 import { Toaster } from 'react-hot-toast';
+import MobileBottomNav from '@/components/ui/MobileBottomNav/MobileBottomNav';
 
 // Pages that must NOT show Header + Footer
 const AUTH_ROUTES = ['/auth'];
@@ -47,6 +47,7 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
       {!isAuthRoute && <Header />}
       {children}
       {!isAuthRoute && <Footer />}
+      {!isAuthRoute && <MobileBottomNav />}
     </>
   );
 };
