@@ -31,7 +31,7 @@ export function AnimalDetailModal({ isOpen, onClose, animal }: Props) {
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent
         css={{
-          maxWidth: '800px',
+          maxWidth: '$px$800',
           padding: '$px$24',
           paddingTop: '$px$40',
           '@md_max': { padding: '$px$16', paddingTop: '$px$40' },
@@ -98,7 +98,7 @@ export function AnimalDetailModal({ isOpen, onClose, animal }: Props) {
                   whiteSpace: 'nowrap',
                 }}
               >
-                {animal.age} yr{animal.age !== 1 ? 's' : ''}
+                {animal.age} year{animal.age !== 1 ? 's' : ''}
               </Badge>
             </InfoHeader>
 
