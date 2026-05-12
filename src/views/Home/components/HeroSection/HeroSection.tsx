@@ -74,7 +74,10 @@ export const HeroSection = () => {
             </WhyChooseBullet>
             <WhyChooseBullet>
               Find and{' '}
-              <b style={{cursor:'pointer'}} onClick={() => router.push(StaticRoutes.BROWSE_PETS)}>
+              <b
+                style={{ cursor: 'pointer' }}
+                onClick={() => router.push(StaticRoutes.BROWSE_PETS)}
+              >
                 adopt pets in Pakistan
               </b>{' '}
               with ease.
@@ -86,7 +89,10 @@ export const HeroSection = () => {
               Join Pakistan’s trusted online pet‑lover community.
             </WhyChooseBullet>
             <WhyChooseBullet>
-              <b style={{cursor:'pointer'}} onClick={() => router.push(StaticRoutes.BROWSE_PETS)}>
+              <b
+                style={{ cursor: 'pointer' }}
+                onClick={() => router.push(StaticRoutes.BROWSE_PETS)}
+              >
                 Adopt pets near you
               </b>{' '}
               with our matching algorithm.
@@ -98,7 +104,7 @@ export const HeroSection = () => {
                 width={18}
                 height={18}
               />
-              Go To PetConnect
+              Explore PetConnect
             </GoToButton>
           </WhyChooseCard>
 

@@ -12,7 +12,8 @@ export async function POST(request: Request) {
   try {
     // Grab what the user typed in the frontend chat UI
     const body = await request.json();
-    const userMessage = body.message;
+    const userMessages: { role: string; content: string }[] = body.messages;
+
 
     // Send the secure request from Our Server to Groq's Server
     const response = await fetch(SERVER_END_POINTS.groq, {
@@ -25,7 +26,7 @@ export async function POST(request: Request) {
         model: 'llama-3.1-8b-instant', // The Llama 3.1 model running on Groq
         messages: [
           { role: 'system', content: VET_SYSTEM_PROMPT },
-          { role: 'user', content: userMessage },
+          ...userMessages,
         ],
         temperature: 0.5, // Keeps the vet's answers serious and factual
       }),
