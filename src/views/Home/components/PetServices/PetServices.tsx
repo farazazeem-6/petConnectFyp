@@ -13,9 +13,19 @@ import {
   ServiceCard,
 } from './PetServices.style';
 import { Box } from '@/components/elements';
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { openChatBot } from '@/store/global/chatBotSlice';
 import Link from 'next/link';
 
 export const PetServices = () => {
+  const dispatch = useAppDispatch();
+
+  const handleCardButtonClick = (cardId: string) => {
+    if (cardId === 'animal-doctor') {
+      dispatch(openChatBot());
+    }
+  };
+
   return (
     <PetServicesWrapper>
       <Box css={{ maxWidth: '$breakpoints$xxl', margin: '0 auto' }}>
@@ -37,7 +47,18 @@ export const PetServices = () => {
               <CardIconWrapper>{card.icon}</CardIconWrapper>
               <CardTitle>{card.title}</CardTitle>
               <CardDescription>{card.description}</CardDescription>
-              <CardButton href={card.href} as={Link} type="button">{card.buttonLabel}</CardButton>
+              {card.id === 'animal-doctor' ? (
+                <CardButton
+                  onClick={() => handleCardButtonClick(card.id)}
+                  type="button"
+                >
+                  {card.buttonLabel}
+                </CardButton>
+              ) : (
+                <CardButton href={card.href} as={Link} type="button">
+                  {card.buttonLabel}
+                </CardButton>
+              )}
             </ServiceCard>
           ))}
         </CardsGrid>

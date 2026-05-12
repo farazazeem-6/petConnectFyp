@@ -4,6 +4,7 @@ import { type FC } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { Flex } from '@/components/elements';
+import { useAuth } from '@/hooks/useAuth';
 
 import {
   MobileBottomNavContainer,
@@ -23,6 +24,7 @@ type TMobileBottomNavProps = {
 export const MobileBottomNav: FC<TMobileBottomNavProps> = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const { user } = useAuth();
 
   const isActiveRoute = (route: string) => {
     // Home route
@@ -50,6 +52,14 @@ export const MobileBottomNav: FC<TMobileBottomNavProps> = () => {
     return pathname.startsWith(route);
   };
 
+  // Filter nav items: only show profile if user is logged in
+  const visibleNavItems = MOBILE_NAV_ITEMS.filter((item) => {
+    if (item.id === 'profile') {
+      return user !== null;
+    }
+    return true;
+  });
+
   return (
     <MobileBottomNavContainer>
       <Flex
@@ -57,7 +67,7 @@ export const MobileBottomNav: FC<TMobileBottomNavProps> = () => {
         align="center"
         css={{ width: '$percent$100', position: 'relative' }}
       >
-        {MOBILE_NAV_ITEMS.map((item) => {
+        {visibleNavItems.map((item) => {
           const IconComponent = item.icon;
           const isActive = isActiveRoute(item.route);
 

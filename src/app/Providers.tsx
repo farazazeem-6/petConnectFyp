@@ -13,6 +13,7 @@ import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { listenToAuthChanges } from '@/lib/firebase/auth.listener';
 import { Toaster } from 'react-hot-toast';
 import MobileBottomNav from '@/components/ui/MobileBottomNav/MobileBottomNav';
+import { ChatbotProvider } from './chatProvider';
 
 // Pages that must NOT show Header + Footer
 const AUTH_ROUTES = ['/auth'];
@@ -48,6 +49,7 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
       {children}
       {!isAuthRoute && <Footer />}
       {!isAuthRoute && <MobileBottomNav />}
+      {!isAuthRoute && <ChatbotProvider />}
     </>
   );
 };

@@ -8,3 +8,4 @@ export * from './ui';
 export * from './profile';
 export * from './createListing';
 export * from './smartMatch';
+export * from './chatBot';

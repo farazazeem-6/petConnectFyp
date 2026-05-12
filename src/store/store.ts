@@ -3,12 +3,14 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import authReducer from './auth/authSlice';
 import animalReducer from './animal/animalSlice';
 import lostFoundReducer from './lostFound/lostFoundSlice';
+import chatBotReducer from './global/chatBotSlice';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     animal: animalReducer,
     lostFound: lostFoundReducer,
+    chatBot: chatBotReducer,
   },
 });
 
