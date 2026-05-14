@@ -125,15 +125,6 @@ export const Selection = ({
     );
   }, [options, search, enableSearch]);
 
-  const rowVirtualizer = useVirtualizer({
-    count: filtered.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 44,
-    overscan: 5,
-  });
-
-  const showVirtual = filtered.length > 20;
-
   const selectValue = value && value.trim() !== '' ? value : undefined;
 
   return (
@@ -168,37 +159,6 @@ export const Selection = ({
               <SkeletonLoader height={40} width="100%" />
             ) : filtered.length === 0 ? (
               <Text>No record found</Text>
-            ) : showVirtual ? (
-              <div
-                ref={parentRef}
-                style={{
-                  height: Math.min(filtered.length, 6) * 44,
-                  overflow: 'auto',
-                }}
-              >
-                <div
-                  style={{
-                    height: rowVirtualizer.getTotalSize(),
-                    position: 'relative',
-                  }}
-                >
-                  {rowVirtualizer.getVirtualItems().map((row) => {
-                    const item = filtered[row.index];
-                    return (
-                      <div
-                        key={item.value}
-                        style={{
-                          position: 'absolute',
-                          width: '100%',
-                          transform: `translateY(${row.start}px)`,
-                        }}
-                      >
-                        <MemoItem option={item} />
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
             ) : (
               filtered.map((o) => <MemoItem key={o.value} option={o} />)
             )}

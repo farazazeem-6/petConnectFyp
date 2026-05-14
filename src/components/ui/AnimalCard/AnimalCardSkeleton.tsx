@@ -1,6 +1,5 @@
 import { Box, Flex } from '@/components/elements';
 import { CardsShimmer, styled } from '@/theme';
-import { PawIcon, LocationIcon, CalendarIcon, PaletteIcon } from '@/components/svgs';
 
 const Shimmer = styled(Box, {
   backgroundColor: '$skeletonBaseColor',
@@ -100,18 +99,7 @@ export function AnimalCardSkeleton({ variant = 'adoption' }: AnimalCardSkeletonP
                 <NameLine css={{ width: '60%', mb: 0 }} />
                 <BadgePill size="sm" css={{ width: '50px', height: '18px' }} />
               </Flex>
-              <Flex gap="2" align="center" css={{ marginTop: '6px' }}>
-                <PaletteIcon css={{ color: '$skeletonBaseColor', width: '13px', height: '13px', flexShrink: 0 }} />
-                <BreedLine css={{ width: '40%', height: '12px' }} />
-              </Flex>
-              <Flex gap="2" align="center" css={{ marginTop: '2px' }}>
-                <LocationIcon css={{ color: '$skeletonBaseColor', width: '14px', height: '14px', flexShrink: 0 }} />
-                <BreedLine css={{ width: '60%', height: '12px' }} />
-              </Flex>
-              <Flex gap="2" align="center" css={{ marginTop: '2px' }}>
-                <CalendarIcon css={{ color: '$skeletonBaseColor', width: '13px', height: '13px', flexShrink: 0 }} />
-                <BreedLine css={{ width: '30%', height: '12px' }} />
-              </Flex>
+              <BreedLine css={{ width: '40%', height: '12px', marginTop: '6px' }} />
             </Box>
           </NameRow>
           
@@ -141,10 +129,7 @@ export function AnimalCardSkeleton({ variant = 'adoption' }: AnimalCardSkeletonP
             </Flex>
             
             <Flex align="center" justify="between" css={{ marginTop: '6px' }}>
-              <Flex gap="2" align="center">
-                <LocationIcon css={{ color: '$skeletonBaseColor', width: '16px', height: '16px', flexShrink: 0 }} />
-                <BreedLine css={{ width: '60px', height: '13px' }} />
-              </Flex>
+              <BreedLine css={{ width: '80px', height: '13px' }} />
               <BreedLine css={{ width: '80px', height: '11px', marginTop: '2px' }} />
             </Flex>
           </Box>
@@ -156,7 +141,6 @@ export function AnimalCardSkeleton({ variant = 'adoption' }: AnimalCardSkeletonP
         </BadgeRow>
 
         <ButtonGroup>
-          <ButtonPlaceholderFull />
           <ButtonPlaceholderFull />
         </ButtonGroup>
       </ContentWrapper>
