@@ -124,6 +124,8 @@ const lightThemeOpt = {
     alertInfoText: '#334155',
     alertInfoButton: '#3B82F6',
 
+    contactIconBg: '#f8f4f5',
+
     // Gray scale
     gray1: '#F8F9FA',
     gray2: '#E9ECEF',

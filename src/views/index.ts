@@ -5,3 +5,4 @@ export * from './CreateListing';
 export * from './LostFound';
 export * from './ReportAnimal';
 export * from './MyListing';
+export * from './ContactUs';

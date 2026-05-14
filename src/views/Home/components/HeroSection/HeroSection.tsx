@@ -1,3 +1,4 @@
+'use client'
 import { Flex, NextJSImage, Text, WebLogo } from '@/components/elements';
 import { HeartArrowIcon, PawIcon } from '@/components/svgs';
 import {

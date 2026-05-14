@@ -235,9 +235,6 @@ export function AnimalCard({
             <AnimalCardButton onClick={stop(onViewDetail)}>
               View
             </AnimalCardButton>
-            <AnimalCardButton variant="main" onClick={stop(onAdopt)}>
-              Contact
-            </AnimalCardButton>
           </ButtonGroup>
         )}
       </ContentWrapper>

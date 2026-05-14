@@ -19,10 +19,6 @@ export const messageFadeIn = keyframes({
     to: { opacity: 1, transform: 'translateY(0)' },
 });
 
-export const triggerPulse = keyframes({
-    '0%, 100%': { boxShadow: '0 0 0 0 rgba(139, 32, 66, 0.45)' },
-    '55%': { boxShadow: '0 0 0 12px rgba(139, 32, 66, 0)' },
-});
 
 export const shimmer = keyframes({
     '0%': { backgroundPosition: '-400px 0' },
@@ -34,10 +30,6 @@ export const dotBounce = keyframes({
     '30%': { transform: 'translateY(-5px)', opacity: 1 },
 });
 
-export const rotateText = keyframes({
-    '0%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
-    '100%': { transform: 'translate(-50%, -50%) rotate(360deg)' },
-});
 
 // ── Trigger ───────────────────────────────────────────────────────────────────
 
@@ -49,81 +41,39 @@ export const TriggerWrapper = styled(Box, {
     '@sm_max': { bottom: '$px$50', right: '$px$12' },
 });
 
-// Relative container so CurvedTextRing can centre itself over TriggerButton
-export const TriggerInner = styled(Box, {
-    position: 'relative',
-    width: '54px',
-    height: '54px',
-});
-
 export const TriggerButton = styled('button', {
     all: 'unset',
     cursor: 'pointer',
-    width: '54px',
-    height: '54px',
-    borderRadius: '$radius$full',
+    borderRadius: '$radius$md',
     backgroundColor: '$main',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    boxShadow: '0 4px 20px rgba(139, 32, 66, 0.4)',
+    gap: '$px$8',
+    padding: '$px$12 $px$16',
+    boxShadow: '0 4px 15px rgba(139, 32, 66, 0.3)',
     transition: 'transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease',
-    animation: `${triggerPulse} 2.5s ease-in-out infinite`,
+    color: '$white',
+    fontWeight: '$fontWeight$bold',
+    fontSize: '$rem$0_87',
     position: 'relative',
     '&:hover': {
         backgroundColor: '$darkMain',
-        transform: 'scale(1.08)',
-        animation: 'none',
-        boxShadow: '0 8px 28px rgba(139, 32, 66, 0.5)',
+        transform: 'translateY(-2px)',
+        boxShadow: '0 6px 20px rgba(139, 32, 66, 0.4)',
     },
-    '&:active': { transform: 'scale(0.94)' },
+    '&:active': { transform: 'translateY(0)' },
     variants: {
         open: {
-            true: { animation: 'none', backgroundColor: '$darkMain' },
+            true: { 
+                cursor: 'default',
+                opacity: 0.9,
+                '&:hover': {
+                    transform: 'none',
+                    boxShadow: '0 4px 15px rgba(139, 32, 66, 0.3)',
+                }
+            },
         },
     },
-});
-
-export const UnreadBadge = styled(Box, {
-    position: 'absolute',
-    top: '-2px',
-    right: '-2px',
-    width: '18px',
-    height: '18px',
-    borderRadius: '$radius$full',
-    backgroundColor: '#ef4444',
-    border: '2px solid $white',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '9px',
-    fontWeight: '$fontWeight$bold',
-    color: '$white',
-    lineHeight: 1,
-});
-
-// 106px ring absolutely centred over the 54px button — text orbits outside edge
-export const CurvedTextRing = styled(Box, {
-    position: 'absolute',
-    width: '106px',
-    height: '106px',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    pointerEvents: 'none',
-    zIndex: -1,
-    transition: 'opacity 0.2s ease',
-});
-
-export const CircularTextSvg = styled('svg', {
-    width: '106px',
-    height: '106px',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    animation: `${rotateText} 20s linear infinite`,
-    pointerEvents: 'none',
 });
 
 // ── Chat window ───────────────────────────────────────────────────────────────
@@ -140,6 +90,7 @@ export const ChatWindow = styled(Box, {
     display: 'flex',
     flexDirection: 'column',
     overflow: 'hidden',
+    overscrollBehavior: 'contain',
     zIndex: '$ul$900',
     border: '1px solid $lightGrayLine',
     animation: `${slideUpIn} 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)`,
@@ -265,6 +216,7 @@ export const MessagesBody = styled(Box, {
     flexDirection: 'column',
     gap: '$px$8',
     backgroundColor: '#f8f4f5',
+    overscrollBehavior: 'contain',
     '&::-webkit-scrollbar': { width: '3px' },
     '&::-webkit-scrollbar-track': { background: 'transparent' },
     '&::-webkit-scrollbar-thumb': {
@@ -538,6 +490,7 @@ export const ChatTextarea = styled('textarea', {
     maxHeight: '40px',
     transition: 'border-color 0.15s ease, background 0.15s ease',
     overflowY: 'auto',
+    overscrollBehavior: 'contain',
     '&::placeholder': { color: '$slateGray' },
     '&:focus': { borderColor: '$main', backgroundColor: '$white' },
     '&:disabled': { opacity: 0.55, cursor: 'not-allowed' },

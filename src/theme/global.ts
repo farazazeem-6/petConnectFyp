@@ -11,6 +11,12 @@ export const globalStyles = globalCss({
     minHeight: '$dvh$100',
     fontSize: 'clamp($px$12, 1vw, $px$16)',
   },
+  'body[data-scroll-locked]': {
+    overflow: 'auto !important',
+    paddingRight: '0 !important',
+    marginRight: '0 !important',
+    pointerEvents: 'auto !important',
+  },
 
   input: { fontSize: '$px$16 !important' },
   textarea: { fontSize: '$px$16 !important' },
