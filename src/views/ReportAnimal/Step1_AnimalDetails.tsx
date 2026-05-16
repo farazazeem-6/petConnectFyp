@@ -69,7 +69,7 @@ export function Step1_AnimalDetails({ fields, errors, onChange, fieldRefs }: Pro
           <Input
             ref={fieldRefs.age}
             id="report-age"
-            placeholder='e.g. ~2 years, Young'
+            placeholder='e.g. ~24 months, Young'
             value={fields.age}
             onChange={(e) => onChange({ age: e.target.value })}
             invalid={!!errors.age}

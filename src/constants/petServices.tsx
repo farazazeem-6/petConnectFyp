@@ -36,9 +36,9 @@ export const PET_SERVICE_CARDS = [
   {
     id: 'animal-doctor',
     icon: <PetLitterIcon width={40} height={40} css={{ color: '$main' }} />,
-    title: 'Ask a Pet Doctor',
-    description: 'Get answers to your pet health questions instantly.',
-    buttonLabel: 'Ask Now',
+    title: 'Talk with ChatBot',
+    description: 'Get answers to your questions about pets instantly.',
+    buttonLabel: 'Talk Now',
     href: '/',
   },
 ] as const;

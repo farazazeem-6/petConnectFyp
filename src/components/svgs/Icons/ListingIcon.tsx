@@ -4,23 +4,18 @@ const Icon: React.FC<SvgProps> = (props) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 48 48"
-      fill="currentColor"
-      stroke="none"
+      viewBox="0 0 24 24"
+      fill="none"
       {...props}
-      css={{ fill: props.fill, ...props?.css }}
+      css={{ ...props?.css }}
     >
-      <rect x="13" y="12.448" width="35" height="4" />
-
-      <polygon points="3.961,13.321 2.121,11.481 0,13.603 1.84,15.443 1.836,15.447 3.958,17.568 11.097,10.429 8.976,8.307" />
-
-      <rect x="13" y="23.511" width="35" height="4" />
-
-      <polygon points="3.962,24.384 2.121,22.544 0,24.666 1.84,26.506 1.836,26.51 3.958,28.631 11.097,21.491 8.976,19.37" />
-
-      <rect x="13" y="34.574" width="35" height="4" />
-
-      <polygon points="3.961,35.445 2.121,33.607 0,35.729 1.84,37.568 1.836,37.572 3.958,39.693 11.097,32.555 8.976,30.432" />
+      <path
+        d="M7 8H21M7 12H21M7 16H21M3 8H3.01M3 12H3.01M3 16H3.01"
+        stroke={props.fill || 'currentColor'}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </Svg>
   );
 };

@@ -6,4 +6,7 @@ export const StaticRoutes = {
     LOST_FOUND: '/lost-found',
     MY_LISTING: '/my-listing',
     FAVOURITES: '/favourites',
+    CONTACT_US: '/contact-us',
+    ABOUT_US: '/about-us',
+    TERMS_AND_CONDITIONS: '/terms-and-conditions',
 };

@@ -11,5 +11,5 @@ export const EmptyBoxWrapper = styled(Flex, {
   borderRadius: '$radius$xl',
   border: '$px$1 dashed $lightGrayLine',
   gap: '$px$12',
-  background: '$veryLightGreen',
+  background: '$dimWhite',
 });

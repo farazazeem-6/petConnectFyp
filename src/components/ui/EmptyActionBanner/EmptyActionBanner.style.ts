@@ -13,14 +13,14 @@ export const BannerWrapper = styled(Flex, {
   gap: '$px$16',
   padding: '$px$48 $px$24',
   borderRadius: '$radius$lg',
-  background: '$gradients$bannerGradient',
-  border: '2px dashed $colors$bannerBorder',
+  background: '$dimWhite',
+  border: '2px dashed $lightGrayLine',
   textAlign: 'center',
   transition: 'all 0.2s ease-in-out',
 
   '&:hover': {
-    background: '$gradients$bannerGradientHover',
-    borderColor: '$colors$main',
+    background: 'rgba(48, 160, 78, 0.05)',
+    borderColor: '$main',
   },
 
   '@xs_max': {
@@ -32,8 +32,8 @@ export const IconRing = styled(Flex, {
   width: '72px !important',
   height: '72px !important',
   borderRadius: '$radius$full !important',
-  backgroundColor: '$colors$bannerIconBg',
-  border: '2px solid $colors$bannerBorder',
+  backgroundColor: 'rgba(48, 160, 78, 0.05)',
+  border: '2px solid $main',
   alignItems: 'center !important',
   justifyContent: 'center !important',
 });

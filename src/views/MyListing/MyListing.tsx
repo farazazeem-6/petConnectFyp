@@ -341,7 +341,10 @@ export function MyListing() {
           </DialogTitle>
           <DialogDescription asChild>
             <div>
-              <Text heading="h8" css={{ color: '$slateGray', mb: '$px$16' }}>
+              <Text
+                heading="h8Bold"
+                css={{ color: '$slateGray', mb: '$px$16' }}
+              >
                 Choose the type of listing you want to create.
               </Text>
               <ChoiceRow>
@@ -355,7 +358,7 @@ export function MyListing() {
                     <HeartArrowIcon
                       width={28}
                       height={28}
-                      css={{ color: '$main' }}
+                      css={{ color: '$main', stroke: '$main' }}
                     />
                   </ChoiceIcon>
                   <Text
@@ -365,7 +368,7 @@ export function MyListing() {
                     Donate an Animal
                   </Text>
                   <Text
-                    heading="h8"
+                    heading="h8Bold"
                     css={{ color: '$slateGray', lineHeight: 1.5 }}
                   >
                     List a pet you want to give a new home
@@ -392,7 +395,7 @@ export function MyListing() {
                     Lost & Found
                   </Text>
                   <Text
-                    heading="h8"
+                    heading="h8Bold"
                     css={{ color: '$slateGray', lineHeight: 1.5 }}
                   >
                     Report a lost pet or one you've found

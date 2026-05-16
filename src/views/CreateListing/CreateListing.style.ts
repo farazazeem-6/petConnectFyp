@@ -147,7 +147,7 @@ export const GenderPill = styled('button', {
         borderColor: '$main',
         backgroundColor: '$main',
         color: '$white',
-        boxShadow: '0 3px 10px rgba(160,48,72,0.22)',
+        boxShadow: '$shadows$ctaShadow',
         '&:hover': {
           borderColor: '$main',
           backgroundColor: '$main',

@@ -268,7 +268,7 @@ export function SmartMatchModal({
                         as="span"
                         css={{
                           fontSize: '$rem$0_75',
-                          color: selected ? '#c0616e' : '$slateGray',
+                          color: selected ? '#1e4817ff' : '$slateGray',
                           textAlign: 'center',
                         }}
                       >

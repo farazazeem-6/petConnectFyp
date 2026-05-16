@@ -98,7 +98,7 @@ export function AnimalDetailModal({ isOpen, onClose, animal }: Props) {
                   whiteSpace: 'nowrap',
                 }}
               >
-                {animal.age} year{animal.age !== 1 ? 's' : ''}
+                {animal.age} months old
               </Badge>
             </InfoHeader>
 

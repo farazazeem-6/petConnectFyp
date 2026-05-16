@@ -70,7 +70,7 @@ export const CreateBtn = styled('button', {
   fontSize: '$rem$0_87',
   fontWeight: '$fontWeight$semibold',
   lineHeight: 1,
-  boxShadow: '0 3px 12px rgba(160,48,72,0.28)',
+  boxShadow: '$shadows$ctaShadow',
   transition: 'background 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease',
   '@sm_max': {
     display: 'none'
@@ -78,7 +78,7 @@ export const CreateBtn = styled('button', {
 
   '&:hover': {
     backgroundColor: '$darkMain',
-    boxShadow: '0 5px 18px rgba(160,48,72,0.38)',
+    boxShadow: '$shadows$mainShadow',
     transform: 'translateY(-1px)',
   },
 
@@ -136,11 +136,11 @@ export const ChoiceIcon = styled(Box, {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: '$px$56',
-  height: '$px$56',
+  width: '$px$60',
+  height: '$px$60',
   borderRadius: '$radius$full',
-  backgroundColor: 'rgba(160,48,72,0.1)',
-  border: '1px solid rgba(160,48,72,0.25)',
+  backgroundColor: 'rgba(48, 160, 78, 0.1)',
+  border: '1px solid $main',
 });
 
 export const MobileListingAddButton = styled('button', {

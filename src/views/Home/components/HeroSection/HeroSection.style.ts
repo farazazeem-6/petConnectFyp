@@ -176,7 +176,7 @@ export const GoToButton = styled(Button, {
   color: '$white !important',
   br: '$radius$full !important',
   px: '$px$32 !important',
-  py: '$px$20 !important',
+  py: '$px$15 !important',
   fontSize: '$fontSize$md !important',
   fontWeight: '$fontWeight$semibold !important',
   mx: 'auto',

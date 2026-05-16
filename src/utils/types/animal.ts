@@ -15,45 +15,45 @@ export const ANIMAL_OPTIONS: { label: string; value: AnimalType }[] = [
 ];
 
 export interface TAnimal {
-    id?: string;
-    userId: string;
-    name: string;
-    type: AnimalType;
-    breed?: string;
-    color?: string;
-    age: number;
-    sex?: 'male' | 'female' | 'unknown';
-    image: string;
-    imageFile?: File;
-    healthCondition: string[];
-    characteristics?: string[];
-    city?: string;
-    address?: string;
-    phoneNumber?: string;
-    description?: string;
-    status: 'available' | 'adopted';
-    vaccinated?: boolean;
-    neutered?: boolean;
-    createdAt?: any;
+  id?: string;
+  userId: string;
+  name: string;
+  type: AnimalType;
+  breed?: string;
+  color?: string;
+  age: number;
+  sex?: 'male' | 'female' | 'unknown';
+  image: string;
+  imageFile?: File;
+  healthCondition: string[];
+  characteristics?: string[];
+  city?: string;
+  address?: string;
+  phoneNumber?: string;
+  description?: string;
+  status: 'available' | 'adopted';
+  vaccinated?: boolean;
+  neutered?: boolean;
+  createdAt?: any;
 }
 
 export interface TLostFoundReport {
-    id?: string;
-    userId: string;
-    reportType: ReportType;
-    name: string;
-    type: AnimalType;
-    breed?: string;           // optional
-    color: string;
-    age: string;              // descriptive, e.g. "~2 years"
-    sex: 'male' | 'female' | 'unknown';
-    image: string;
-    distinguishingFeatures: string;
-    lastSeenLocation: string;
-    lastSeenDate: string;
-    lastSeenTime: string;
-    additionalDetails?: string;
-    contactNumber: string;
-    status: 'open' | 'resolved';
-    createdAt?: any;
+  id?: string;
+  userId: string;
+  reportType: ReportType;
+  name: string;
+  type: AnimalType;
+  breed?: string;           // optional
+  color: string;
+  age: string;              // descriptive, e.g. "~24 months"
+  sex: 'male' | 'female' | 'unknown';
+  image: string;
+  distinguishingFeatures: string;
+  lastSeenLocation: string;
+  lastSeenDate: string;
+  lastSeenTime: string;
+  additionalDetails?: string;
+  contactNumber: string;
+  status: 'open' | 'resolved';
+  createdAt?: any;
 }
