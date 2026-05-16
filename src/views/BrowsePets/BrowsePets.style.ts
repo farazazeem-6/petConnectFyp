@@ -85,11 +85,11 @@ export const AddActionButton = styled('button', {
   fontSize: '$rem$0_87',
   fontWeight: '$fontWeight$semibold',
   lineHeight: 1,
-  boxShadow: '0 3px 12px rgba(160,48,72,0.28)',
+  boxShadow: '$shadows$ctaShadow',
   transition: 'background 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease',
   '&:hover': {
     backgroundColor: '$darkMain',
-    boxShadow: '0 5px 18px rgba(160,48,72,0.38)',
+    boxShadow: '$shadows$ctaShadow',
     transform: 'translateY(-1px)',
   },
   '&:active': { transform: 'translateY(0)' },

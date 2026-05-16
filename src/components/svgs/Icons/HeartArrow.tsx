@@ -7,7 +7,7 @@ const Icon: React.FC<SvgProps> = (props) => {
       viewBox="0 0 328.425 328.425"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.5"
+      strokeWidth="4"
       strokeLinecap="round"
       strokeLinejoin="round"
       {...props}

@@ -220,7 +220,7 @@ export const OptionRow = styled('button', {
         selected: {
             true: {
                 borderColor: '$main',
-                backgroundColor: '#fff5f7',
+                backgroundColor: '#c9f4ceff',
                 '&:hover': { transform: 'none' },
             },
         },
@@ -260,7 +260,7 @@ export const OptionDescription = styled(Text, {
     color: '$slateGray',
     display: 'block',
     variants: {
-        selected: { true: { color: '#c0616e' } },
+        selected: { true: { color: '#1e4817ff' } },
     },
 });
 
@@ -306,7 +306,7 @@ export const OptionCard = styled('button', {
         selected: {
             true: {
                 borderColor: '$main',
-                backgroundColor: '#fff5f7',
+                backgroundColor: '#3c6b33ff',
                 '&:hover': { transform: 'none' },
             },
         },
@@ -373,7 +373,7 @@ export const TagChip = styled('button', {
         selected: {
             true: {
                 borderColor: '$main',
-                backgroundColor: '#fff5f7',
+                backgroundColor: '#c9f4ceff',
                 color: '$main',
                 '&:hover': { transform: 'none' },
             },
@@ -454,12 +454,12 @@ export const NextButton = styled('button', {
     borderRadius: '$radius$full',
     fontSize: '$rem$0_87',
     fontWeight: '$fontWeight$bold',
-    boxShadow: '0 4px 14px rgba(139, 32, 66, 0.3)',
+    boxShadow: '$shadows$ctaShadow',
     transition: 'background 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease',
 
     '&:hover': {
         backgroundColor: '$darkMain',
-        boxShadow: '0 6px 20px rgba(139, 32, 66, 0.4)',
+        boxShadow: '$shadows$ctaShadow',
         transform: 'translateY(-1px)',
     },
     '&:active': { transform: 'translateY(0)' },
@@ -472,7 +472,7 @@ export const NextButton = styled('button', {
                 '&:hover': {
                     transform: 'none',
                     backgroundColor: '$main',
-                    boxShadow: '0 4px 14px rgba(139, 32, 66, 0.3)',
+                    boxShadow: '$shadows$ctaShadow',
                 },
             },
         },
@@ -505,7 +505,7 @@ export const SmartMatchButton = styled('button', {
         position: 'absolute',
         inset: 0,
         background:
-            'linear-gradient(120deg, transparent 0%, rgba(139,32,66,0.07) 50%, transparent 100%)',
+            'linear-gradient(120deg, transparent 0%, rgba(65, 112, 71, 0.07) 50%, transparent 100%)',
         transform: 'translateX(-100%)',
         transition: 'transform 0.4s ease',
     },
@@ -514,7 +514,7 @@ export const SmartMatchButton = styled('button', {
         backgroundColor: '$main',
         color: '$white',
         transform: 'translateY(-1px)',
-        boxShadow: '0 5px 18px rgba(139, 32, 66, 0.38)',
+        boxShadow: '$shadows$ctaShadow',
         animation: 'none',
         '&::before': { transform: 'translateX(100%)' },
     },

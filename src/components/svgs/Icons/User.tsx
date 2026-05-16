@@ -4,21 +4,17 @@ const Icon: React.FC<SvgProps> = (props) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
       viewBox="0 0 24 24"
-      fill="currentColor"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      fill="none"
       {...props}
-      css={{ ...props?.css }}
+      css={{ fill: props.fill, ...props?.css }}
     >
-      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-      <path d="M16 3.128a4 4 0 0 1 0 7.744" />
-      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-      <circle cx="9" cy="7" r="4" />
+      <circle cx="12" cy="6" r="4" fill={props.fill || 'currentColor'} />
+
+      <path
+        d="M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z"
+        fill={props.fill || 'currentColor'}
+      />
     </Svg>
   );
 };

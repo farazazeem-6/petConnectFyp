@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { Flex, NextJSImage, Text, WebLogo } from '@/components/elements';
 import { HeartArrowIcon, PawIcon } from '@/components/svgs';
 import {
@@ -84,7 +84,7 @@ export const HeroSection = () => {
               with ease.
             </WhyChooseBullet>
             <WhyChooseBullet>
-              Discover adoption stories and <b>tips</b> for pet care.
+              Discover adoption stories and tips for pet care.
             </WhyChooseBullet>
             <WhyChooseBullet>
               Join Pakistan’s trusted online pet‑lover community.

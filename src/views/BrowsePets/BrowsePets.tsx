@@ -296,7 +296,7 @@ export function BrowsePets() {
                     image={animal.image}
                     name={animal.name}
                     breed={animal.breed ?? ''}
-                    age={`${animal.age} year${animal.age !== 1 ? 's' : ''}`}
+                    age={`${animal.age} months`}
                     location={animal.city ?? ''}
                     badges={
                       [

@@ -54,15 +54,15 @@ export function Step1_AnimalInfo({
         {/* Age */}
         <FieldGroup>
           <FieldLabel htmlFor="listing-age">
-            Age (years) <span>*</span>
+            Age (months) <span>*</span>
           </FieldLabel>
           <Input
             ref={fieldRefs.age}
             id="listing-age"
             type="number"
             min="0"
-            max="30"
-            placeholder="e.g. 2"
+            max="240"
+            placeholder="e.g. 12"
             value={fields.age}
             onChange={(e) => onChange({ age: e.target.value })}
             invalid={!!errors.age}

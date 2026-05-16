@@ -33,6 +33,7 @@ const AuthInitializer = ({ children }: { children: React.ReactNode }) => {
 const AppShell = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const isAuthRoute = AUTH_ROUTES.some((r) => pathname?.startsWith(r));
+  const isAboutRoute = pathname?.startsWith('/about-us');
   return (
     <>
       <Toaster
@@ -49,7 +50,7 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
       {children}
       {!isAuthRoute && <Footer />}
       {!isAuthRoute && <MobileBottomNav />}
-      {!isAuthRoute && <ChatbotProvider />}
+      {!isAuthRoute && !isAboutRoute && <ChatbotProvider />}
     </>
   );
 };

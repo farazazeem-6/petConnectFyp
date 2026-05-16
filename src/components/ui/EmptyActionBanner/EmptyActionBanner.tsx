@@ -43,7 +43,7 @@ export function EmptyActionBanner({
           {title}
         </Text>
         <Text
-          heading="h8"
+          heading="h8Bold"
           css={{
             color: '$slateGray',
             lineHeight: 1.6,
