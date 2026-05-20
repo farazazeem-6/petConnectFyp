@@ -80,7 +80,7 @@ function OwnerActions({
       )}
 
       {onDelete && (
-        <AnimalCardButton size="md" variant="danger" onClick={stop(onDelete)}>
+        <AnimalCardButton size="md" variant="main" onClick={stop(onDelete)}>
           <span className="btn-text">Delete</span>
           <TrashIcon className="btn-icon" css={{ flexShrink: 0 }} />
         </AnimalCardButton>

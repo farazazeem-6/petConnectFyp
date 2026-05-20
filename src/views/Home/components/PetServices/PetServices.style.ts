@@ -39,6 +39,9 @@ export const PetServicesTitle = styled(Text, {
   color: '$black !important',
   fontSize: '$fontSize$display',
   fontWeight: '$fontWeight$black',
+  span: {
+    color: '$main !important',
+  },
   '@md_max': {
     fontSize: '$fontSize$xxxl',
   },

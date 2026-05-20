@@ -33,9 +33,8 @@ export const PetServices = () => {
         {/* Section header */}
         <PetServicesHeader>
           <Flex css={{ '@sm_max': { flexDirection: 'column !important' } }}>
-            <PetServicesTitle>Everything You Need For</PetServicesTitle>
-            <PetServicesTitle css={{ color: '$main !important' }}>
-              Your Pet
+            <PetServicesTitle>
+              Everything You Need For <span>Your Pet</span>{' '}
             </PetServicesTitle>
           </Flex>
 
