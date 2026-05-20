@@ -25,6 +25,7 @@ import { NavPawIcon, AlertIcon } from '@/components/svgs';
 import type { TChatbotProps } from '@/utils/types';
 import type { RootState } from '@/store';
 import { SkeletonMessage } from './MessageSkeleton';
+import { Box } from '@/components/elements';
 
 const SUGGESTION_CHIPS = [
   'Best pets for apartments?',
@@ -38,7 +39,9 @@ export function Chatbot({
   placeholder = CHATBOT_DEFAULTS.placeholder,
 }: TChatbotProps) {
   const dispatch = useAppDispatch();
-  const isOpen = useSelector<RootState, boolean>((state) => state.chatBot.isOpen);
+  const isOpen = useSelector<RootState, boolean>(
+    (state) => state.chatBot.isOpen,
+  );
   const [unreadCount, setUnreadCount] = useState(0);
 
   // ── Hook is always alive — never unmounts — so messages persist ───────────
@@ -68,11 +71,6 @@ export function Chatbot({
 
     previousMessageLength.current = messages.length;
   }, [messages, isOpen]);
-
-  const handleOpen = useCallback(() => {
-    dispatch(toggleChatBot());
-    setUnreadCount(0);
-  }, [dispatch]);
 
   const handleToggle = useCallback(() => {
     dispatch(toggleChatBot());
@@ -126,7 +124,7 @@ export function Chatbot({
           {!hasMessages && (
             <WelcomeWrap>
               <WelcomeAvatar>
-                <NavPawIcon width={28} height={28} css={{ color: '$main' }} />
+                <NavPawIcon width={28} height={28} css={{ color: '$white' }} />
               </WelcomeAvatar>
               <WelcomeHeading as="p">
                 {CHATBOT_DEFAULTS.welcomeHeading}
@@ -149,7 +147,7 @@ export function Chatbot({
           {/* Messages */}
           {messages.map((message, idx) => (
             <MessageBubble
-              key={idx}
+              key={message.content}
               message={message}
               isLatestBotMessage={
                 message.role === 'assistant' && idx === lastBotMessageIndex
@@ -168,7 +166,7 @@ export function Chatbot({
             </ErrorBanner>
           )}
 
-          <div ref={messagesEndRef} />
+          <Box ref={messagesEndRef} />
         </MessagesBody>
 
         <ChatInput

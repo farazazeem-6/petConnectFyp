@@ -1,7 +1,6 @@
 import {
   HowItWorksTitleRow,
   HowItWorksWrapper,
-  StepConnector,
   StepDescription,
   StepIconCircle,
   StepItem,
@@ -18,30 +17,28 @@ export const HowItWorks = () => {
     <Container>
       <HowItWorksWrapper>
         {/* Title row: "How  Works" with logo in the middle */}
+        <MainSubHeading
+          css={{ mb: '10px !important', color: '$main !important' }}
+        >
+          EASY PROCESS
+        </MainSubHeading>
         <HowItWorksTitleRow>
-          <MainHeading>How</MainHeading>
-          <MainHeading css={{ color: '$main !important' }}>
-            Pet Connect
+          <MainHeading css={{ mb: '10px !important' }}>
+            How It Works
           </MainHeading>
-          <MainHeading>Works</MainHeading>
         </HowItWorksTitleRow>
 
         {/* Subtitle */}
-        <MainSubHeading>
-          Your journey to pet parenthood in four simple steps.
-        </MainSubHeading>
 
         {/* Steps row */}
         <StepsRow>
-          {STEPS.map((step, index) => (
+          {STEPS.map((step) => (
             <React.Fragment key={step.id}>
               <StepItem>
                 <StepIconCircle>{step.icon}</StepIconCircle>
                 <StepTitle>{step.title}</StepTitle>
                 <StepDescription>{step.description}</StepDescription>
               </StepItem>
-
-              {index < STEPS.length - 1 && <StepConnector />}
             </React.Fragment>
           ))}
         </StepsRow>

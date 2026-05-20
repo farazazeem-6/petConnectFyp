@@ -8,25 +8,27 @@ export const HeroSectionWrapper = styled(Flex, {
   py: '$px$50',
   gap: '$px$40',
   px: '$px$60',
-  mt: '$px$40',
   justifyContent: 'space-around !important',
   '@lg_max': {
     px: '0',
+    flexDirection: 'column !important',
+    gap: '$px$20',
+    py: '$px$30',
+    alignItems: 'center',
   },
   '@md_max': {
     flexDirection: 'column !important',
-    py: '$px$30',
     gap: '$px$60',
   },
   '@sm_max': {
     mt: '0',
-  }
+  },
 });
 
 export const HeroSectionContentLeft = styled(Flex, {
   flexDirection: 'column !important',
   gap: '$px$16',
-  pt: '$px$20',
+  pt: '$px$10',
 
   '@md_max': {
     alignItems: 'center',
@@ -59,7 +61,7 @@ export const HeroHeading = styled(Text, {
   },
   '@sm_max': {
     fontSize: '$px$40',
-  }
+  },
 });
 
 export const HeroShopLine = styled(Text, {
@@ -104,9 +106,23 @@ export const HeroBrandName = styled(Text, {
 export const HeroSectionContentRight = styled(Flex, {
   flexDirection: 'column !important',
   position: 'relative',
+  borderRadius: '$radius$xl',
+  overflow: 'hidden',
+  flexShrink: '0',
+  width: '500px',
+  height: '400px',
+  '& img': {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    borderRadius: '$radius$xl',
+  },
+  '@lg_max': {
+    display: 'none',
+  },
 });
 export const CardTitle = styled(Flex, {
-  'defaultVariant': {
+  defaultVariant: {
     align: 'center',
   },
   justifyContent: 'center !important',
@@ -119,9 +135,8 @@ export const CardTitle = styled(Flex, {
   },
   '@md_max': {
     flexDirection: 'row !important',
-  }
-
-})
+  },
+});
 
 export const WhyChooseCard = styled(Flex, {
   flexDirection: 'column !important',
@@ -140,7 +155,7 @@ export const WhyChooseCard = styled(Flex, {
   },
   '@sm_max': {
     px: '$px$5',
-  }
+  },
 });
 
 export const WhyChooseTitle = styled(Text, {
@@ -163,9 +178,7 @@ export const WhyChooseBullet = styled(Text, {
     textUnderlineOffset: '2px',
     color: '$black !important',
   },
-  '@sm_max': {
-
-  }
+  '@sm_max': {},
 });
 
 export const GoToButton = styled(Button, {
@@ -191,7 +204,7 @@ export const GoToButton = styled(Button, {
   '@lg_max': {
     px: '$px$25 !important',
     py: '$px$15 !important',
-  }
+  },
 });
 
 // ---- Absolute positioned image ----
@@ -229,5 +242,24 @@ export const HeroCatImageWrapper = styled(Box, {
     height: '$percent$100',
     objectFit: 'contain',
     objectPosition: 'top right',
+  },
+});
+
+export const FindMatchButton = styled(Button, {
+  defaultVariants: {
+    variant: 'default',
+  },
+  display: 'flex !important',
+  alignItems: 'center',
+  justifyContent: 'center !important',
+  gap: '8px',
+  backgroundColor: '$main !important',
+  color: '$white !important',
+  fontWeight: '$fontWeight$bold !important',
+  borderRadius: '$radius$full !important',
+  padding: '12px 24px !important',
+  '&:hover': {
+    background: '$darkMain !important',
+    transform: 'translateY(-1px)',
   },
 });

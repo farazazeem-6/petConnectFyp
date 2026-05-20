@@ -39,7 +39,7 @@ export function ChatHeader({ botName, onReset, onClose }: TChatHeaderProps) {
           title="New conversation"
           onClick={onReset}
         >
-          <ResetIcon width={14} height={14} css={{ color: 'inherit' }} />
+          <ResetIcon width={16} height={16} css={{ color: 'inherit' }} />
         </HeaderIconBtn>
 
         <HeaderIconBtn
@@ -47,7 +47,7 @@ export function ChatHeader({ botName, onReset, onClose }: TChatHeaderProps) {
           aria-label="Close chatbot"
           onClick={onClose}
         >
-          <WrongIcon width={13} height={13} css={{ color: 'inherit' }} />
+          <WrongIcon width={20} height={20} css={{ color: 'inherit' }} />
         </HeaderIconBtn>
       </HeaderActions>
     </StyledHeader>

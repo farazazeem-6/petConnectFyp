@@ -18,6 +18,7 @@ import {
   AnimalCardButton,
   ReportTypeBadge,
   StatusBadge,
+  IconWrapper,
 } from './AnimalCard.style';
 import { EmptyPlaceholder, Flex } from '@/components/elements';
 import {
@@ -27,6 +28,7 @@ import {
   EditIcon,
   TrashIcon,
   EyeIcon,
+  HeartIcon,
 } from '@/components/svgs';
 
 // ─── Shared sub-components ───────────────────────────────────────────────────
@@ -34,6 +36,9 @@ import {
 function AnimalImageBlock({ image, name }: { image?: string; name: string }) {
   return (
     <ImageWrapper>
+      <IconWrapper title="Favorite">
+        <HeartIcon width={20} height={20} />
+      </IconWrapper>
       {image ? (
         <AnimalImage src={image} alt={`Photo of ${name}`} loading="lazy" />
       ) : (
@@ -93,7 +98,6 @@ export function AnimalCard({
   age,
   location,
   badges = [],
-  onAdopt,
   onViewDetail,
   onEdit,
   onDelete,
@@ -233,7 +237,7 @@ export function AnimalCard({
         ) : (
           <ButtonGroup>
             <AnimalCardButton onClick={stop(onViewDetail)}>
-              View
+              View Details
             </AnimalCardButton>
           </ButtonGroup>
         )}

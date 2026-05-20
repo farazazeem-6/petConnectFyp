@@ -2,6 +2,7 @@ import { PET_SERVICE_CARDS } from '@/constants';
 import {
   CardButton,
   CardDescription,
+  CardIcon,
   CardIconWrapper,
   CardTitle,
   CardsGrid,
@@ -12,7 +13,7 @@ import {
   PetServicesWrapper,
   ServiceCard,
 } from './PetServices.style';
-import { Box } from '@/components/elements';
+import { Box, Flex } from '@/components/elements';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { openChatBot } from '@/store/global/chatBotSlice';
 import Link from 'next/link';
@@ -31,7 +32,13 @@ export const PetServices = () => {
       <Box css={{ maxWidth: '$breakpoints$xxl', margin: '0 auto' }}>
         {/* Section header */}
         <PetServicesHeader>
-          <PetServicesTitle>Everything You Need For Your Pet</PetServicesTitle>
+          <Flex css={{ '@sm_max': { flexDirection: 'column !important' } }}>
+            <PetServicesTitle>Everything You Need For</PetServicesTitle>
+            <PetServicesTitle css={{ color: '$main !important' }}>
+              Your Pet
+            </PetServicesTitle>
+          </Flex>
+
           <PetServicesSubtitle>
             Pet Connect is your trusted platform for {''}
             <PetServicesSubtitleBold>pet adoption</PetServicesSubtitleBold> to
@@ -44,7 +51,9 @@ export const PetServices = () => {
         <CardsGrid>
           {PET_SERVICE_CARDS.map((card) => (
             <ServiceCard key={card.id}>
-              <CardIconWrapper>{card.icon}</CardIconWrapper>
+              <CardIconWrapper>
+                <CardIcon>{card.icon}</CardIcon>
+              </CardIconWrapper>
               <CardTitle>{card.title}</CardTitle>
               <CardDescription>{card.description}</CardDescription>
               {card.id === 'animal-doctor' ? (
