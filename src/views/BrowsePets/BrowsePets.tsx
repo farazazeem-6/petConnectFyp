@@ -67,7 +67,6 @@ export function BrowsePets() {
   const [selectedAnimal, setSelectedAnimal] = useState<TAnimal | null>(null);
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
   const [filters, setFilters] = useState<TFilterState>(defaultFilters);
-  const [choiceOpen, setChoiceOpen] = useState(false);
 
   // Smart Match state
   const [smartMatchOpen, setSmartMatchOpen] = useState(false);
@@ -179,10 +178,7 @@ export function BrowsePets() {
           />
 
           <GridArea>
-            {/* ── Action bar ───────────────────────────────────────────────
-                Left:  pet count text  OR  smart match result banner
-                Right: Find My Match button  +  Add Your Pet button
-            ─────────────────────────────────────────────────────────────── */}
+            {/* ── Action bar ─────────────────────────────────────────────── */}
             <AddActionBar>
               {/* Left side */}
               {isSmartMatchActive ? (
@@ -234,8 +230,8 @@ export function BrowsePets() {
             {/* ── Loading skeletons ─────────────────────────────────────── */}
             {loading && (
               <CardGrid css={GRID_CSS}>
-                {Array.from({ length: 8 }).map((_, i) => (
-                  <AnimalCardSkeleton key={i} />
+                {Array.from({ length: 8 }).map((_) => (
+                  <AnimalCardSkeleton key={'pet' + _} />
                 ))}
               </CardGrid>
             )}

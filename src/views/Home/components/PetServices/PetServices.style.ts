@@ -4,7 +4,6 @@ import { styled } from '@/theme';
 export const PetServicesWrapper = styled(Box, {
   width: '$percent$100',
   boxSizing: 'border-box',
-  backgroundColor: '$main',
   py: '$px$64',
   px: '$px$60',
 
@@ -37,9 +36,12 @@ export const PetServicesHeader = styled(Flex, {
 
 export const PetServicesTitle = styled(Text, {
   mb: '$px$12',
-  color: '$white !important',
+  color: '$black !important',
   fontSize: '$fontSize$display',
   fontWeight: '$fontWeight$black',
+  span: {
+    color: '$main !important',
+  },
   '@md_max': {
     fontSize: '$fontSize$xxxl',
   },
@@ -52,7 +54,7 @@ export const PetServicesTitle = styled(Text, {
 export const PetServicesSubtitle = styled(Text, {
   fontSize: '$fontSize$md',
   fontWeight: '$fontWeight$normal',
-  color: '$veryLightPeel !important',
+  color: '$secondryHeading !important',
   maxWidth: '$px$540',
   lineHeight: '1.6 !important',
 
@@ -63,9 +65,8 @@ export const PetServicesSubtitle = styled(Text, {
 
 export const PetServicesSubtitleBold = styled('strong', {
   fontWeight: '$fontWeight$bold',
-  color: '$white',
+  color: '$main',
 });
-
 
 // ---- Cards Grid ----
 export const CardsGrid = styled(Box, {
@@ -140,12 +141,23 @@ export const CardIconWrapper = styled(Flex, {
   mb: '$px$16',
   alignItems: 'center !important',
   justifyContent: 'center !important',
+  border: '1px solid $main',
+  borderRadius: '$radius$full',
+  padding: '$px$20',
+  '@sm_max': {
+    mb: '$px$12',
+    padding: '$px$10',
+  },
+});
+
+export const CardIcon = styled(Flex, {
+  alignItems: 'center !important',
+  justifyContent: 'center !important',
 
   '@sm_max': {
     mb: '$px$12',
   },
 });
-
 export const CardTitle = styled(Text, {
   fontSize: '$fontSize$xl',
   fontWeight: '$fontWeight$bold',
@@ -174,7 +186,7 @@ export const CardDescription = styled(Text, {
 });
 
 export const CardButton = styled('button', {
-  textDecoration:'none',
+  textDecoration: 'none',
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
