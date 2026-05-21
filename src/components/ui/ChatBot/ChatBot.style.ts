@@ -36,7 +36,7 @@ export const TriggerWrapper = styled(Box, {
   bottom: '$px$24',
   right: '$px$24',
   zIndex: '$ul$900',
-  '@sm_max': { bottom: '$px$50', right: '$px$12' },
+  '@sm_max': { bottom: '$px$60', right: '$px$12' },
 });
 
 export const TriggerButton = styled('button', {

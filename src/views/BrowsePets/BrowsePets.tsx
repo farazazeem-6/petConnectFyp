@@ -1,5 +1,5 @@
 'use client';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { Text, Flex, Container, CardGrid } from '@/components/elements';
@@ -37,6 +37,7 @@ import {
 import { messages } from '@/constants';
 import { SmartMatchButton } from '@/components/ui/SmartMatch/style';
 import { MobileListingAddButton } from '../MyListing/MyListing.style';
+import { getFavouritePetIds } from '@/lib/firebase/favourite.service';
 
 // ── Default sidebar filter state ──────────────────────────────────────────────
 const defaultFilters: TFilterState = {
@@ -67,6 +68,15 @@ export function BrowsePets() {
   const [selectedAnimal, setSelectedAnimal] = useState<TAnimal | null>(null);
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
   const [filters, setFilters] = useState<TFilterState>(defaultFilters);
+  const [favPetIds, setFavPetIds] = useState<string[]>([]);
+
+  // Fetch user's favourites once
+  useEffect(() => {
+    if (!user?.uid || animals.length === 0) return;
+    getFavouritePetIds(user.uid).then((ids) => {
+      setFavPetIds(ids);
+    });
+  }, [user?.uid, animals.length]);
 
   // Smart Match state
   const [smartMatchOpen, setSmartMatchOpen] = useState(false);
@@ -140,7 +150,6 @@ export function BrowsePets() {
   // ── Derived display flags ─────────────────────────────────────────────────
   const hasResults = !loading && displayedAnimals.length > 0;
   const emptyAndDoneLoading = !loading && displayedAnimals.length === 0;
-
   return (
     <PageRoot>
       <Container>
@@ -230,8 +239,8 @@ export function BrowsePets() {
             {/* ── Loading skeletons ─────────────────────────────────────── */}
             {loading && (
               <CardGrid css={GRID_CSS}>
-                {Array.from({ length: 8 }).map((_) => (
-                  <AnimalCardSkeleton key={'pet' + _} />
+                {Array.from({ length: 8 }).map((_, index) => (
+                  <AnimalCardSkeleton key={'pet' + index} />
                 ))}
               </CardGrid>
             )}
@@ -302,6 +311,10 @@ export function BrowsePets() {
                       ].filter(Boolean) as string[]
                     }
                     onViewDetail={() => setSelectedAnimal(animal)}
+                    favourite={true}
+                    uid={user?.uid ?? ''}
+                    petId={animal.petId ?? ''}
+                    initialIsFav={favPetIds.includes(animal.petId ?? '')}
                   />
                 ))}
               </CardGrid>

@@ -73,31 +73,6 @@ const myVar = 10; // myVar never used
 
 ---
 
-### 4. No Array Index as Key in `.map()`
-
-**Rule:** `react/no-array-index-key`  
-**Severity:** Error
-
-❌ **Not Allowed:**
-
-```typescript
-{items.map((item, index) => (
-  <div key={index}>{item.name}</div>
-))}
-```
-
-✅ **Use Instead:**
-
-```typescript
-{items.map((item) => (
-  <div key={item.id}>{item.name}</div>
-))}
-```
-
-**Reason:** Using index as key causes React rendering issues when list order changes.
-
----
-
 ### 5. Always Provide Keys in Mapped JSX
 
 **Rule:** `react/jsx-key`  

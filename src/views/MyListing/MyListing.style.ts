@@ -174,5 +174,6 @@ export const MobileListingAddButton = styled('button', {
 
   '@sm_max': {
     display: 'flex',
+    bottom: '$px$120',
   },
 });

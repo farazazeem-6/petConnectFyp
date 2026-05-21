@@ -1,3 +1,4 @@
+'use client';
 import { AnimalCardProps } from '@/utils/types';
 import {
   AnimalImage,
@@ -30,15 +31,85 @@ import {
   EyeIcon,
   HeartIcon,
 } from '@/components/svgs';
+import {
+  addFavourite,
+  removeFavourite,
+} from '@/lib/firebase/favourite.service';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import { StaticRoutes } from '@/constants';
 
 // ─── Shared sub-components ───────────────────────────────────────────────────
 
-function AnimalImageBlock({ image, name }: { image?: string; name: string }) {
+function AnimalImageBlock({
+  image,
+  name,
+  favourite = false,
+  uid,
+  petId,
+  initialIsFav,
+}: {
+  image?: string;
+  name: string;
+  favourite: boolean | undefined;
+  uid: string;
+  petId: string;
+  initialIsFav: boolean;
+}) {
+  const [isFav, setIsFav] = useState(initialIsFav);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  useEffect(() => {
+    setIsFav(initialIsFav);
+  }, [initialIsFav]);
+  const handleToggle = async () => {
+    if (!uid) {
+      toast.error('Please login to add to favourites');
+      router.push(StaticRoutes.AUTH);
+      return;
+    }
+    if (loading || !petId) return;
+    setLoading(true);
+
+    // Optimistic update
+    setIsFav((prev) => !prev);
+
+    try {
+      if (isFav) {
+        await removeFavourite(uid, petId);
+        toast.success('Removed from favourites');
+      } else {
+        await addFavourite(uid, petId);
+        toast.success('Added to favourites ❤️');
+      }
+    } catch {
+      // Revert on failure
+      setIsFav((prev) => !prev);
+      toast.error('Failed to update favourite');
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <ImageWrapper>
-      <IconWrapper title="Favorite">
-        <HeartIcon width={20} height={20} />
-      </IconWrapper>
+      {favourite && (
+        <IconWrapper
+          title="Favorite"
+          onClick={handleToggle}
+          css={{
+            opacity: loading ? 0.5 : 1,
+            cursor: loading ? 'not-allowed' : 'pointer',
+          }}
+        >
+          <HeartIcon
+            width={20}
+            height={20}
+            css={{ fill: isFav ? '$main' : '' }}
+          />
+        </IconWrapper>
+      )}
+
       {image ? (
         <AnimalImage src={image} alt={`Photo of ${name}`} loading="lazy" />
       ) : (
@@ -104,6 +175,10 @@ export function AnimalCard({
   variant = 'adoption',
   reportType,
   reportStatus,
+  favourite,
+  uid,
+  petId,
+  initialIsFav,
 }: AnimalCardProps) {
   const isOwner = !!(onEdit || onDelete);
   const stop = (fn?: () => void) => (e: React.MouseEvent) => {
@@ -118,7 +193,14 @@ export function AnimalCard({
         role="article"
         aria-label={`${name} — ${reportType ?? 'report'}`}
       >
-        <AnimalImageBlock image={image} name={name} />
+        <AnimalImageBlock
+          image={image}
+          name={name}
+          favourite={favourite}
+          uid={uid}
+          petId={petId}
+          initialIsFav={initialIsFav}
+        />
 
         <ContentWrapper>
           <NameRow>
@@ -179,7 +261,14 @@ export function AnimalCard({
   // ── ADOPTION VARIANT (default) ────────────────────────────────────
   return (
     <CardRoot role="article" aria-label={`${name} — available for adoption`}>
-      <AnimalImageBlock image={image} name={name} />
+      <AnimalImageBlock
+        image={image}
+        name={name}
+        favourite={favourite}
+        uid={uid}
+        petId={petId}
+        initialIsFav={initialIsFav}
+      />
 
       <ContentWrapper>
         <NameRow>
