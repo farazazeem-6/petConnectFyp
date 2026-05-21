@@ -16,4 +16,8 @@ export interface AnimalCardProps {
     dateSeen?: string;
     reportStatus?: 'open' | 'resolved';
     color?: string;
+    favourite?: boolean | undefined;
+    uid: string;
+    petId: string;
+    initialIsFav: boolean;
 }

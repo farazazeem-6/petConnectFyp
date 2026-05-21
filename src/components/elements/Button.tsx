@@ -14,6 +14,7 @@ export const Button = styled('button', {
   transition: 'all 0.3s ease',
   userSelect: 'none',
   lineHeight: '$px$1',
+  boxSizing: 'border-box',
 
   '&:disabled': {
     opacity: '$ul$0.5',

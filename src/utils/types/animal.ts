@@ -35,6 +35,8 @@ export interface TAnimal {
   vaccinated?: boolean;
   neutered?: boolean;
   createdAt?: any;
+  isFavourite?: boolean;
+  petId?: string;
 }
 
 export interface TLostFoundReport {

@@ -14,7 +14,7 @@ export const FOOTER_QUICK_LINKS = [
 export const FOOTER_CONTACT_INFO = {
     address: 'Zam Zam Heights, Sabzazar , Lahore, Pakistan',
     phone: '+92 321 6893206',
-    email: 'ContactPetConnectPk@gmail.com',
+    email: 'contactpetconnectpk@gmail.com',
 };
 
 // ---- Social Links ----

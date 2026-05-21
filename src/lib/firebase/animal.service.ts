@@ -21,13 +21,16 @@ function toTimestamp(ts: any): string {
 
 // ── Add Animal ────────────────────────────────────────────────────────────────
 export const addAnimal = async (
-    animal: Omit<TAnimal, 'status' | 'createdAt' | 'id' | 'imageFile'>
+    animal: Omit<TAnimal, 'status' | 'createdAt' | 'id' | 'imageFile' | 'petId'>
 ): Promise<string> => {
     const docRef = await addDoc(collection(db, 'animals'), {
         ...animal,
         status: 'available',
         createdAt: serverTimestamp(),
     });
+    // petId back using the generated doc ID
+    const petId = `PET-${docRef.id.slice(0, 8).toUpperCase()}`;
+    await updateDoc(docRef, { petId });
     return docRef.id;
 };
 

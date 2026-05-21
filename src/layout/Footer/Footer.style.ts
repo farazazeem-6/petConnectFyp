@@ -250,14 +250,14 @@ export const FooterSubscribeButton = styled(Button, {
     flexShrink: '0',
     transition: 'opacity 0.2s ease',
     whiteSpace: 'nowrap',
-    width: '$px$50',
+    width: '$px$80',
 
     '&:hover': {
         opacity: '0.9 !important',
     },
 
     '@sm_max': {
-        width: '$percent$20',
+        width: '$percent$30',
     },
 });
 
