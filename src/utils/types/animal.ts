@@ -34,7 +34,7 @@ export interface TAnimal {
   status: 'available' | 'adopted';
   vaccinated?: boolean;
   neutered?: boolean;
-  createdAt?: string | number | Date | undefined;
+  createdAt?: any;
   isFavourite?: boolean;
   petId?: string;
 }
@@ -57,5 +57,5 @@ export interface TLostFoundReport {
   additionalDetails?: string;
   contactNumber: string;
   status: 'open' | 'resolved';
-  createdAt?: string | number | Date | undefined;
+  createdAt?: any;
 }
