@@ -5,6 +5,7 @@ export type TAuthUser = {
   email: string | null;
   name: string | null;
   photo: string | null;
+  favouritePetIds: string[];
 } | null;
 
 interface AuthState {
@@ -41,8 +42,15 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = null;
     },
+    removeFavouritePetId: (state, action: PayloadAction<string>) => {
+      if (state.user) {
+        state.user.favouritePetIds = state.user.favouritePetIds.filter(
+          (id) => id !== action.payload,
+        );
+      }
+    },
   },
 });
 
-export const { setLoading, setUser, setError, logout } = authSlice.actions;
+export const { setLoading, setUser, setError, logout, removeFavouritePetId } = authSlice.actions;
 export default authSlice.reducer;

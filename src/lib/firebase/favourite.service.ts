@@ -6,6 +6,7 @@ import {
   arrayRemove,
 } from 'firebase/firestore';
 import { db } from './db';
+import { removeFavouritePetId, store } from '@/store';
 
 /** Add a pet ID to the user's favouritePetIds array */
 export const addFavourite = async (
@@ -25,6 +26,7 @@ export const removeFavourite = async (
   await updateDoc(doc(db, 'users', uid), {
     favouritePetIds: arrayRemove(petId),
   });
+  store.dispatch(removeFavouritePetId(petId));
 };
 
 /** Fetch all favourite pet IDs for a user */
