@@ -7,22 +7,16 @@ import {
   registerUser,
   loginWithGoogle,
   logoutUser,
+  db,
 } from '@/lib/firebase';
 import type { User } from 'firebase/auth';
-
-/** Map Firebase User → our TAuthUser shape */
-const toAuthUser = (u: User): TAuthUser => ({
-  uid: u.uid,
-  email: u.email,
-  name: u.displayName,
-  photo: u.photoURL,
-});
+import { getDoc, doc } from 'firebase/firestore';
 
 export const login = (email: string, password: string) => async (dispatch: AppDispatch) => {
   try {
     dispatch(setLoading());
     const firebaseUser = await loginUser(email, password);
-    dispatch(setUser(toAuthUser(firebaseUser)));
+    dispatch(setUser(await toAuthUser(firebaseUser)));
     toast.success('Login successful');
   } catch (err: any) {
     dispatch(setError(err.message ?? 'Login failed'));
@@ -34,7 +28,7 @@ export const signup = (email: string, password: string, name: string) => async (
   try {
     dispatch(setLoading());
     const firebaseUser = await registerUser(email, password, name);
-    dispatch(setUser(toAuthUser(firebaseUser)));
+    dispatch(setUser(await toAuthUser(firebaseUser)));
     toast.success('Account created successfully');
   } catch (err: any) {
     dispatch(setError(err.message ?? 'Sign up failed'));
@@ -46,7 +40,7 @@ export const googleLogin = () => async (dispatch: AppDispatch) => {
   try {
     dispatch(setLoading());
     const firebaseUser = await loginWithGoogle();
-    dispatch(setUser(toAuthUser(firebaseUser)));
+    dispatch(setUser(await toAuthUser(firebaseUser)));
     toast.success('Logged in with Google');
   } catch (err: any) {
     dispatch(setError(err.message ?? 'Google sign-in failed'));
@@ -62,4 +56,21 @@ export const logoutAction = () => async (dispatch: AppDispatch) => {
   } catch (err: any) {
     toast.error('Logout failed');
   }
+};
+
+
+/** Map Firebase User → our TAuthUser shape, with favouritePetIds from Firestore */
+const toAuthUser = async (u: User): Promise<TAuthUser> => {
+  const snap = await getDoc(doc(db, 'users', u.uid));
+  const favouritePetIds = snap.exists()
+    ? (snap.data().favouritePetIds as string[]) ?? []
+    : [];
+
+  return {
+    uid: u.uid,
+    email: u.email,
+    name: u.displayName,
+    photo: u.photoURL,
+    favouritePetIds,
+  };
 };
