@@ -28,6 +28,7 @@ export const IconWrapper = styled(Box, {
 export const TextWrapper = styled(Flex, {
   defaultVariants: {
     direction: 'column',
+    alignItems: 'flex-start',
     gap: '8',
   },
   '@sm_max': {
@@ -45,8 +46,8 @@ export const HeadingText = styled(Text, {
 export const SubHeadingText = styled(Text, {
   fontSize: '$px$16 !important',
   fontWeight: '$fontWeight$light',
-  textAlign: 'center',
   '@sm_max': {
     fontSize: '$px$14 !important',
+    textAlign: 'center !important',
   }
 });
