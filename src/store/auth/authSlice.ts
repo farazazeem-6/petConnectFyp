@@ -49,8 +49,16 @@ const authSlice = createSlice({
         );
       }
     },
+    addFavouritePetId: (state, action: PayloadAction<string>) => {
+      if (state.user) {
+        // Avoid duplicates
+        if (!state.user.favouritePetIds.includes(action.payload)) {
+          state.user.favouritePetIds.push(action.payload);
+        }
+      }
+    },
   },
 });
 
-export const { setLoading, setUser, setError, logout, removeFavouritePetId } = authSlice.actions;
+export const { setLoading, setUser, setError, logout, removeFavouritePetId, addFavouritePetId } = authSlice.actions;
 export default authSlice.reducer;

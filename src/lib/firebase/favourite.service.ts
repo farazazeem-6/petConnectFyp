@@ -6,7 +6,7 @@ import {
   arrayRemove,
 } from 'firebase/firestore';
 import { db } from './db';
-import { removeFavouritePetId, store } from '@/store';
+import { addFavouritePetId, removeFavouritePetId, store } from '@/store';
 
 /** Add a pet ID to the user's favouritePetIds array */
 export const addFavourite = async (
@@ -16,6 +16,8 @@ export const addFavourite = async (
   await updateDoc(doc(db, 'users', uid), {
     favouritePetIds: arrayUnion(petId),
   });
+  // Update Redux store
+  store.dispatch(addFavouritePetId(petId));
 };
 
 /** Remove a pet ID from the user's favouritePetIds array */
