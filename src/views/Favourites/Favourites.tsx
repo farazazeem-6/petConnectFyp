@@ -1,10 +1,11 @@
 'use client';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import DashBoardHeader from '@/components/ui/DashBoardHeader/DashBoardHeader';
 import {
   AnimalCard,
   AnimalCardSkeleton,
+  AnimalDetailModal,
   EmptyActionBanner,
 } from '@/components/ui';
 import { CardGrid } from '@/components/elements';
@@ -22,6 +23,7 @@ export const Favourites = () => {
   const dispatch = useAppDispatch();
   const { list: animals, loading } = useAppSelector((s: RootState) => s.animal);
   const router = useRouter();
+  const [selectedAnimal, setSelectedAnimal] = useState<TAnimal | null>(null);
 
   // Driven by Redux — updates instantly when removeFavourite dispatches removeFavouritePetId
   const favPetIds = user?.favouritePetIds ?? [];
@@ -88,6 +90,7 @@ export const Favourites = () => {
                   ].filter(Boolean) as string[]
                 }
                 favourite={true}
+                onViewDetail={() => setSelectedAnimal(animal)}
                 uid={user?.uid ?? ''}
                 petId={animal.petId ?? ''}
                 initialIsFav={true}
@@ -96,6 +99,13 @@ export const Favourites = () => {
           </CardGrid>
         )}
       </FavouriteContent>
+
+      {/* ── Animal detail modal ───────────────────────────────────────── */}
+      <AnimalDetailModal
+        isOpen={!!selectedAnimal}
+        onClose={() => setSelectedAnimal(null)}
+        animal={selectedAnimal}
+      />
     </FavouritesWrapper>
   );
 };
