@@ -1,5 +1,5 @@
 import DashBoardHeader from '@/components/ui/DashBoardHeader/DashBoardHeader';
-import { TermConditionsWrapper } from './style';
+import { ContentWrapper, TermConditionsWrapper } from './style';
 
 export const TermsConditions = () => {
   return (
@@ -8,6 +8,7 @@ export const TermsConditions = () => {
         heading="Terms & Conditions"
         subHeading="Last Updated: 26 May 2026"
       />
+      <ContentWrapper></ContentWrapper>
     </TermConditionsWrapper>
   );
 };

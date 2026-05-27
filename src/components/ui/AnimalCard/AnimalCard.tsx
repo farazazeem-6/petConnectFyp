@@ -137,16 +137,13 @@ function OwnerActions({
     <OwnerActionRow>
       <AnimalCardButton size="md" onClick={stop(onViewDetail)}>
         <span className="btn-text">View</span>
-        <EyeIcon className="btn-icon" css={{ color: '$main', flexShrink: 0 }} />
+        <EyeIcon className="btn-icon" css={{ flexShrink: 0 }} />
       </AnimalCardButton>
 
       {onEdit && (
-        <AnimalCardButton size="md" onClick={stop(onEdit)}>
+        <AnimalCardButton variant={'main'} size="md" onClick={stop(onEdit)}>
           <span className="btn-text">Edit</span>
-          <EditIcon
-            className="btn-icon"
-            css={{ color: '$main', flexShrink: 0 }}
-          />
+          <EditIcon className="btn-icon" css={{ flexShrink: 0 }} />
         </AnimalCardButton>
       )}
 

@@ -1,4 +1,4 @@
-export type AnimalType = 'dog' | 'cat' | 'fish' | 'bird' | 'mouse' | 'horse' | 'hamster' | 'rabbit' | 'turtle' | 'other' | '';
+export type AnimalType = 'dog' | 'cat' | 'fish' | 'bird' | 'mouse' | 'horse' | 'hamster' | 'rabbit' | 'turtle' | 'pigeon' | 'other' | '';
 export type ReportType = 'lost' | 'found';
 
 export const ANIMAL_OPTIONS: { label: string; value: AnimalType }[] = [
@@ -11,6 +11,7 @@ export const ANIMAL_OPTIONS: { label: string; value: AnimalType }[] = [
   { label: 'Hamster', value: 'hamster' },
   { label: 'Rabbit', value: 'rabbit' },
   { label: 'Turtle', value: 'turtle' },
+  { label: 'Pigeon', value: 'pigeon' },
   { label: 'Other', value: 'other' },
 ];
 
