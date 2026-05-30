@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
-import { Container, Text } from '@/components/elements';
+import { Box, Container, Text } from '@/components/elements';
 import {
   StepperProvider,
   StepperNav,
@@ -85,7 +85,7 @@ function GuardedControls({
 
   return (
     <StepperControlsRoot>
-      <div />
+      <Box />
       <ButtonGroup>
         <Button
           variant="secondary"
@@ -378,7 +378,7 @@ function RegisterAnimalFormInner({ editId }: RegisterAnimalFormProps) {
                 }
               }}
             />
-            />
+            
           </StepPanel>
 
           <StepPanel stepIndex={3}>
