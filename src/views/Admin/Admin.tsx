@@ -16,8 +16,16 @@ import {
   deleteUserAccount,
   updateUserRole,
 } from '@/lib/firebase';
+import { deleteRegisteredAnimal } from '@/lib/firebase/registration.service';
 import { updateUserRole as updateAuthUserRole } from '@/store/auth/authSlice';
-import { isAdminRole, TAdminUser, TAnimal, TLostFoundReport, UserRole } from '@/utils/types';
+import {
+  isAdminRole,
+  TAdminUser,
+  TAnimal,
+  TLostFoundReport,
+  TRegisteredAnimal,
+  UserRole,
+} from '@/utils/types';
 import { CrownIcon } from '@/components/svgs';
 import { RowActionsMenu } from './components/RowActionsMenu';
 import {
@@ -63,7 +71,8 @@ import { capitalize, formatDisplayDate, truncateId } from './utils';
 type DeleteTarget =
   | { type: 'user'; item: TAdminUser }
   | { type: 'donation'; item: TAnimal }
-  | { type: 'lostFound'; item: TLostFoundReport };
+  | { type: 'lostFound'; item: TLostFoundReport }
+  | { type: 'registered'; item: TRegisteredAnimal };
 
 export const Admin = () => {
   const router = useRouter();
@@ -74,6 +83,7 @@ export const Admin = () => {
   const [users, setUsers] = useState<TAdminUser[]>([]);
   const [animals, setAnimals] = useState<TAnimal[]>([]);
   const [reports, setReports] = useState<TLostFoundReport[]>([]);
+  const [registeredAnimals, setRegisteredAnimals] = useState<TRegisteredAnimal[]>([]);
   const [dataLoading, setDataLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<DeleteTarget | null>(null);
@@ -98,8 +108,9 @@ export const Admin = () => {
       setUsers(data.users);
       setAnimals(data.animals);
       setReports(data.lostFoundReports);
-    } catch (error) {
-      toast.error('[Admin] load failed:', error);
+      setRegisteredAnimals(data.registeredAnimals);
+    } catch {
+      toast.error('[Admin] load failed');
       toast.error(ADMIN_MESSAGES.loadError);
     } finally {
       setDataLoading(false);
@@ -139,11 +150,9 @@ export const Admin = () => {
         item.userId.toLowerCase().includes(query);
 
       const matchesCity =
-        cityFilter === 'all' ||
-        item.city?.toLowerCase() === cityFilter;
+        cityFilter === 'all' || item.city?.toLowerCase() === cityFilter;
 
-      const matchesType =
-        typeFilter === 'all' || item.type === typeFilter;
+      const matchesType = typeFilter === 'all' || item.type === typeFilter;
 
       return matchesSearch && matchesCity && matchesType;
     });
@@ -163,8 +172,7 @@ export const Admin = () => {
         cityFilter === 'all' ||
         item.lastSeenLocation.toLowerCase().includes(cityFilter);
 
-      const matchesType =
-        typeFilter === 'all' || item.type === typeFilter;
+      const matchesType = typeFilter === 'all' || item.type === typeFilter;
 
       const matchesReportType =
         reportTypeFilter === 'all' || item.reportType === reportTypeFilter;
@@ -172,6 +180,26 @@ export const Admin = () => {
       return matchesSearch && matchesCity && matchesType && matchesReportType;
     });
   }, [reports, search, cityFilter, typeFilter, reportTypeFilter]);
+
+  const filteredRegisteredAnimals = useMemo(() => {
+    const query = search.trim().toLowerCase();
+
+    return registeredAnimals.filter((item) => {
+      const matchesSearch =
+        !query ||
+        item.name.toLowerCase().includes(query) ||
+        item.registrationId?.toLowerCase().includes(query) ||
+        item.ownerName.toLowerCase().includes(query) ||
+        item.userId.toLowerCase().includes(query);
+
+      const matchesCity =
+        cityFilter === 'all' || item.city?.toLowerCase() === cityFilter;
+
+      const matchesType = typeFilter === 'all' || item.type === typeFilter;
+
+      return matchesSearch && matchesCity && matchesType;
+    });
+  }, [registeredAnimals, search, cityFilter, typeFilter]);
 
   const handleToggleRole = async (target: TAdminUser) => {
     const nextRole: UserRole = target.role === 'admin' ? 'user' : 'admin';
@@ -190,8 +218,8 @@ export const Admin = () => {
       }
 
       toast.success(ADMIN_MESSAGES.roleUpdated);
-    } catch (error) {
-      toast.error('[Admin] role update failed:', error);
+    } catch {
+      toast.error('[Admin] role update failed');
       toast.error(ADMIN_MESSAGES.roleUpdateFailed);
     } finally {
       setActionLoading(false);
@@ -206,25 +234,45 @@ export const Admin = () => {
 
       if (deleteTarget.type === 'user') {
         await deleteUserAccount(deleteTarget.item.uid);
-        setUsers((prev) => prev.filter((item) => item.uid !== deleteTarget.item.uid));
-        setAnimals((prev) => prev.filter((item) => item.userId !== deleteTarget.item.uid));
-        setReports((prev) => prev.filter((item) => item.userId !== deleteTarget.item.uid));
+        setUsers((prev) =>
+          prev.filter((item) => item.uid !== deleteTarget.item.uid),
+        );
+        setAnimals((prev) =>
+          prev.filter((item) => item.userId !== deleteTarget.item.uid),
+        );
+        setReports((prev) =>
+          prev.filter((item) => item.userId !== deleteTarget.item.uid),
+        );
+        setRegisteredAnimals((prev) =>
+          prev.filter((item) => item.userId !== deleteTarget.item.uid),
+        );
       }
 
       if (deleteTarget.type === 'donation' && deleteTarget.item.id) {
         await deleteAnimal(deleteTarget.item.id);
-        setAnimals((prev) => prev.filter((item) => item.id !== deleteTarget.item.id));
+        setAnimals((prev) =>
+          prev.filter((item) => item.id !== deleteTarget.item.id),
+        );
       }
 
       if (deleteTarget.type === 'lostFound' && deleteTarget.item.id) {
         await deleteLostFoundReport(deleteTarget.item.id);
-        setReports((prev) => prev.filter((item) => item.id !== deleteTarget.item.id));
+        setReports((prev) =>
+          prev.filter((item) => item.id !== deleteTarget.item.id),
+        );
+      }
+
+      if (deleteTarget.type === 'registered' && deleteTarget.item.id) {
+        await deleteRegisteredAnimal(deleteTarget.item.id);
+        setRegisteredAnimals((prev) =>
+          prev.filter((item) => item.id !== deleteTarget.item.id),
+        );
       }
 
       toast.success(ADMIN_MESSAGES.deleteSuccess);
       setDeleteTarget(null);
-    } catch (error) {
-      console.error('[Admin] delete failed:', error);
+    } catch {
+      toast.error('[Admin] delete failed');
       toast.error(ADMIN_MESSAGES.deleteFailed);
     } finally {
       setActionLoading(false);
@@ -245,6 +293,13 @@ export const Admin = () => {
       return {
         title: ADMIN_MESSAGES.deleteAnimalTitle,
         subtitle: ADMIN_MESSAGES.deleteAnimalSubtitle,
+      };
+    }
+
+    if (deleteTarget.type === 'registered') {
+      return {
+        title: ADMIN_MESSAGES.deleteRegisteredTitle,
+        subtitle: ADMIN_MESSAGES.deleteRegisteredSubtitle,
       };
     }
 
@@ -274,6 +329,10 @@ export const Admin = () => {
         <StatCard>
           <StatLabel>Donated Animals</StatLabel>
           <StatValue>{animals.length}</StatValue>
+        </StatCard>
+        <StatCard>
+          <StatLabel>Registered Animals</StatLabel>
+          <StatValue>{registeredAnimals.length}</StatValue>
         </StatCard>
         <StatCard>
           <StatLabel>Lost & Found Reports</StatLabel>
@@ -385,7 +444,9 @@ export const Admin = () => {
                         </UserCell>
                       </Td>
                       <Td>
-                        <MonoText title={item.uid}>{truncateId(item.uid, 14)}</MonoText>
+                        <MonoText title={item.uid}>
+                          {truncateId(item.uid, 14)}
+                        </MonoText>
                       </Td>
                       <Td>
                         <RoleBadge role={item.role}>{item.role}</RoleBadge>
@@ -407,7 +468,9 @@ export const Admin = () => {
                               danger: true,
                               onClick: () => {
                                 if (item.uid === user.uid) {
-                                  toast.error('You cannot delete your own account.');
+                                  toast.error(
+                                    'You cannot delete your own account.',
+                                  );
                                   return;
                                 }
                                 setDeleteTarget({ type: 'user', item });
@@ -455,7 +518,9 @@ export const Admin = () => {
                 ) : filteredAnimals.length === 0 ? (
                   <tr>
                     <Td colSpan={8}>
-                      <EmptyState>No donated animals match your filters.</EmptyState>
+                      <EmptyState>
+                        No donated animals match your filters.
+                      </EmptyState>
                     </Td>
                   </tr>
                 ) : (
@@ -477,7 +542,9 @@ export const Admin = () => {
                         <StatusBadge>{item.status}</StatusBadge>
                       </Td>
                       <Td>
-                        <MonoText title={item.userId}>{truncateId(item.userId, 12)}</MonoText>
+                        <MonoText title={item.userId}>
+                          {truncateId(item.userId, 12)}
+                        </MonoText>
                       </Td>
                       <Td>{formatDisplayDate(item.createdAt)}</Td>
                       <Td>
@@ -488,6 +555,84 @@ export const Admin = () => {
                               danger: true,
                               onClick: () =>
                                 setDeleteTarget({ type: 'donation', item }),
+                            },
+                          ]}
+                        />
+                      </Td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </Table>
+          </TableScroll>
+        </TableCard>
+      )}
+
+      {activeTab === 'registered' && (
+        <TableCard>
+          <TableHeaderRow>
+            <TableTitle>Registered Animals</TableTitle>
+            <CountLabel>{filteredRegisteredAnimals.length} shown</CountLabel>
+          </TableHeaderRow>
+          <TableScroll>
+            <Table>
+              <thead>
+                <tr>
+                  <Th>Pet</Th>
+                  <Th>Registration ID</Th>
+                  <Th>Type</Th>
+                  <Th>City</Th>
+                  <Th>Owner Name</Th>
+                  <Th>Owner ID</Th>
+                  <Th>Created</Th>
+                  <Th>Actions</Th>
+                </tr>
+              </thead>
+              <tbody>
+                {dataLoading ? (
+                  <tr>
+                    <Td colSpan={8}>
+                      <EmptyState>Loading registered animals…</EmptyState>
+                    </Td>
+                  </tr>
+                ) : filteredRegisteredAnimals.length === 0 ? (
+                  <tr>
+                    <Td colSpan={8}>
+                      <EmptyState>
+                        No registered animals match your filters.
+                      </EmptyState>
+                    </Td>
+                  </tr>
+                ) : (
+                  filteredRegisteredAnimals.map((item) => (
+                    <tr key={item.id}>
+                      <Td>
+                        <UserCell>
+                          <PetThumb src={item.image} alt={item.name} />
+                          <UserMeta>
+                            <UserName>{item.name}</UserName>
+                            <UserEmail>{item.breed || '—'}</UserEmail>
+                          </UserMeta>
+                        </UserCell>
+                      </Td>
+                      <Td>{item.registrationId || '—'}</Td>
+                      <Td>{capitalize(item.type)}</Td>
+                      <Td>{item.city || '—'}</Td>
+                      <Td>{item.ownerName}</Td>
+                      <Td>
+                        <MonoText title={item.userId}>
+                          {truncateId(item.userId, 12)}
+                        </MonoText>
+                      </Td>
+                      <Td>{formatDisplayDate(item.createdAt)}</Td>
+                      <Td>
+                        <RowActionsMenu
+                          actions={[
+                            {
+                              label: 'Delete Registration',
+                              danger: true,
+                              onClick: () =>
+                                setDeleteTarget({ type: 'registered', item }),
                             },
                           ]}
                         />
@@ -542,7 +687,9 @@ export const Admin = () => {
                           <PetThumb src={item.image} alt={item.name} />
                           <UserMeta>
                             <UserName>{item.name}</UserName>
-                            <UserEmail>{item.breed || capitalize(item.type)}</UserEmail>
+                            <UserEmail>
+                              {item.breed || capitalize(item.type)}
+                            </UserEmail>
                           </UserMeta>
                         </UserCell>
                       </Td>
@@ -555,7 +702,9 @@ export const Admin = () => {
                         <StatusBadge>{item.status}</StatusBadge>
                       </Td>
                       <Td>
-                        <MonoText title={item.userId}>{truncateId(item.userId, 12)}</MonoText>
+                        <MonoText title={item.userId}>
+                          {truncateId(item.userId, 12)}
+                        </MonoText>
                       </Td>
                       <Td>{formatDisplayDate(item.createdAt)}</Td>
                       <Td>

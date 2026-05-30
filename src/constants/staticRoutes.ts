@@ -10,4 +10,6 @@ export const StaticRoutes = {
     ABOUT_US: '/about-us',
     TERMS_AND_CONDITIONS: '/terms-and-conditions',
     ADMIN: '/admin',
+    REGISTER_ANIMAL: '/register-animal',
+    REGISTRY: '/registry',
 };

@@ -17,6 +17,7 @@ import {
   ListingIcon,
   HeartIcon,
   CrownIcon,
+  ShieldIcon,
 } from '@/components/svgs';
 import { Sidebar } from '../SideBar';
 import { NAV_ITEMS, StaticRoutes } from '@/constants';
@@ -64,6 +65,15 @@ export const Header = () => {
           },
         ]
       : []),
+    {
+      label: 'Pet Registry',
+      icon: (
+        <ShieldIcon
+          css={{ height: '$px$20', color: '$main', fill: '$main' }}
+        />
+      ),
+      onClick: () => router.push(StaticRoutes.REGISTER_ANIMAL),
+    },
     {
       label: 'My Profile',
       icon: (

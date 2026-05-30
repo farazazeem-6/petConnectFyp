@@ -31,10 +31,10 @@ export const Button = styled('button', {
         },
       },
       primary: {
-        background: '$blue19 !important',
+        background: '$main !important',
         color: '$white',
         '&:hover': {
-          background: '$blue20 !important',
+          background: '$darkMain !important',
         },
       },
       gradientGreen: {

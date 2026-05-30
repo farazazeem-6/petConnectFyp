@@ -20,8 +20,12 @@ export const AdminWrapper = styled(Box, {
 
 export const StatsGrid = styled('div', {
   display: 'grid',
-  gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+  gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
   gap: '$px$20',
+
+  '@lg_max': {
+    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+  },
 
   '@md_max': {
     gridTemplateColumns: '1fr',

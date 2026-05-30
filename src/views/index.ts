@@ -9,4 +9,5 @@ export * from './ContactUs';
 export * from './AboutUs';
 export * from './Terms-Conditions';
 export * from './Admin';
+export * from './RegisterAnimal';
 export * from './Favourites';
