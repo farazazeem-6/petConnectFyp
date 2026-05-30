@@ -11,6 +11,7 @@ import {
 } from '@/lib/firebase';
 import type { User } from 'firebase/auth';
 import { getDoc, doc } from 'firebase/firestore';
+import { DEFAULT_USER_ROLE, type UserRole } from '@/utils/types';
 
 export const login = (email: string, password: string) => async (dispatch: AppDispatch) => {
   try {
@@ -59,18 +60,19 @@ export const logoutAction = () => async (dispatch: AppDispatch) => {
 };
 
 
-/** Map Firebase User → our TAuthUser shape, with favouritePetIds from Firestore */
+/** Map Firebase User → our TAuthUser shape, with favouritePetIds and role from Firestore */
 const toAuthUser = async (u: User): Promise<TAuthUser> => {
   const snap = await getDoc(doc(db, 'users', u.uid));
-  const favouritePetIds = snap.exists()
-    ? (snap.data().favouritePetIds as string[]) ?? []
-    : [];
+  const data = snap.exists() ? snap.data() : {};
+  const favouritePetIds = (data.favouritePetIds as string[]) ?? [];
+  const role = (data.role as UserRole) ?? DEFAULT_USER_ROLE;
 
   return {
     uid: u.uid,
     email: u.email,
     name: u.displayName,
     photo: u.photoURL,
+    role,
     favouritePetIds,
   };
 };

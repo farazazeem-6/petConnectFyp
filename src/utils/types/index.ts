@@ -6,6 +6,7 @@ export * from './animalCardProps';
 export * from './filterProps';
 export * from './ui';
 export * from './profile';
+export * from './user';
 export * from './createListing';
 export * from './smartMatch';
 export * from './chatBot';

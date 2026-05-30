@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter, usePathname } from 'next/navigation';
-import { HeaderEnum } from '@/utils/enums';
 import {
   HeaderContent,
   HeaderWrapper,
@@ -17,10 +16,13 @@ import {
   SignOutIcon,
   ListingIcon,
   HeartIcon,
+  CrownIcon,
 } from '@/components/svgs';
 import { Sidebar } from '../SideBar';
 import { NAV_ITEMS, StaticRoutes } from '@/constants';
 import { useHeader, useAuth, useScreenWidth } from '@/hooks';
+import { isAdminRole } from '@/utils/types';
+import { getActiveNavFromPath } from '@/utils/getActiveNav';
 import {
   HeaderDropdown,
   TDropdownMenuItem,
@@ -41,20 +43,7 @@ export const Header = () => {
   const router = useRouter();
   const { isMobile } = useScreenWidth();
 
-  const activeNav = (() => {
-    if (
-      pathname?.startsWith('/browse-pets') ||
-      pathname?.startsWith('/create-listing')
-    )
-      return HeaderEnum.PETS;
-    if (
-      pathname?.startsWith('/lost-found') ||
-      pathname?.startsWith('/report-animal')
-    )
-      return HeaderEnum.LOSTFOUND;
-    if (pathname?.startsWith('/contact')) return HeaderEnum.CONTACT;
-    return HeaderEnum.HOME;
-  })();
+  const activeNav = getActiveNavFromPath(pathname);
 
   const onLogout = async () => {
     await handleLogout();
@@ -62,6 +51,19 @@ export const Header = () => {
   };
 
   const menuItems: TDropdownMenuItem[] = [
+    ...(isAdminRole(user?.role)
+      ? [
+          {
+            label: 'Go to Admin',
+            icon: (
+              <CrownIcon
+                css={{ height: '$px$20', color: '$main', fill: '$main' }}
+              />
+            ),
+            onClick: () => router.push(StaticRoutes.ADMIN),
+          },
+        ]
+      : []),
     {
       label: 'My Profile',
       icon: (

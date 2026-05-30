@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { UserRole } from '@/utils/types';
 
 export type TAuthUser = {
   uid: string;
   email: string | null;
   name: string | null;
   photo: string | null;
+  role: UserRole;
   favouritePetIds: string[];
 } | null;
 
@@ -57,8 +59,21 @@ const authSlice = createSlice({
         }
       }
     },
+    updateUserRole: (state, action: PayloadAction<UserRole>) => {
+      if (state.user) {
+        state.user.role = action.payload;
+      }
+    },
   },
 });
 
-export const { setLoading, setUser, setError, logout, removeFavouritePetId, addFavouritePetId } = authSlice.actions;
+export const {
+  setLoading,
+  setUser,
+  setError,
+  logout,
+  removeFavouritePetId,
+  addFavouritePetId,
+  updateUserRole,
+} = authSlice.actions;
 export default authSlice.reducer;

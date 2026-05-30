@@ -5,3 +5,4 @@ export * from './animal.service';
 export * from './db';
 export * from './userProfile.service';
 export * from './profile';
+export * from './admin.service';
