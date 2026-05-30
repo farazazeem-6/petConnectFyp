@@ -8,4 +8,5 @@ export * from './MyListing';
 export * from './ContactUs';
 export * from './AboutUs';
 export * from './Terms-Conditions';
+export * from './Admin';
 export * from './Favourites';

@@ -11,7 +11,7 @@ export type TSidebarProps = {
   navItems: TNavItem[];
   handleNavigation: (item: TNavItem) => void;
   handleLogoClick: () => void;
-  activeNav: HeaderEnum;
+  activeNav: HeaderEnum | null;
 };
 
 export type TMobileNavItems = {

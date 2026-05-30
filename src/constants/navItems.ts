@@ -30,6 +30,7 @@ export const MOBILE_NAV_ITEMS: TMobileNavItems[] = [
     label: 'Pets',
     icon: NavPawIcon,
     route: StaticRoutes.BROWSE_PETS,
+    headerEnum: HeaderEnum.PETS,
   },
 
   {
@@ -37,6 +38,7 @@ export const MOBILE_NAV_ITEMS: TMobileNavItems[] = [
     label: 'Lost & Found',
     icon: PetLostIcon,
     route: StaticRoutes.LOST_FOUND,
+    headerEnum: HeaderEnum.LOSTFOUND,
   },
   {
     id: 'favourite',

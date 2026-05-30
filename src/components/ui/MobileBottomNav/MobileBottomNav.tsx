@@ -15,6 +15,8 @@ import {
 
 import { MOBILE_NAV_ITEMS } from '@/constants/navItems';
 import { StaticRoutes } from '@/constants';
+import { getActiveNavFromPath } from '@/utils/getActiveNav';
+import { HeaderEnum } from '@/utils/enums';
 
 type TMobileBottomNavProps = {
   onPostTask?: () => void;
@@ -26,29 +28,21 @@ export const MobileBottomNav: FC<TMobileBottomNavProps> = () => {
   const pathname = usePathname();
   const { user } = useAuth();
 
-  const isActiveRoute = (route: string) => {
-    // Home route
-    if (route === StaticRoutes.HOME) {
-      return pathname === '/';
+  const isActiveRoute = (route: string, headerEnum?: HeaderEnum) => {
+    const activeNav = getActiveNavFromPath(pathname);
+
+    if (headerEnum) {
+      return activeNav === headerEnum;
     }
 
-    // Pets route + nested routes
-    if (route === StaticRoutes.BROWSE_PETS) {
-      return (
-        pathname.startsWith('/browse-pets') ||
-        pathname.startsWith('/create-listing')
-      );
+    if (route === StaticRoutes.FAVOURITES) {
+      return pathname.startsWith(StaticRoutes.FAVOURITES);
     }
 
-    // Lost & Found route + nested routes
-    if (route === StaticRoutes.LOST_FOUND) {
-      return (
-        pathname.startsWith('/lost-found') ||
-        pathname.startsWith('/report-animal')
-      );
+    if (route === StaticRoutes.PROFILE) {
+      return pathname.startsWith(StaticRoutes.PROFILE);
     }
 
-    // Default matching
     return pathname.startsWith(route);
   };
 
@@ -69,7 +63,7 @@ export const MobileBottomNav: FC<TMobileBottomNavProps> = () => {
       >
         {visibleNavItems.map((item) => {
           const IconComponent = item.icon;
-          const isActive = isActiveRoute(item.route);
+          const isActive = isActiveRoute(item.route, item.headerEnum);
 
           return (
             <NavItem
