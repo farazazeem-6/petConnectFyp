@@ -1,6 +1,7 @@
 'use client';
 
-import React, { RefObject, useRef } from 'react';
+import React, { useRef } from 'react';
+import Image from 'next/image';
 import { Input } from '@/components/elements';
 import { CameraIcon } from '@/components/svgs';
 import {
@@ -20,12 +21,9 @@ type Props = {
   fields: PhotoStepFields;
   errors: PhotoStepErrors;
   onChange: (patch: Partial<PhotoStepFields>) => void;
-  fieldRefs: {
-    image: RefObject<HTMLDivElement | null>;
-  };
 };
 
-export function StepPhotoNotes({ fields, errors, onChange, fieldRefs }: Props) {
+export function StepPhotoNotes({ fields, errors, onChange }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const handleFile = (file: File | null) => {
@@ -51,23 +49,26 @@ export function StepPhotoNotes({ fields, errors, onChange, fieldRefs }: Props) {
 
   return (
     <StepContent>
-      <FieldGroup ref={fieldRefs.image as RefObject<HTMLDivElement>}>
+      <FieldGroup>
         <FieldLabel>
           Pet Photo <span>*</span>
         </FieldLabel>
 
         {fields.imagePreviewUrl ? (
           <ImagePreviewWrap>
-            <img src={fields.imagePreviewUrl} alt="Pet preview" />
+            <Image
+              src={fields.imagePreviewUrl}
+              alt="Pet preview"
+              width={400}
+              height={240}
+              style={{ width: '100%', height: '240px', objectFit: 'cover', display: 'block' }}
+            />
             <RemovePhotoBtn type="button" onClick={handleRemove}>
               Remove
             </RemovePhotoBtn>
           </ImagePreviewWrap>
         ) : (
-          <ImageDropZone
-            type="button"
-            onClick={() => fileRef.current?.click()}
-          >
+          <ImageDropZone onClick={() => fileRef.current?.click()}>
             <CameraIcon width={32} height={32} css={{ color: '$main' }} />
             <span>Click to upload a clear photo of your pet</span>
             <span style={{ fontSize: '0.75rem', color: '#667085' }}>
@@ -84,7 +85,11 @@ export function StepPhotoNotes({ fields, errors, onChange, fieldRefs }: Props) {
           onChange={(e) => handleFile(e.target.files?.[0] ?? null)}
         />
 
-        {errors.image ? <FieldError>{errors.image}</FieldError> : <FieldError />}
+        {errors.image ? (
+          <FieldError>{errors.image}</FieldError>
+        ) : (
+          <FieldError />
+        )}
       </FieldGroup>
 
       <FieldGroup>

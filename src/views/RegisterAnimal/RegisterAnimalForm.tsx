@@ -377,7 +377,7 @@ function RegisterAnimalFormInner({ editId }: RegisterAnimalFormProps) {
                   setPhotoErrors({});
                 }
               }}
-              fieldRefs={photoRefs}
+            />
             />
           </StepPanel>
 
