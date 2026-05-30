@@ -10,6 +10,7 @@ import {
   getAnimals,
   getLostFoundReports,
 } from './animal.service';
+import { getAllRegisteredAnimals } from './registration.service';
 import type { TAdminUser, UserRole } from '@/utils/types';
 
 function toTimestamp(ts: unknown): string {
@@ -70,11 +71,12 @@ export const permanentlyDeleteUser = async (uid: string): Promise<void> => {
 export const deleteUserAccount = permanentlyDeleteUser;
 
 export const fetchAdminDashboardData = async () => {
-  const [users, animals, lostFoundReports] = await Promise.all([
+  const [users, animals, lostFoundReports, registeredAnimals] = await Promise.all([
     getAllUsers(),
     getAnimals(),
     getLostFoundReports(),
+    getAllRegisteredAnimals(),
   ]);
 
-  return { users, animals, lostFoundReports };
+  return { users, animals, lostFoundReports, registeredAnimals };
 };

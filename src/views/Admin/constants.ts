@@ -1,14 +1,15 @@
-export type AdminTab = 'users' | 'donations' | 'lostFound';
+export type AdminTab = 'users' | 'donations' | 'registered' | 'lostFound';
 
 export const ADMIN_TABS: { id: AdminTab; label: string }[] = [
   { id: 'users', label: 'Users' },
   { id: 'donations', label: 'Donated Animals' },
+  { id: 'registered', label: 'Registered Animals' },
   { id: 'lostFound', label: 'Lost & Found' },
 ];
 
 export const ADMIN_MESSAGES = {
   heading: 'Admin Panel',
-  subHeading: 'Manage users, donated animals, and lost & found reports.',
+  subHeading: 'Manage users, donated animals, registered animals, and lost & found reports.',
   accessDenied: 'You do not have permission to access the admin panel.',
   loadError: 'Failed to load admin data. Please refresh.',
   deleteUserTitle: 'Delete User',
@@ -16,6 +17,8 @@ export const ADMIN_MESSAGES = {
     'This will permanently delete the Firebase Auth account, user profile, and all their listings. This action cannot be undone.',
   deleteAnimalTitle: 'Delete Listing',
   deleteAnimalSubtitle: 'This donation listing will be permanently removed.',
+  deleteRegisteredTitle: 'Delete Registration',
+  deleteRegisteredSubtitle: 'This animal registration will be permanently removed.',
   deleteReportTitle: 'Delete Report',
   deleteReportSubtitle: 'This lost & found report will be permanently removed.',
   roleUpdated: 'User role updated successfully.',
