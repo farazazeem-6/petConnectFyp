@@ -1,5 +1,5 @@
 import { styled } from '@/theme';
-import { Flex, Text, Button } from '@/components/elements';
+import { Flex, Button } from '@/components/elements';
 
 export const BannerWrapper = styled(Flex, {
   all: 'unset',
@@ -53,7 +53,7 @@ export const ActionPill = styled(Button, {
   gap: '$px$8',
   backgroundColor: '$main !important',
   color: '$white !important',
-  padding: '$px$12 $px$28 !important',
+  padding: '$px$20 $px$28 !important',
   borderRadius: '$radius$full !important',
   fontSize: '$fontSize$sm !important',
   fontWeight: '$fontWeight$semibold !important',

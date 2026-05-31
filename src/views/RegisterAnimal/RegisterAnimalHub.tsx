@@ -1,26 +1,21 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import DashBoardHeader from '@/components/ui/DashBoardHeader/DashBoardHeader';
 import { AlertModal } from '@/components/ui';
-import { Button, Text } from '@/components/elements';
+import { Button, Text, Loader } from '@/components/elements';
 import { ShieldIcon } from '@/components/svgs';
 import { useAuth } from '@/hooks/useAuth';
-import {
-  deleteRegisteredAnimal,
-  getUserRegistrations,
-} from '@/lib/firebase';
+import { deleteRegisteredAnimal, getUserRegistrations } from '@/lib/firebase';
 import { StaticRoutes } from '@/constants';
 import {
   MAX_REGISTRATIONS_PER_USER,
   type TRegisteredAnimal,
 } from '@/utils/types';
 import { RegistrationQrCard } from './components/RegistrationQrCard';
-import {
-  REGISTRY_MESSAGES,
-} from './constants';
+import { REGISTRY_MESSAGES } from './constants';
 import {
   HubWrapper,
   HubHeaderRow,
@@ -39,14 +34,15 @@ import { formatDisplayDate, capitalize } from '@/views/Admin/utils';
 
 export const RegisterAnimalHub = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const highlight = searchParams.get('highlight');
   const { user, loading: authLoading } = useAuth();
 
   const [registrations, setRegistrations] = useState<TRegisteredAnimal[]>([]);
   const [dataLoading, setDataLoading] = useState(true);
-  const [deleteTarget, setDeleteTarget] = useState<TRegisteredAnimal | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<TRegisteredAnimal | null>(
+    null,
+  );
   const [isDeleting, setIsDeleting] = useState(false);
+  const [expandedQrId, setExpandedQrId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -72,16 +68,6 @@ export const RegisterAnimalHub = () => {
     if (!authLoading && user) loadRegistrations();
   }, [authLoading, user, loadRegistrations]);
 
-  const highlightedRegistration = useMemo(() => {
-    if (!highlight) return null;
-    return (
-      registrations.find(
-        (item) =>
-          item.id === highlight || item.registrationId === highlight,
-      ) ?? null
-    );
-  }, [highlight, registrations]);
-
   const canRegisterMore = registrations.length < MAX_REGISTRATIONS_PER_USER;
 
   const handleDelete = async () => {
@@ -89,10 +75,11 @@ export const RegisterAnimalHub = () => {
     setIsDeleting(true);
     try {
       await deleteRegisteredAnimal(deleteTarget.id);
-      setRegistrations((prev) => prev.filter((item) => item.id !== deleteTarget.id));
+      setRegistrations((prev) =>
+        prev.filter((item) => item.id !== deleteTarget.id),
+      );
       toast.success(REGISTRY_MESSAGES.deleted);
       setDeleteTarget(null);
-      if (highlight) router.replace(StaticRoutes.REGISTER_ANIMAL);
     } catch {
       toast.error(REGISTRY_MESSAGES.submitError);
     } finally {
@@ -127,17 +114,8 @@ export const RegisterAnimalHub = () => {
         <LimitBanner>{REGISTRY_MESSAGES.maxReached}</LimitBanner>
       )}
 
-      {highlightedRegistration && (
-        <RegistrationQrCard
-          registrationId={highlightedRegistration.registrationId}
-          petName={highlightedRegistration.name}
-        />
-      )}
-
       {dataLoading ? (
-        <Text heading="paragraph" color="secondry">
-          Loading registrations…
-        </Text>
+        <Loader message="Loading your pet registrations..." />
       ) : registrations.length === 0 ? (
         <EmptyRegistryCard>
           <Text heading="h4" css={{ color: '$main', mb: '$px$8' }}>
@@ -166,17 +144,17 @@ export const RegisterAnimalHub = () => {
 
                 <CardActions>
                   <Button
-                    variant="outline"
+                    variant="primary"
                     onClick={() =>
-                      router.push(
-                        `${StaticRoutes.REGISTER_ANIMAL}?highlight=${item.registrationId}`,
+                      setExpandedQrId(
+                        expandedQrId === item.id ? null : item.id || null,
                       )
                     }
                   >
                     Download QR
                   </Button>
                   <Button
-                    variant="outline"
+                    variant="primary"
                     onClick={() =>
                       router.push(
                         `${StaticRoutes.REGISTER_ANIMAL}/edit/${item.id}`,
@@ -186,7 +164,7 @@ export const RegisterAnimalHub = () => {
                     {REGISTRY_MESSAGES.editRegistration}
                   </Button>
                   <Button
-                    variant="outline"
+                    variant="primary"
                     onClick={() =>
                       router.push(
                         `${StaticRoutes.REGISTRY}/${item.registrationId}`,
@@ -195,13 +173,19 @@ export const RegisterAnimalHub = () => {
                   >
                     {REGISTRY_MESSAGES.viewProfile}
                   </Button>
-                  <Button
-                    variant="ghost"
-                    onClick={() => setDeleteTarget(item)}
-                  >
+                  <Button variant="ghost" onClick={() => setDeleteTarget(item)}>
                     {REGISTRY_MESSAGES.deleteRegistration}
                   </Button>
                 </CardActions>
+
+                {expandedQrId === item.id && (
+                  <RegistrationQrCard
+                    registrationId={item.registrationId}
+                    petName={item.name}
+                    showDownload={true}
+                    size={180}
+                  />
+                )}
               </RegistryCardBody>
             </RegistryCard>
           ))}
