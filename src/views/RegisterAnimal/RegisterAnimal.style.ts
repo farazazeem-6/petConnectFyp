@@ -50,6 +50,7 @@ export const RemovePhotoBtn = styled('button', {
 
 export const HubWrapper = styled(Box, {
   width: '$percent$100',
+  maxWidth: '1200px',
   boxSizing: 'border-box',
   mx: 'auto',
   py: '$rem$2',
@@ -73,8 +74,13 @@ export const HubHeaderRow = styled(Flex, {
 
 export const RegistryGrid = styled('div', {
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
   gap: '$px$24',
+  maxWidth: '100%',
+
+  '@sm_max': {
+    gridTemplateColumns: '1fr',
+  },
 });
 
 export const RegistryCard = styled(Box, {
@@ -85,6 +91,7 @@ export const RegistryCard = styled(Box, {
   overflow: 'hidden',
   display: 'flex',
   flexDirection: 'column',
+  maxWidth: '100%',
 });
 
 export const RegistryCardImage = styled('img', {
@@ -147,17 +154,15 @@ export const QrCard = styled(Box, {
   flexDirection: 'column',
   alignItems: 'center',
   gap: '$px$16',
-  padding: '$px$24',
-  borderRadius: '16px',
-  backgroundColor: '$white',
-  border: '1px solid rgba(0, 0, 0, 0.06)',
-  boxShadow: '$shadows$formCard',
+  padding: '$px$20 0 0 0',
+  marginTop: '$px$16',
+  borderTop: '1px solid rgba(0, 0, 0, 0.06)',
 });
 
 export const QrFrame = styled(Box, {
-  padding: '$px$16',
-  borderRadius: '12px',
-  backgroundColor: '$white',
+  padding: '$px$12',
+  borderRadius: '8px',
+  backgroundColor: '$dimWhite',
   border: '2px solid $main',
 });
 
@@ -267,6 +272,8 @@ export const ContactBanner = styled(Box, {
   borderRadius: '14px',
   backgroundColor: '$main',
   color: '$white',
+  display: 'flex',
+  gap: '2px',
 });
 
 export const LimitBanner = styled(Box, {

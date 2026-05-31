@@ -46,13 +46,13 @@ export const TermsConditions = () => {
             <SectionTitle>{section.title}</SectionTitle>
 
             {section.paragraphs?.map((paragraph) => (
-              <SectionText key={`${section.id}`}>{paragraph}</SectionText>
+              <SectionText key={`${section.id}-${paragraph.slice(0, 20)}`}>{paragraph}</SectionText>
             ))}
 
             {section.listItems && section.listItems.length > 0 && (
               <SectionList>
                 {section.listItems.map((item) => (
-                  <SectionListItem key={item}>{item}</SectionListItem>
+                  <SectionListItem key={`${section.id}-${item.slice(0, 20)}`}>{item}</SectionListItem>
                 ))}
               </SectionList>
             )}

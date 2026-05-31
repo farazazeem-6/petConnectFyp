@@ -3,8 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { Text, Button } from '@/components/elements';
-import { ShieldIcon } from '@/components/svgs';
+import { Text, Button, Loader } from '@/components/elements';
 import { getRegistrationByRegistrationId } from '@/lib/firebase';
 import { StaticRoutes } from '@/constants';
 import type { TRegisteredAnimal } from '@/utils/types';
@@ -55,13 +54,7 @@ export const AnimalRegistryProfile = () => {
   }, [registrationId]);
 
   if (loading) {
-    return (
-      <PublicProfileWrapper>
-        <Text heading="paragraph" color="secondry">
-          Loading pet profile…
-        </Text>
-      </PublicProfileWrapper>
-    );
+    return <Loader />;
   }
 
   if (notFound || !registration) {
@@ -119,7 +112,9 @@ export const AnimalRegistryProfile = () => {
             </DetailItem>
             <DetailItem>
               <DetailLabel>{REGISTRY_MESSAGES.registeredOn}</DetailLabel>
-              <DetailValue>{formatDisplayDate(registration.createdAt)}</DetailValue>
+              <DetailValue>
+                {formatDisplayDate(registration.createdAt)}
+              </DetailValue>
             </DetailItem>
             {registration.distinguishingFeatures && (
               <DetailItem css={{ gridColumn: '1 / -1' }}>
@@ -142,7 +137,7 @@ export const AnimalRegistryProfile = () => {
           </ContactBanner>
 
           <Link href={StaticRoutes.HOME}>
-            <Button variant="outline" css={{ mt: '$px$24' }}>
+            <Button variant="primary" css={{ mt: '$px$24' }}>
               Visit Pet Connect
             </Button>
           </Link>
