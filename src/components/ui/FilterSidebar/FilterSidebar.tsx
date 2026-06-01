@@ -14,6 +14,7 @@ import {
   Input,
   Text,
 } from '@/components/elements';
+
 import {
   AgeFieldWrapper,
   AgeLabel,
@@ -32,6 +33,8 @@ import {
 import { CloseIcon } from '@/components/svgs';
 import { TFilterSidebarProps, TFilterState } from '@/utils/types';
 
+const MAX_AGE_FILTER = 240;
+
 export function FilterSidebar({
   filters,
   onChange,
@@ -45,6 +48,17 @@ export function FilterSidebar({
     <K extends keyof TFilterState>(key: K, value: TFilterState[K]) =>
       onChange({ ...filters, [key]: value }),
     [filters, onChange],
+  );
+
+  const sanitizeAge = useCallback(
+    (value: string, currentValue: string) => {
+      if (value === '') return '';
+      if (!/^[0-9]+$/.test(value)) return currentValue;
+      const numeric = Number(value);
+      if (numeric < 0 || numeric > MAX_AGE_FILTER) return currentValue;
+      return String(numeric);
+    },
+    [],
   );
 
   return (
@@ -120,8 +134,10 @@ export function FilterSidebar({
                     type="number"
                     inputSize="sm"
                     placeholder="0"
+                    min={0}
+                    max={MAX_AGE_FILTER}
                     value={filters.minAge}
-                    onChange={(e) => set('minAge', e.target.value)}
+                    onChange={(e) => set('minAge', sanitizeAge(e.target.value, filters.minAge))}
                     css={{ padding: '$px$15 $px$8', fontSize: '$px$12' }}
                   />
                 </AgeFieldWrapper>
@@ -134,8 +150,10 @@ export function FilterSidebar({
                     type="number"
                     inputSize="sm"
                     placeholder="15"
+                    min={0}
+                    max={MAX_AGE_FILTER}
                     value={filters.maxAge}
-                    onChange={(e) => set('maxAge', e.target.value)}
+                    onChange={(e) => set('maxAge', sanitizeAge(e.target.value, filters.maxAge))}
                     css={{ padding: '$px$15 $px$8', fontSize: '$px$12' }}
                   />
                 </AgeFieldWrapper>

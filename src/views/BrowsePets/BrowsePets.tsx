@@ -130,8 +130,15 @@ export function BrowsePets() {
       if (user && a.userId === user.uid) return false;
       if (filters.animalType && a.type !== filters.animalType) return false;
       if (filters.breed && a.breed !== filters.breed) return false;
-      if (filters.minAge !== '' && a.age < Number(filters.minAge)) return false;
-      if (filters.maxAge !== '' && a.age > Number(filters.maxAge)) return false;
+
+      const minAge = filters.minAge !== '' ? Number(filters.minAge) : null;
+      const maxAge = filters.maxAge !== '' ? Number(filters.maxAge) : null;
+      if (minAge !== null && (Number.isNaN(minAge) || minAge < 0 || minAge > 240)) return false;
+      if (maxAge !== null && (Number.isNaN(maxAge) || maxAge < 0 || maxAge > 240)) return false;
+      if (minAge !== null && maxAge !== null && minAge > maxAge) return false;
+      if (minAge !== null && a.age < minAge) return false;
+      if (maxAge !== null && a.age > maxAge) return false;
+
       if (filters.city && a.city !== filters.city) return false;
       if (filters.gender && a.sex !== filters.gender) return false;
       if (filters.vaccinated && !a.vaccinated) return false;

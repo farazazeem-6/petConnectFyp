@@ -102,8 +102,14 @@ export function StepPhotoNotes({ fields, errors, onChange }: Props) {
           value={fields.distinguishingFeatures}
           onChange={(e) => onChange({ distinguishingFeatures: e.target.value })}
           inputSize="lg"
+          maxLength={300}
+          invalid={!!errors.distinguishingFeatures}
         />
-        <FieldError />
+        {errors.distinguishingFeatures ? (
+          <FieldError>{errors.distinguishingFeatures}</FieldError>
+        ) : (
+          <FieldError />
+        )}
       </FieldGroup>
 
       <FieldGroup>
@@ -114,8 +120,10 @@ export function StepPhotoNotes({ fields, errors, onChange }: Props) {
           value={fields.city}
           onChange={(e) => onChange({ city: e.target.value })}
           inputSize="lg"
+          maxLength={50}
+          invalid={!!errors.city}
         />
-        <FieldError />
+        {errors.city ? <FieldError>{errors.city}</FieldError> : <FieldError />}
       </FieldGroup>
     </StepContent>
   );

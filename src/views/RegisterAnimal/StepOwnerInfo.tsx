@@ -35,6 +35,7 @@ export function StepOwnerInfo({ fields, errors, onChange, fieldRefs }: Props) {
           onChange={(e) => onChange({ ownerName: e.target.value })}
           invalid={!!errors.ownerName}
           inputSize="lg"
+          maxLength={50}
         />
         {errors.ownerName ? <FieldError>{errors.ownerName}</FieldError> : <FieldError />}
       </FieldGroup>
@@ -46,11 +47,13 @@ export function StepOwnerInfo({ fields, errors, onChange, fieldRefs }: Props) {
         <Input
           ref={fieldRefs.ownerPhone}
           id="owner-phone"
+          type="tel"
           placeholder="e.g. 03001234567"
           value={fields.ownerPhone}
           onChange={(e) => onChange({ ownerPhone: e.target.value })}
           invalid={!!errors.ownerPhone}
           inputSize="lg"
+          maxLength={20}
         />
         {errors.ownerPhone ? (
           <FieldError>{errors.ownerPhone}</FieldError>
