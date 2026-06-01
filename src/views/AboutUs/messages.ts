@@ -50,7 +50,7 @@ export const ABOUT_US = {
   teamTitle: "Meet the Team",
   teamMembers: [
     { name: "Faraz Azeem", role: "Developer & Founder", avatar: "https://ui-avatars.com/api/?name=Faraz+Azeem&background=0D9488&color=fff&bold=true" },
-    { name: "Umer Zahid", role: "UI/UX Designer", avatar: "https://ui-avatars.com/api/?name=Umer+Zahid&background=0D9488&color=fff&bold=true" },
-    { name: "Hassan Bilal", role: "QA Engineer", avatar: "https://ui-avatars.com/api/?name=Hassan+Bilal&background=0D9488&color=fff&bold=true" },
+    { name: "Umer Zahid", role: "QA Engineer", avatar: "https://ui-avatars.com/api/?name=Umer+Zahid&background=0D9488&color=fff&bold=true" },
+    { name: "Hassan Bilal", role: "UI/UX Designer", avatar: "https://ui-avatars.com/api/?name=Hassan+Bilal&background=0D9488&color=fff&bold=true" },
   ]
 };
