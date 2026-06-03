@@ -42,6 +42,7 @@ export function StepAnimalIdentity({ fields, errors, onChange, fieldRefs }: Prop
           onChange={(e) => onChange({ name: e.target.value })}
           invalid={!!errors.name}
           inputSize="lg"
+          maxLength={30}
         />
         {errors.name ? <FieldError>{errors.name}</FieldError> : <FieldError />}
       </FieldGroup>
@@ -69,6 +70,7 @@ export function StepAnimalIdentity({ fields, errors, onChange, fieldRefs }: Prop
             value={fields.breed}
             onChange={(e) => onChange({ breed: e.target.value })}
             inputSize="lg"
+            maxLength={30}
           />
           <FieldError />
         </FieldGroup>
@@ -84,6 +86,7 @@ export function StepAnimalIdentity({ fields, errors, onChange, fieldRefs }: Prop
             id="pet-age"
             type="number"
             min="0"
+            max="240"
             placeholder="e.g. 24"
             value={fields.age}
             onChange={(e) => onChange({ age: e.target.value })}
@@ -104,6 +107,7 @@ export function StepAnimalIdentity({ fields, errors, onChange, fieldRefs }: Prop
             onChange={(e) => onChange({ color: e.target.value })}
             invalid={!!errors.color}
             inputSize="lg"
+            maxLength={50}
           />
           {errors.color ? <FieldError>{errors.color}</FieldError> : <FieldError />}
         </FieldGroup>

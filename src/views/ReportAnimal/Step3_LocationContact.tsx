@@ -19,6 +19,8 @@ interface Props {
 }
 
 export function Step3_LocationContact({ fields, errors, onChange, fieldRefs }: Props) {
+  const today = new Date().toISOString().split('T')[0];
+
   return (
     <StepContent>
       {/* ── Section hint ── */}
@@ -63,6 +65,7 @@ export function Step3_LocationContact({ fields, errors, onChange, fieldRefs }: P
             ref={fieldRefs.lastSeenDate as RefObject<HTMLInputElement>}
             id="report-date"
             type="date"
+            max={today}
             value={fields.lastSeenDate}
             onChange={(e) => onChange({ lastSeenDate: e.target.value })}
             invalid={!!errors.lastSeenDate}
@@ -88,9 +91,14 @@ export function Step3_LocationContact({ fields, errors, onChange, fieldRefs }: P
             type="time"
             value={fields.lastSeenTime}
             onChange={(e) => onChange({ lastSeenTime: e.target.value })}
+            invalid={!!errors.lastSeenTime}
             inputSize="lg"
           />
-          <FieldError />
+          {errors.lastSeenTime ? (
+            <FieldError>{errors.lastSeenTime}</FieldError>
+          ) : (
+            <FieldError />
+          )}
         </FieldGroup>
       </TwoColRow>
 
@@ -132,6 +140,7 @@ export function Step3_LocationContact({ fields, errors, onChange, fieldRefs }: P
           onChange={(e) => onChange({ additionalDetails: e.target.value })}
           rows={4}
           maxLength={400}
+          invalid={!!errors.additionalDetails}
         />
         <Text
           heading="h8"
@@ -139,7 +148,11 @@ export function Step3_LocationContact({ fields, errors, onChange, fieldRefs }: P
         >
           {fields.additionalDetails.length}/400
         </Text>
-        <FieldError />
+        {errors.additionalDetails ? (
+          <FieldError>{errors.additionalDetails}</FieldError>
+        ) : (
+          <FieldError />
+        )}
       </FieldGroup>
     </StepContent>
   );

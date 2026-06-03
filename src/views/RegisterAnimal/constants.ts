@@ -34,7 +34,9 @@ export type PhotoStepFields = {
   city: string;
 };
 
-export type PhotoStepErrors = Partial<Record<'image', string>>;
+export type PhotoStepErrors = Partial<
+  Record<'image' | 'distinguishingFeatures' | 'city', string>
+>;
 
 export const defaultOwnerStep: OwnerStepFields = {
   ownerName: '',

@@ -58,6 +58,7 @@ export interface Step3Fields {
 export interface Step3Errors {
     phoneNumber?: string;
     city?: string;
+    description?: string;
 }
 
 export interface Step3Refs {

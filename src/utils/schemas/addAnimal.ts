@@ -17,7 +17,7 @@ export const step0Schema = yup.object({
 
     breed: yup
         .string()
-        .min(2, 'Breed must be at least 2 characters')
+        .min(2, 'Breed must be at least 3 characters')
         .max(30, 'Breed cannot exceed 30 characters')
         .required('Breed is required'),
 
@@ -46,7 +46,7 @@ export const step0Schema = yup.object({
     color: yup
         .string()
         .min(2, 'Please describe the color or markings')
-        .required('Color / markings are required'),
+        .required('Color / Markings are required'),
 });
 
 // ── Step 2: Health & Temperament ────────────────────────────────

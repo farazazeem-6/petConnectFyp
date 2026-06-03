@@ -34,6 +34,7 @@ export interface Step1Errors {
   type?: string;
   color?: string;
   age?: string;
+  breed?: string;
   distinguishingFeatures?: string;
 }
 
@@ -71,6 +72,8 @@ export interface Step3Fields {
 export interface Step3Errors {
   lastSeenLocation?: string;
   lastSeenDate?: string;
+  lastSeenTime?: string;
+  additionalDetails?: string;
   contactNumber?: string;
 }
 

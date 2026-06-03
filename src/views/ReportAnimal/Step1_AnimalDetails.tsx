@@ -115,8 +115,9 @@ export function Step1_AnimalDetails({ fields, errors, onChange, fieldRefs }: Pro
             onChange={(e) => onChange({ breed: e.target.value })}
             inputSize="lg"
             maxLength={30}
+            invalid={!!errors.breed}
           />
-          <FieldError />
+          {errors.breed ? <FieldError>{errors.breed}</FieldError> : <FieldError />}
         </FieldGroup>
       </TwoColRow>
 
