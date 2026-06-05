@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import {
   ReviewSection,
   ReviewRow,
@@ -81,7 +82,7 @@ export function StepReview({ owner, animal, photo }: Props) {
 
       {photo.imagePreviewUrl && (
         <ImagePreviewWrap>
-          <img src={photo.imagePreviewUrl} alt={animal.name} />
+          <Image src={photo.imagePreviewUrl} alt={animal.name} />
         </ImagePreviewWrap>
       )}
     </StepContent>

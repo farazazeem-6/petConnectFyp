@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
-import { Text, Container } from '@/components/elements';
+import { Text, Container, Box } from '@/components/elements';
 import {
   StepperProvider,
   StepperNav,
@@ -88,7 +88,7 @@ function GuardedControls({
 
   return (
     <StepperControlsRoot>
-      <div />
+      <Box />
       <ButtonGroup>
         <Button
           variant="secondary"

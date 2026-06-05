@@ -1,4 +1,4 @@
-import { Box, Flex } from '@/components/elements';
+import { Box } from '@/components/elements';
 import { styled } from '@/theme';
 
 // ── Re-export all shared styled components from CreateListing ─────
