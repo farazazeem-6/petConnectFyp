@@ -1,7 +1,7 @@
 'use client';
 
 import React, { RefObject } from 'react';
-import { Input, Selection } from '@/components/elements';
+import { Input } from '@/components/elements';
 import {
   FieldGroup,
   FieldLabel,
