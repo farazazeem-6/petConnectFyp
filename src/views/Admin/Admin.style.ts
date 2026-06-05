@@ -50,12 +50,12 @@ export const StatCard = styled(Box, {
 export const StatLabel = styled('span', {
   fontSize: '$font$sm',
   color: '$slateGray',
-  fontWeight: '500',
+  fontWeight: '$fontWeight$medium',
 });
 
 export const StatValue = styled('span', {
   fontSize: '$px$32',
-  fontWeight: '700',
+  fontWeight: '$fontWeight$bold',
   color: '$main',
   lineHeight: 1.1,
 
@@ -115,7 +115,7 @@ export const TabButton = styled('button', {
   padding: '$px$12 $px$20',
   borderRadius: '999px',
   fontSize: '$font$sm',
-  fontWeight: '600',
+  fontWeight: '$fontWeight$semibold',
   border: '1px solid rgba(0, 0, 0, 0.08)',
   backgroundColor: '$white',
   color: '$secondryHeading',
@@ -151,7 +151,7 @@ export const TableScroll = styled(Box, {
 });
 
 export const Table = styled('table', {
-  width: '100%',
+  width: '$percent$100',
   minWidth: '860px',
   borderCollapse: 'collapse',
 });
@@ -160,7 +160,7 @@ export const Th = styled('th', {
   textAlign: 'left',
   padding: '$px$16 $px$20',
   fontSize: '$font$xs',
-  fontWeight: '700',
+  fontWeight: '$fontWeight$bold',
   textTransform: 'uppercase',
   letterSpacing: '0.04em',
   color: '$slateGray',
@@ -186,21 +186,22 @@ export const UserCell = styled(Flex, {
 export const UserAvatar = styled('img', {
   width: '40px',
   height: '40px',
-  borderRadius: '50%',
+  borderRadius: '$percent$50',
   objectFit: 'cover',
   border: '2px solid $main',
   flexShrink: 0,
 });
 
-export const UserMeta = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
+export const UserMeta = styled(Flex, {
+  defaultVariants: {
+    direction: 'column',
+  },
   gap: '$px$4',
   minWidth: 0,
 });
 
 export const UserName = styled('span', {
-  fontWeight: '600',
+  fontWeight: '$fontWeight$medium',
   color: '$primaryHeading',
   whiteSpace: 'nowrap',
   overflow: 'hidden',
@@ -229,7 +230,7 @@ export const RoleBadge = styled('span', {
   padding: '$px$4 $px$10',
   borderRadius: '999px',
   fontSize: '$font$xs',
-  fontWeight: '600',
+  fontWeight: '$fontWeight$semibold',
 
   variants: {
     role: {
@@ -251,7 +252,7 @@ export const StatusBadge = styled('span', {
   padding: '$px$4 $px$10',
   borderRadius: '999px',
   fontSize: '$font$xs',
-  fontWeight: '600',
+  fontWeight: '$fontWeight$semibold',
   textTransform: 'capitalize',
   backgroundColor: 'rgba(22, 102, 52, 0.1)',
   color: '$main',
@@ -276,7 +277,7 @@ export const ActionsTrigger = styled('button', {
   padding: '$px$8 $px$12',
   borderRadius: '$radius$md',
   fontSize: '$font$sm',
-  fontWeight: '600',
+  fontWeight: '$fontWeight$semibold',
   color: '$main',
   border: '1px solid $main',
   backgroundColor: '$white',
@@ -304,7 +305,7 @@ export const ActionsMenuItem = styled('button', {
   all: 'unset',
   boxSizing: 'border-box',
   display: 'block',
-  width: '100%',
+  width: '$percent$100',
   cursor: 'pointer',
   padding: '$px$12 $px$16',
   fontSize: '$font$sm',
@@ -332,7 +333,7 @@ export const ActionsMenuItem = styled('button', {
 export const CountLabel = styled('span', {
   fontSize: '$font$sm',
   color: '$slateGray',
-  fontWeight: '500',
+  fontWeight: '$fontWeight$medium',
 });
 
 export const TableHeaderRow = styled(Flex, {
@@ -348,7 +349,7 @@ export const TableHeaderRow = styled(Flex, {
 export const TableTitle = styled('h3', {
   margin: 0,
   fontSize: '$font$lg',
-  fontWeight: '600',
+  fontWeight: '$fontWeight$semibold',
   color: '$primaryHeading',
 });
 
