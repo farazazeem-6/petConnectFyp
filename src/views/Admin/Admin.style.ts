@@ -84,7 +84,7 @@ export const FiltersBar = styled(Box, {
 });
 
 export const SearchInput = styled('input', {
-  width: '100%',
+  width: '$percent$100',
   padding: '$rem$1 $rem$1',
   borderRadius: '$radius$md',
   border: '1px solid $main',
@@ -138,15 +138,15 @@ export const TabButton = styled('button', {
 });
 
 export const TableCard = styled(Box, {
-  borderRadius: '14px',
+  borderRadius: '$px$14',
   border: '1px solid rgba(0, 0, 0, 0.06)',
   backgroundColor: '$white',
   boxShadow: '$shadows$formCard',
   overflow: 'hidden',
 });
 
-export const TableScroll = styled('div', {
-  width: '100%',
+export const TableScroll = styled(Box, {
+  width: '$percent$100',
   overflowX: 'auto',
 });
 

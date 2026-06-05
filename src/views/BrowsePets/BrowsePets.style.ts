@@ -1,5 +1,5 @@
-import { Box, Flex } from "@/components/elements";
-import { styled } from "@/theme";
+import { Box, Flex } from '@/components/elements';
+import { styled } from '@/theme';
 
 export const PageRoot = styled(Box, {
   minHeight: '100dvh',
@@ -9,8 +9,10 @@ export const PageRoot = styled(Box, {
 });
 
 export const TopBar = styled(Flex, {
-  alignItems: 'center',
-  justifyContent: 'space-between',
+  defaultVariants: {
+    align: 'center',
+    justify: 'between',
+  },
   marginBottom: '$px$24',
   gap: '$px$12',
 });
@@ -35,8 +37,10 @@ export const GridArea = styled(Box, {
 });
 
 export const ResultsBar = styled(Flex, {
-  alignItems: 'center',
-  justifyContent: 'space-between',
+  defaultVariants: {
+    align: 'center',
+    justify: 'between',
+  },
   marginBottom: '$px$16',
   paddingBottom: '$px$12',
   borderBottom: '1px solid $lightGrayLine',
@@ -64,8 +68,10 @@ export const MobileFilterBtn = styled('button', {
 
 // ── Action bar above the grid (count + add button) ───────────────
 export const AddActionBar = styled(Flex, {
-  alignItems: 'center',
-  justifyContent: 'space-between',
+  defaultVariants: {
+    align: 'center',
+    justify: 'between',
+  },
   marginBottom: '$px$14',
   paddingBottom: '$px$12',
   borderBottom: '1px solid $lightGrayLine',
@@ -86,7 +92,8 @@ export const AddActionButton = styled('button', {
   fontWeight: '$fontWeight$semibold',
   lineHeight: 1,
   boxShadow: '$shadows$ctaShadow',
-  transition: 'background 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease',
+  transition:
+    'background 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease',
   '&:hover': {
     backgroundColor: '$darkMain',
     boxShadow: '$shadows$ctaShadow',
