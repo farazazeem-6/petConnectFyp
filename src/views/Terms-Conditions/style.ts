@@ -85,7 +85,7 @@ export const TableOfContents = styled('nav', {
 
 export const TocTitle = styled('h3', {
   fontSize: '$font$lg',
-  fontWeight: '600',
+  fontWeight: '$fontWeight$semibold',
   color: '$primaryHeading',
   margin: 0,
 });
@@ -125,7 +125,7 @@ export const TocLink = styled('a', {
 
   '&::before': {
     content: 'counter(toc) "."',
-    fontWeight: '600',
+    fontWeight: '$fontWeight$semibold',
     flexShrink: 0,
   },
 });
