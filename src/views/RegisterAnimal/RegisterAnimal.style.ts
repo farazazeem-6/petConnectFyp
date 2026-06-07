@@ -149,10 +149,11 @@ export const EmptyRegistryCard = styled(Box, {
   border: '1px dashed rgba(22, 102, 52, 0.25)',
 });
 
-export const QrCard = styled(Box, {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
+export const QrCard = styled(Flex, {
+  defaultVariants: {
+    direction: 'column',
+    align: 'center',
+  },
   gap: '$px$16',
   padding: '$px$20 0 0 0',
   marginTop: '$px$16',
@@ -161,17 +162,18 @@ export const QrCard = styled(Box, {
 
 export const QrFrame = styled(Box, {
   padding: '$px$12',
-  borderRadius: '8px',
+  borderRadius: '$px$8',
   backgroundColor: '$dimWhite',
   border: '2px solid $main',
 });
 
-export const ReviewSection = styled(Box, {
-  display: 'flex',
-  flexDirection: 'column',
+export const ReviewSection = styled(Flex, {
+  defaultVariants: {
+    direction: 'column',
+  },
   gap: '$px$12',
   padding: '$px$20',
-  borderRadius: '12px',
+  borderRadius: '$px$12',
   backgroundColor: '$dimWhite',
   border: '1px solid rgba(0, 0, 0, 0.04)',
 });
