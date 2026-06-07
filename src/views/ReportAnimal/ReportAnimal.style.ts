@@ -99,7 +99,7 @@ export const ReportCardSubtitle = styled('p', {
 
 // ── Textarea styled like our inputs ──────────────────────────────
 export const StyledTextarea = styled('textarea', {
-  width: '100%',
+  width: '$percent$100',
   boxSizing: 'border-box',
   borderRadius: '12px',
   border: '1.5px solid #e2e8f0',
@@ -107,7 +107,7 @@ export const StyledTextarea = styled('textarea', {
   fontSize: '0.9rem',
   fontFamily: 'inherit',
   color: '#1e293b',
-  backgroundColor: '#fff',
+  backgroundColor: '$white',
   resize: 'vertical',
   outline: 'none',
   transition: 'border-color 0.18s ease, box-shadow 0.18s ease',
