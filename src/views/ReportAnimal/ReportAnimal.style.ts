@@ -101,7 +101,7 @@ export const ReportCardSubtitle = styled('p', {
 export const StyledTextarea = styled('textarea', {
   width: '$percent$100',
   boxSizing: 'border-box',
-  borderRadius: '12px',
+  borderRadius: '$px$12',
   border: '1.5px solid #e2e8f0',
   padding: '12px 16px',
   fontSize: '0.9rem',
